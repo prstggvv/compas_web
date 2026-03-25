@@ -1,0 +1,28 @@
+/* 61Fefere,,>> */
+
+@font-face {
+  font-family: 'Sf-pro-light';
+  src: url('../../shared/assets/fonts/SF-Pro-Display-Light.woff') format('woff'),
+       url('../../shared/assets/fonts/SF-Pro-Display-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto-regular';
+  src: url('../../shared/assets/fonts/Roboto_Condensed-Regular.woff') format('woff'),
+       url('../../shared/assets/fonts/Roboto_Condensed-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CeraPro-medium';
+  src: url('../../shared/assets/fonts/CeraPro-Medium.woff') format('woff'),
+       url('../../shared/assets/fonts/CeraPro-Medium.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

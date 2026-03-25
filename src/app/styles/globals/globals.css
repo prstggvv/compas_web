@@ -1,0 +1,17 @@
+@import url('../fonts.css');
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --font-sf-pro-light: 'Sf-pro-light', sans-serif, serif;
+  --font-roboto-regular: 'Roboto-regular', sans-serif, serif;
+  --font-cera-pro-medium: 'CeraPro-medium', sans-serif, serif;
+  --color-bg: #1a1a1a;
+  --color-bar: #0a0a0a;
+  --color-text: #f2f2f2;
+  --color-text-muted: #999;
+  --color-accent: #e67e22;
+  --color-metric: #2ecc71;
+}
