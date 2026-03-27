@@ -12,6 +12,10 @@
   position: relative;
 }
 
+.themeLight .burgerLine {
+  background-color: var(--color-brand-dark, #1a1a1a);
+}
+
 .burgerLine {
   width: 100%;
   height: 4px;
@@ -50,6 +54,12 @@
 .burgerLine.line3.active {
   transform: translateY(-8px) rotate(-45deg);
   background-color: var(--color-accent);
+}
+
+.burger.themeLight.open .line1,
+.burger.themeLight.open .line2,
+.burger.themeLight.open .line3 {
+  background-color: var(--color-brand-red, #e30613);
 }
 
 .mobileNav {

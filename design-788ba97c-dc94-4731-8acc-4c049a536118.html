@@ -1,0 +1,722 @@
+<html lang="en" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Compass | Traffic Solutions &amp; Road Safety</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Syncopate:wght@700&amp;display=swap" rel="stylesheet" vid="7">
+    
+    
+    <script src="https://unpkg.com/@phosphor-icons/web" vid="8"></script>
+
+    
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="9"></script>
+    <script vid="10">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#E30613',
+                            redLight: '#FF2D2D',
+                            redDark: '#A80000',
+                            dark: '#1A1A1A',
+                            light: '#F5F5F5',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-brand': 'linear-gradient(135deg, #FF2D2D, #A80000)',
+                        'gradient-glow': 'radial-gradient(circle, rgba(227,6,19,0.15) 0%, rgba(26,26,26,0) 70%)',
+                    },
+                    animation: {
+                        'road-move': 'roadMove 0.8s linear infinite',
+                        'sign-left': 'passByLeft 3s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+                        'sign-right': 'passByRight 4s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.5s',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        roadMove: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '0 200px' },
+                        },
+                        passByLeft: {
+                            '0%': { transform: 'translate3d(-50px, -50px, -800px) scale(0.2)', opacity: '0' },
+                            '20%': { opacity: '1' },
+                            '80%': { opacity: '1' },
+                            '100%': { transform: 'translate3d(-800px, 100px, 400px) scale(3)', opacity: '0' },
+                        },
+                        passByRight: {
+                            '0%': { transform: 'translate3d(50px, -50px, -800px) scale(0.2)', opacity: '0' },
+                            '20%': { opacity: '1' },
+                            '80%': { opacity: '1' },
+                            '100%': { transform: 'translate3d(800px, 100px, 400px) scale(3)', opacity: '0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss" vid="11">
+        @layer utilities {
+            .perspective-1000 { perspective: 1000px; }
+            .preserve-3d { transform-style: preserve-3d; }
+            
+            
+            .road-plane {
+                transform: rotateX(80deg);
+                transform-origin: bottom center;
+            }
+            
+            
+            .road-lines {
+                background-image: linear-gradient(to bottom, transparent 50%, #FFFFFF 50%);
+                background-size: 10px 200px;
+            }
+
+            
+            .glass-panel {
+                @apply bg-brand-dark/40 backdrop-blur-md border border-white/10;
+            }
+            .glass-panel-light {
+                @apply bg-white/80 backdrop-blur-md border border-gray-200;
+            }
+
+            
+            .text-glow {
+                text-shadow: 0 0 30px rgba(255, 45, 45, 0.6);
+            }
+            
+            
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: #1A1A1A; }
+            ::-webkit-scrollbar-thumb { background: #E30613; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #FF2D2D; }
+        }
+    </style>
+</head>
+<body class="bg-brand-light text-brand-dark font-sans overflow-x-hidden selection:bg-brand-red selection:text-white" vid="12">
+
+    
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 border-b border-transparent" vid="13">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center" vid="14">
+            <a href="#" class="flex items-center gap-2 group" vid="15">
+                <div class="w-10 h-10 rounded bg-gradient-brand flex items-center justify-center text-white transform group-hover:rotate-90 transition-transform duration-500" vid="16">
+                    <i class="ph-bold ph-compass text-2xl" vid="17"></i>
+                </div>
+                <span class="font-display font-bold text-2xl tracking-wider text-white transition-colors duration-300" id="nav-logo-text" vid="18">COMPASS</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8" vid="19">
+                <a href="#about" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors nav-link" vid="20">About</a>
+                <a href="#services" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors nav-link" vid="21">Services</a>
+                <a href="#process" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors nav-link" vid="22">Process</a>
+                <a href="#projects" class="text-white/80 hover:text-white text-sm font-medium tracking-wide transition-colors nav-link" vid="23">Projects</a>
+                <a href="#contact" class="px-6 py-2.5 bg-gradient-brand text-white text-sm font-bold rounded-full hover:shadow-[0_0_20px_rgba(255,45,45,0.4)] transition-all transform hover:-translate-y-0.5" vid="24">
+                    Get a quote
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <header id="hero" class="relative h-screen bg-brand-dark overflow-hidden flex items-center justify-center perspective-1000" vid="25">
+        
+        
+        <div class="absolute inset-0 preserve-3d pointer-events-none z-0" vid="26">
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-glow" vid="27"></div>
+            
+            
+            <div class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[120vw] h-[150vh] road-plane" vid="28">
+                <div class="w-full h-full bg-[#0a0a0a] border-x-4 border-gray-800 relative flex justify-center shadow-[0_0_100px_rgba(0,0,0,1)_inset]" vid="29">
+                    
+                    <div class="absolute left-[10%] w-4 h-full bg-white/90" vid="30"></div>
+                    
+                    <div class="absolute right-[10%] w-4 h-full bg-white/90" vid="31"></div>
+                    
+                    
+                    <div class="w-6 h-full road-lines animate-road-move" vid="32"></div>
+                </div>
+            </div>
+
+            
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full preserve-3d" vid="33">
+                <div class="absolute left-1/2 top-1/2 text-brand-red animate-sign-left opacity-0 drop-shadow-[0_0_15px_rgba(227,6,19,0.5)]" vid="34">
+                    <i class="ph-fill ph-warning-octagon text-6xl" vid="35"></i>
+                </div>
+                <div class="absolute left-1/2 top-1/2 text-white animate-sign-right opacity-0 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" vid="36">
+                    <i class="ph-fill ph-arrow-circle-up-right text-6xl" vid="37"></i>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto mt-20" vid="38">
+            <h1 class="font-display font-black text-6xl md:text-8xl lg:text-9xl text-white tracking-tighter mb-6 text-glow reveal drop-shadow-2xl" vid="39">
+                COMPASS
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-bold text-white mb-4 reveal delay-100" vid="40">
+                We direct the movement. <span class="text-brand-redLight" vid="41">We ensure safety.</span>
+            </h2>
+            <p class="text-lg md:text-xl text-gray-400 mb-2 font-medium reveal delay-200" vid="42">
+                Comprehensive solutions in traffic regulations
+            </p>
+            <p class="text-gray-500 mb-10 max-w-2xl mx-auto reveal delay-300" vid="43">
+                Turnkey production, installation and markup
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal delay-500" vid="44">
+                <a href="#contact" class="w-full sm:w-auto px-8 py-4 bg-gradient-brand text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(255,45,45,0.5)] transition-all hover:-translate-y-1 flex items-center justify-center gap-2" vid="45">
+                    Get a quote
+                    <i class="ph-bold ph-arrow-right" vid="46"></i>
+                </a>
+                <a href="#projects" class="w-full sm:w-auto px-8 py-4 glass-panel text-white font-bold rounded-full hover:bg-white/10 transition-all hover:-translate-y-1 flex items-center justify-center gap-2" vid="47">
+                    Our projects
+                </a>
+            </div>
+        </div>
+        
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 text-white/50 animate-bounce flex flex-col items-center" vid="48">
+            <span class="text-xs tracking-widest uppercase mb-2" vid="49">Scroll</span>
+            <i class="ph-bold ph-caret-down" vid="50"></i>
+        </div>
+    </header>
+
+    
+    <section id="about" class="py-24 bg-white relative overflow-hidden" vid="51">
+        
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-light transform skew-x-12 translate-x-32 pointer-events-none" vid="52"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10" vid="53">
+            <div class="grid lg:grid-cols-2 gap-16 items-center" vid="54">
+                <div class="reveal" vid="55">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 text-brand-red font-semibold text-sm mb-6" vid="56">
+                        <i class="ph-bold ph-shield-check" vid="57"></i> Reliability
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-black text-brand-dark mb-6 tracking-tight" vid="58">
+                        Not just a vendor. <br vid="59">Your <span class="text-brand-red" vid="60">safety partner.</span>
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed" vid="61">
+                        We don't just produce signs; we build comprehensive traffic safety ecosystems. With our in-house production facilities and strict adherence to GOST standards, we guarantee quality at every millimeter of the road.
+                    </p>
+                    
+                    <div class="space-y-4" vid="62">
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-light border border-gray-100 hover:border-brand-red/30 transition-colors" vid="63">
+                            <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center text-brand-red shrink-0 shadow-sm" vid="64">
+                                <i class="ph-bold ph-factory text-2xl" vid="65"></i>
+                            </div>
+                            <div vid="66">
+                                <h4 class="font-bold text-brand-dark" vid="67">In-house production</h4>
+                                <p class="text-sm text-gray-500" vid="68">Complete control over the manufacturing process.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-brand-light border border-gray-100 hover:border-brand-red/30 transition-colors" vid="69">
+                            <div class="w-12 h-12 rounded-lg bg-white flex items-center justify-center text-brand-red shrink-0 shadow-sm" vid="70">
+                                <i class="ph-bold ph-certificate text-2xl" vid="71"></i>
+                            </div>
+                            <div vid="72">
+                                <h4 class="font-bold text-brand-dark" vid="73">Certified Quality</h4>
+                                <p class="text-sm text-gray-500" vid="74">100% compliance with current GOST standards.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="grid grid-cols-2 gap-6 reveal" vid="75">
+                    <div class="bg-brand-dark p-8 rounded-2xl text-white relative overflow-hidden group hover:-translate-y-1 transition-transform" vid="76">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-brand-red/20 rounded-full blur-xl group-hover:bg-brand-red/40 transition-colors" vid="77"></div>
+                        <i class="ph-duotone ph-traffic-cone text-4xl text-brand-red mb-4" vid="78"></i>
+                        <div class="font-display font-bold text-5xl mb-2" vid="79"><span class="counter" data-target="1000" vid="80">0</span>+</div>
+                        <div class="text-gray-400 font-medium" vid="81">Characters Produced</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-xl shadow-gray-200/50 group hover:-translate-y-1 transition-transform" vid="82">
+                        <i class="ph-duotone ph-map-pin-line text-4xl text-brand-red mb-4" vid="83"></i>
+                        <div class="font-display font-bold text-5xl text-brand-dark mb-2" vid="84"><span class="counter" data-target="200" vid="85">0</span>+</div>
+                        <div class="text-gray-500 font-medium" vid="86">Objects Completed</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-xl shadow-gray-200/50 group hover:-translate-y-1 transition-transform" vid="87">
+                        <i class="ph-duotone ph-hourglass-high text-4xl text-brand-red mb-4" vid="88"></i>
+                        <div class="font-display font-bold text-5xl text-brand-dark mb-2" vid="89"><span class="counter" data-target="10" vid="90">0</span></div>
+                        <div class="text-gray-500 font-medium" vid="91">Years of Experience</div>
+                    </div>
+                    <div class="bg-gradient-brand p-8 rounded-2xl text-white shadow-lg shadow-brand-red/30 group hover:-translate-y-1 transition-transform" vid="92">
+                        <i class="ph-duotone ph-users text-4xl text-white/80 mb-4" vid="93"></i>
+                        <div class="font-display font-bold text-5xl mb-2" vid="94"><span class="counter" data-target="50" vid="95">0</span>+</div>
+                        <div class="text-white/90 font-medium" vid="96">Satisfied Clients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="services" class="py-24 bg-brand-light relative" vid="97">
+        <div class="max-w-7xl mx-auto px-6" vid="98">
+            <div class="text-center mb-16 reveal" vid="99">
+                <h2 class="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tight" vid="100">Our Services</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg" vid="101">Comprehensive solutions for traffic organization and safety infrastructure.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" vid="102">
+                
+                <div class="group relative bg-white p-8 rounded-2xl border border-gray-100 transition-all duration-300 hover:border-brand-red hover:shadow-[0_10px_40px_rgba(227,6,19,0.12)] hover:-translate-y-2 cursor-pointer reveal" vid="103">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" vid="104"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brand-light flex items-center justify-center mb-6 group-hover:bg-gradient-brand group-hover:text-white text-brand-dark transition-all duration-300 shadow-sm" vid="105">
+                        <i class="ph-fill ph-warning-octagon text-3xl" vid="106"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3" vid="107">Traffic Signs</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed" vid="108">Production and installation of standard and custom road signs using high-quality reflective materials.</p>
+                </div>
+
+                
+                <div class="group relative bg-white p-8 rounded-2xl border border-gray-100 transition-all duration-300 hover:border-brand-red hover:shadow-[0_10px_40px_rgba(227,6,19,0.12)] hover:-translate-y-2 cursor-pointer reveal delay-100" vid="109">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" vid="110"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brand-light flex items-center justify-center mb-6 group-hover:bg-gradient-brand group-hover:text-white text-brand-dark transition-all duration-300 shadow-sm" vid="111">
+                        <i class="ph-fill ph-columns text-3xl" vid="112"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3" vid="113">Supports &amp; Structures</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed" vid="114">Manufacturing of metal poles, L-shaped and U-shaped supports for signs and traffic lights.</p>
+                </div>
+
+                
+                <div class="group relative bg-white p-8 rounded-2xl border border-gray-100 transition-all duration-300 hover:border-brand-red hover:shadow-[0_10px_40px_rgba(227,6,19,0.12)] hover:-translate-y-2 cursor-pointer reveal delay-200" vid="115">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" vid="116"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brand-light flex items-center justify-center mb-6 group-hover:bg-gradient-brand group-hover:text-white text-brand-dark transition-all duration-300 shadow-sm" vid="117">
+                        <i class="ph-fill ph-paint-roller text-3xl" vid="118"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3" vid="119">Road Markings</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed" vid="120">Application of durable road markings using cold plastic, thermoplastic, and specialized road paint.</p>
+                </div>
+
+                
+                <div class="group relative bg-white p-8 rounded-2xl border border-gray-100 transition-all duration-300 hover:border-brand-red hover:shadow-[0_10px_40px_rgba(227,6,19,0.12)] hover:-translate-y-2 cursor-pointer reveal" vid="121">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" vid="122"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brand-light flex items-center justify-center mb-6 group-hover:bg-gradient-brand group-hover:text-white text-brand-dark transition-all duration-300 shadow-sm" vid="123">
+                        <i class="ph-fill ph-blueprint text-3xl" vid="124"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3" vid="125">Traffic Pattern Design</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed" vid="126">Development and coordination of traffic organization projects for permanent and temporary schemes.</p>
+                </div>
+
+                
+                <div class="group relative bg-white p-8 rounded-2xl border border-gray-100 transition-all duration-300 hover:border-brand-red hover:shadow-[0_10px_40px_rgba(227,6,19,0.12)] hover:-translate-y-2 cursor-pointer reveal delay-100 lg:col-span-2" vid="127">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-red/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none" vid="128"></div>
+                    <div class="flex flex-col md:flex-row gap-6 items-start md:items-center" vid="129">
+                        <div class="w-16 h-16 rounded-xl bg-brand-light flex items-center justify-center shrink-0 group-hover:bg-gradient-brand group-hover:text-white text-brand-dark transition-all duration-300 shadow-sm" vid="130">
+                            <i class="ph-fill ph-wrench text-3xl" vid="131"></i>
+                        </div>
+                        <div vid="132">
+                            <h3 class="text-xl font-bold text-brand-dark mb-2" vid="133">Installation &amp; Setup</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed max-w-2xl" vid="134">Professional installation of all elements on site. From digging foundations for poles to final setup of traffic control devices, ensuring structural integrity and exact positioning according to project specs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="process" class="py-24 bg-white overflow-hidden" vid="135">
+        <div class="max-w-7xl mx-auto px-6" vid="136">
+            <div class="text-center mb-20 reveal" vid="137">
+                <h2 class="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tight" vid="138">How we work</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg" vid="139">A transparent and efficient route from application to a finished object.</p>
+            </div>
+
+            <div class="relative" vid="140">
+                
+                <div class="absolute top-1/2 left-0 w-full h-2 -translate-y-1/2 hidden lg:block border-t-2 border-dashed border-gray-300 z-0" vid="141"></div>
+                
+                <div class="absolute top-1/2 left-0 w-0 h-2 -translate-y-1/2 hidden lg:block bg-gradient-brand z-0 transition-all duration-1000 ease-out" id="process-line" vid="142"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10" vid="143">
+                    
+                    
+                    <div class="relative group reveal text-center lg:text-left" vid="144">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-white border-4 border-brand-light rounded-full flex items-center justify-center font-bold text-xl text-gray-400 group-hover:border-brand-red group-hover:text-brand-red transition-all duration-300 mb-4 z-10 relative" vid="145">1</div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="146">Application</h4>
+                        <p class="text-sm text-gray-500" vid="147">You leave a request on website or call us.</p>
+                    </div>
+
+                    
+                    <div class="relative group reveal delay-100 text-center lg:text-left" vid="148">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-white border-4 border-brand-light rounded-full flex items-center justify-center font-bold text-xl text-gray-400 group-hover:border-brand-red group-hover:text-brand-red transition-all duration-300 mb-4 z-10 relative" vid="149">2</div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="150">Consultation</h4>
+                        <p class="text-sm text-gray-500" vid="151">We discuss details and clarify requirements.</p>
+                    </div>
+
+                    
+                    <div class="relative group reveal delay-200 text-center lg:text-left" vid="152">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-white border-4 border-brand-light rounded-full flex items-center justify-center font-bold text-xl text-gray-400 group-hover:border-brand-red group-hover:text-brand-red transition-all duration-300 mb-4 z-10 relative" vid="153">3</div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="154">Design</h4>
+                        <p class="text-sm text-gray-500" vid="155">Developing scheme and estimation.</p>
+                    </div>
+
+                    
+                    <div class="relative group reveal delay-300 text-center lg:text-left" vid="156">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-white border-4 border-brand-light rounded-full flex items-center justify-center font-bold text-xl text-gray-400 group-hover:border-brand-red group-hover:text-brand-red transition-all duration-300 mb-4 z-10 relative" vid="157">4</div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="158">Production</h4>
+                        <p class="text-sm text-gray-500" vid="159">Manufacturing in our own facility.</p>
+                    </div>
+
+                    
+                    <div class="relative group reveal delay-400 text-center lg:text-left" vid="160">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-white border-4 border-brand-light rounded-full flex items-center justify-center font-bold text-xl text-gray-400 group-hover:border-brand-red group-hover:text-brand-red transition-all duration-300 mb-4 z-10 relative" vid="161">5</div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="162">Installation</h4>
+                        <p class="text-sm text-gray-500" vid="163">Professional mounting on site.</p>
+                    </div>
+
+                    
+                    <div class="relative group reveal delay-500 text-center lg:text-left" vid="164">
+                        <div class="w-14 h-14 mx-auto lg:mx-0 bg-gradient-brand rounded-full flex items-center justify-center font-bold text-xl text-white shadow-[0_0_15px_rgba(227,6,19,0.4)] mb-4 z-10 relative animate-float" vid="165">
+                            <i class="ph-bold ph-check" vid="166"></i>
+                        </div>
+                        <h4 class="font-bold text-brand-dark mb-2" vid="167">Object Delivery</h4>
+                        <p class="text-sm text-gray-500" vid="168">Final inspection and handover.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-24 bg-brand-dark text-white relative overflow-hidden" vid="169">
+        
+        <div class="absolute inset-0 opacity-5" vid="170">
+            <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 10px, transparent 10px, transparent 40px);" vid="171"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10" vid="172">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal" vid="173">
+                <div vid="174">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 tracking-tight text-white" vid="175">Why choose <span class="text-brand-red text-glow" vid="176">Compass</span></h2>
+                    <p class="text-gray-400 max-w-xl text-lg" vid="177">We combine technology with strictly regulated standards to deliver uncompromising safety.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" vid="178">
+                
+                <div class="glass-panel p-8 rounded-2xl reveal hover:bg-white/10 transition-colors" vid="179">
+                    <i class="ph-duotone ph-factory text-4xl text-brand-red mb-6 block" vid="180"></i>
+                    <h4 class="text-xl font-bold mb-3" vid="181">In-house production</h4>
+                    <p class="text-gray-400 text-sm" vid="182">No middlemen. We control the entire cycle from raw metal to finished sign.</p>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-2xl reveal delay-100 hover:bg-white/10 transition-colors" vid="183">
+                    <i class="ph-duotone ph-rocket text-4xl text-brand-red mb-6 block" vid="184"></i>
+                    <h4 class="text-xl font-bold mb-3" vid="185">Fast deadlines</h4>
+                    <p class="text-gray-400 text-sm" vid="186">Optimized logistics and 24/7 production capabilities ensure rapid delivery.</p>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-2xl reveal delay-200 hover:bg-white/10 transition-colors" vid="187">
+                    <i class="ph-duotone ph-file-text text-4xl text-brand-red mb-6 block" vid="188"></i>
+                    <h4 class="text-xl font-bold mb-3" vid="189">Work by GOST</h4>
+                    <p class="text-gray-400 text-sm" vid="190">Strict adherence to national safety and quality regulations for all items.</p>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-2xl reveal delay-300 hover:bg-white/10 transition-colors" vid="191">
+                    <i class="ph-duotone ph-medal text-4xl text-brand-red mb-6 block" vid="192"></i>
+                    <h4 class="text-xl font-bold mb-3" vid="193">Solid Guarantee</h4>
+                    <p class="text-gray-400 text-sm" vid="194">Long-term warranty on materials, reflective coating, and installation works.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="projects" class="py-24 bg-brand-light" vid="195">
+        <div class="max-w-7xl mx-auto px-6" vid="196">
+            <div class="text-center mb-16 reveal" vid="197">
+                <h2 class="text-4xl md:text-5xl font-black text-brand-dark mb-4 tracking-tight" vid="198">Our Projects</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg" vid="199">Real results. Real safety. See our work across cities.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" vid="200">
+                
+                
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-gray-200 reveal cursor-pointer shadow-md" vid="201">
+                    <img src="https://images.unsplash.com/photo-1517424680874-8b22cd42ea7c?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Highway Markup" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" vid="202">
+                    
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8" vid="203">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500" vid="204">
+                            <div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-brand-red text-white text-xs font-bold mb-3 uppercase tracking-wider" vid="205">
+                                Before / After
+                            </div>
+                            <h4 class="text-white text-2xl font-bold mb-2" vid="206">Highway M4 Reconstruction</h4>
+                            <p class="text-gray-300 text-sm flex items-center gap-2 mb-4" vid="207">
+                                <i class="ph-fill ph-map-pin" vid="208"></i> Moscow Region
+                            </p>
+                            <p class="text-gray-400 text-sm border-t border-white/20 pt-4" vid="209">Complete overhaul of road markings over 50km and installation of 120 new standard signs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-gray-200 reveal delay-100 cursor-pointer shadow-md" vid="210">
+                    <img src="https://images.unsplash.com/photo-1621252179027-94459d278660?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="City signs" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" vid="211">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8" vid="212">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500" vid="213">
+                            <div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-brand-red text-white text-xs font-bold mb-3 uppercase tracking-wider" vid="214">
+                                Turnkey
+                            </div>
+                            <h4 class="text-white text-2xl font-bold mb-2" vid="215">Urban Crossing Update</h4>
+                            <p class="text-gray-300 text-sm flex items-center gap-2 mb-4" vid="216">
+                                <i class="ph-fill ph-map-pin" vid="217"></i> Saint Petersburg
+                            </p>
+                            <p class="text-gray-400 text-sm border-t border-white/20 pt-4" vid="218">Installation of overhead sign supports and high-visibility pedestrian crossing infrastructure.</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-gray-200 reveal delay-200 cursor-pointer shadow-md" vid="219">
+                    <img src="https://images.unsplash.com/photo-1542128962-9d50ad7bf014?auto=format&amp;fit=crop&amp;q=80&amp;w=800" alt="Night road" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" vid="220">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8" vid="221">
+                        <div class="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500" vid="222">
+                            <div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-brand-red text-white text-xs font-bold mb-3 uppercase tracking-wider" vid="223">
+                                High Tech
+                            </div>
+                            <h4 class="text-white text-2xl font-bold mb-2" vid="224">LED Warning Systems</h4>
+                            <p class="text-gray-300 text-sm flex items-center gap-2 mb-4" vid="225">
+                                <i class="ph-fill ph-map-pin" vid="226"></i> Kazan
+                            </p>
+                            <p class="text-gray-400 text-sm border-t border-white/20 pt-4" vid="227">Implementation of active LED road signs on dangerous curves to reduce nighttime accidents.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12 reveal" vid="228">
+                <button class="px-8 py-3 bg-white border-2 border-brand-dark text-brand-dark font-bold rounded-full hover:bg-brand-dark hover:text-white transition-colors" vid="229">
+                    View All Projects
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="contact" class="bg-white relative" vid="230">
+        <div class="flex flex-col lg:flex-row min-h-[800px]" vid="231">
+            
+            
+            <div class="w-full lg:w-1/2 py-24 px-6 lg:px-20 bg-brand-dark text-white relative overflow-hidden flex flex-col justify-center" vid="232">
+                
+                <div class="absolute -left-32 top-0 w-96 h-96 bg-brand-red/20 rounded-full blur-[100px] pointer-events-none" vid="233"></div>
+                
+                <div class="relative z-10 max-w-md mx-auto lg:mx-0 w-full reveal" vid="234">
+                    <h2 class="text-4xl font-black mb-2 tracking-tight" vid="235">Ready to start?</h2>
+                    <p class="text-gray-400 mb-10" vid="236">Leave a request and our specialist will contact you within 15 minutes.</p>
+                    
+                    <form class="space-y-6" vid="237">
+                        <div vid="238">
+                            <label class="block text-sm font-medium text-gray-400 mb-2" vid="239">Your Name</label>
+                            <input type="text" placeholder="John Doe" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition-all" vid="240">
+                        </div>
+                        <div vid="241">
+                            <label class="block text-sm font-medium text-gray-400 mb-2" vid="242">Phone Number</label>
+                            <input type="tel" placeholder="+1 (555) 000-0000" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition-all" vid="243">
+                        </div>
+                        <div vid="244">
+                            <label class="block text-sm font-medium text-gray-400 mb-2" vid="245">Comment / Details</label>
+                            <textarea rows="4" placeholder="Briefly describe your project needs..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition-all resize-none" vid="246"></textarea>
+                        </div>
+                        
+                        <button type="button" class="w-full py-4 bg-gradient-brand text-white font-bold rounded-xl hover:shadow-[0_0_30px_rgba(255,45,45,0.4)] transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 text-lg" vid="247">
+                            Send Request <i class="ph-bold ph-paper-plane-right" vid="248"></i>
+                        </button>
+                        
+                        <p class="text-xs text-gray-500 text-center mt-4" vid="249">
+                            By submitting, you agree to the processing of personal data.
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            
+            <div class="w-full lg:w-1/2 relative bg-brand-light flex flex-col" vid="250">
+                
+                <div class="absolute top-10 left-10 right-10 z-20 grid grid-cols-1 sm:grid-cols-2 gap-4" vid="251">
+                    <div class="glass-panel-light p-6 rounded-2xl shadow-lg reveal" vid="252">
+                        <i class="ph-fill ph-phone-call text-2xl text-brand-red mb-2" vid="253"></i>
+                        <h5 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1" vid="254">Phone</h5>
+                        <p class="font-bold text-brand-dark text-lg" vid="255">8 (800) 555-0199</p>
+                    </div>
+                    <div class="glass-panel-light p-6 rounded-2xl shadow-lg reveal delay-100" vid="256">
+                        <i class="ph-fill ph-envelope-simple text-2xl text-brand-red mb-2" vid="257"></i>
+                        <h5 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1" vid="258">Email</h5>
+                        <p class="font-bold text-brand-dark text-lg" vid="259">hello@compass.ru</p>
+                    </div>
+                    <div class="glass-panel-light p-6 rounded-2xl shadow-lg sm:col-span-2 reveal delay-200 flex items-start gap-4" vid="260">
+                        <i class="ph-fill ph-map-pin text-2xl text-brand-red mt-1" vid="261"></i>
+                        <div vid="262">
+                            <h5 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1" vid="263">Office &amp; Production</h5>
+                            <p class="font-bold text-brand-dark" vid="264">123 Industrial Ave, Sector 4, Moscow</p>
+                            <p class="text-sm text-gray-500 mt-1" vid="265">Mon - Fri: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="flex-1 w-full h-full min-h-[400px] bg-[#e5e7eb] relative overflow-hidden flex items-center justify-center" vid="266">
+                    
+                    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#1A1A1A 1px, transparent 1px); background-size: 20px 20px;" vid="267"></div>
+                    <svg class="absolute w-[150%] h-[150%] text-white/50 animate-[spin_120s_linear_infinite]" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.5" vid="268">
+                        <circle cx="50" cy="50" r="20" vid="269"></circle>
+                        <circle cx="50" cy="50" r="30" vid="270"></circle>
+                        <circle cx="50" cy="50" r="40" stroke-dasharray="2 2" vid="271"></circle>
+                        <line x1="10" y1="50" x2="90" y2="50" vid="272"></line>
+                        <line x1="50" y1="10" x2="50" y2="90" vid="273"></line>
+                    </svg>
+                    
+                    
+                    <div class="relative z-10 w-16 h-16 bg-brand-red/20 rounded-full flex items-center justify-center animate-pulse" vid="274">
+                        <div class="w-4 h-4 bg-brand-red rounded-full shadow-[0_0_15px_rgba(227,6,19,1)]" vid="275"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="bg-[#0a0a0a] border-t border-white/10 py-8 text-center" vid="276">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4" vid="277">
+            <div class="flex items-center gap-2 text-white/50" vid="278">
+                <i class="ph-bold ph-compass" vid="279"></i>
+                <span class="font-display font-bold text-sm tracking-wider" vid="280">COMPASS</span>
+            </div>
+            <p class="text-gray-500 text-sm" vid="281">© 2024 Compass Traffic Solutions. All rights reserved.</p>
+            <div class="flex gap-4" vid="282">
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-colors" vid="283">
+                    <i class="ph-fill ph-telegram-logo" vid="284"></i>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-brand-red transition-colors" vid="285">
+                    <i class="ph-fill ph-whatsapp-logo" vid="286"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script vid="287">
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const navbar = document.getElementById('navbar');
+            const navLogoText = document.getElementById('nav-logo-text');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-gray-200');
+                    navbar.classList.remove('py-4', 'border-transparent');
+                    navbar.classList.add('py-2');
+                    
+                    navLogoText.classList.remove('text-white');
+                    navLogoText.classList.add('text-brand-dark');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white/80', 'hover:text-white');
+                        link.classList.add('text-gray-600', 'hover:text-brand-red');
+                    });
+                } else {
+                    navbar.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'border-gray-200');
+                    navbar.classList.add('py-4', 'border-transparent');
+                    navbar.classList.remove('py-2');
+                    
+                    navLogoText.classList.add('text-white');
+                    navLogoText.classList.remove('text-brand-dark');
+                    
+                    navLinks.forEach(link => {
+                        link.classList.add('text-white/80', 'hover:text-white');
+                        link.classList.remove('text-gray-600', 'hover:text-brand-red');
+                    });
+                }
+            });
+
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        
+                        
+                        if(entry.target.querySelector('.counter')) {
+                            const counters = entry.target.querySelectorAll('.counter');
+                            counters.forEach(counter => {
+                                const target = +counter.getAttribute('data-target');
+                                const duration = 2000; 
+                                const step = target / (duration / 16); 
+                                let current = 0;
+                                
+                                const updateCounter = () => {
+                                    current += step;
+                                    if(current < target) {
+                                        counter.innerText = Math.ceil(current);
+                                        requestAnimationFrame(updateCounter);
+                                    } else {
+                                        counter.innerText = target;
+                                    }
+                                };
+                                updateCounter();
+                                
+                                counter.classList.remove('counter');
+                            });
+                        }
+                        
+                        
+                        if(entry.target.id === 'process' && window.innerWidth >= 1024) {
+                            setTimeout(() => {
+                                document.getElementById('process-line').style.width = '83%';
+                            }, 500);
+                        }
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
+            
+            
+            const processSection = document.getElementById('process');
+            if(processSection) observer.observe(processSection);
+        });
+    </script>
+
+</body></html>

@@ -1,168 +1,164 @@
 .header {
   width: 100%;
   margin: 0;
-  background: transparent;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  transition: background 0.35s cubic-bezier(0.4, 2, 0.6, 1),
-    box-shadow 0.35s cubic-bezier(0.4, 2, 0.6, 1),
-    color 0.35s ease;
-  color: var(--color-text);
-  box-shadow: none;
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  color: var(--color-brand-white);
+  background: rgba(26, 26, 26, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
 }
 
 .header.scrolled {
-  background: var(--color-bg);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+  background: rgba(26, 26, 26, 0.85);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
 }
 
 .container {
   width: 95.83%;
-  max-width: 1240px;
+  max-width: 1280px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: clamp(72px, 10vw, 88px);
-  padding: clamp(12px, 1.5vw, 16px) max(32px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px) max(32px, env(safe-area-inset-left));
-}
-
-.logo {
-  justify-self: start;
-}
-
-.nav {
-  justify-self: center;
-}
-
-.contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  justify-self: end;
-}
-
-.contactLink {
-  font-family: var(--font-roboto-regular);
-  font-size: 14px;
-  line-height: 1.3;
-  color: var(--color-text);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.contactLink:hover,
-.contactLink:focus-visible {
-  color: var(--color-accent);
+  min-height: clamp(64px, 10vw, 80px);
+  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px)
+    max(24px, env(safe-area-inset-left));
 }
 
 .logo {
   display: flex;
   align-items: center;
+  gap: 10px;
   text-decoration: none;
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .logo:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .logo:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-brand-red-light);
   outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.logoMark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-brand);
+  color: var(--color-brand-white);
+  box-shadow: var(--shadow-glow);
+  flex-shrink: 0;
+  transition: box-shadow 0.25s ease;
+}
+
+.logo:hover .logoMark {
+  box-shadow: var(--shadow-glow-hover);
+}
+
+.logoIcon {
+  width: 22px;
+  height: 22px;
 }
 
 .logoText {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--color-text);
-  font-family: var(--font-cera-pro-medium);
-  font-size: clamp(22px, 2.5vw, 28px);
-  letter-spacing: 1.5px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 22px);
+  letter-spacing: 0.12em;
+  color: var(--color-brand-white);
   line-height: 1;
-  transition: -webkit-text-stroke-color 0.25s ease;
 }
 
-.logo:hover .logoText {
-  -webkit-text-stroke-color: var(--color-accent);
-}
-
-.header.scrolled .logoText {
-  -webkit-text-stroke-color: var(--color-text);
-}
-
-.header.scrolled .logo:hover .logoText {
-  -webkit-text-stroke-color: var(--color-accent);
-}
-
-.nav {
-  display: flex;
+.desktopNav {
+  display: none;
   align-items: center;
-  gap: 30px;
+  gap: clamp(16px, 2.5vw, 32px);
 }
 
-.link {
-  color: var(--color-text);
+.navLink {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d1d5db;
   text-decoration: none;
-  transition: color 0.25s ease;
-  font-size: 16px;
-  position: relative;
-  font-family: var(--font-roboto-regular);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color 0.2s ease;
 }
 
-.link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: var(--color-accent);
-  transition: width 0.3s ease;
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--color-brand-white);
 }
 
-.link:hover {
-  color: var(--color-accent);
+.navLink:focus-visible {
+  outline: 2px solid var(--color-brand-red-light);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
-.link:hover::after {
-  width: 100%;
+.navCta {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background: var(--color-brand-white);
+  color: var(--color-brand-dark);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.link:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+.navCta:hover,
+.navCta:focus-visible {
+  background: #e5e7eb;
+}
+
+.navCta:focus-visible {
+  outline: 2px solid var(--color-brand-red);
+  outline-offset: 3px;
+}
+
+.burgerPlaceholder {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
 .button {
   justify-self: end;
 }
 
-/* Заполнитель, чтобы сетка не сдвигалась без кнопки */
-.burgerPlaceholder {
-  width: 32px;
-  height: 32px;
-  justify-self: end;
-}
-
-/* Слой с бургером поверх NavMenu (z-index: 201 > 200) */
 .burgerLayer {
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 95.83%;
-  max-width: 1240px;
+  max-width: 1280px;
   z-index: 201;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: clamp(72px, 10vw, 88px);
-  padding: clamp(12px, 1.5vw, 16px) max(32px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px) max(32px, env(safe-area-inset-left));
+  min-height: clamp(64px, 10vw, 80px);
+  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px)
+    max(24px, env(safe-area-inset-left));
   pointer-events: none;
 }
 
@@ -170,30 +166,106 @@
   pointer-events: auto;
 }
 
-@media screen and (max-width: 1083px) {
-  .container {
-    grid-template-columns: auto auto;
-    min-height: clamp(64px, 12vw, 80px);
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobileOverlayOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  padding: 28px;
+  border-radius: 16px;
+  background: rgba(42, 42, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobileLink {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #e5e7eb;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 14px 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobileLink:hover,
+.mobileLink:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-brand-white);
+}
+
+.mobileLink:focus-visible {
+  outline: 2px solid var(--color-brand-red-light);
+  outline-offset: 2px;
+}
+
+.mobileCta {
+  margin-top: 8px;
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 14px 20px;
+  border-radius: 9999px;
+  background: var(--color-brand-white);
+  color: var(--color-brand-dark);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.mobileCta:hover,
+.mobileCta:focus-visible {
+  background: #e5e7eb;
+}
+
+.mobileCta:focus-visible {
+  outline: 2px solid var(--color-brand-red);
+  outline-offset: 2px;
+}
+
+@media screen and (min-width: 1084px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .burgerPlaceholder {
+    display: none;
   }
 
   .burgerLayer {
-    min-height: clamp(64px, 12vw, 80px);
-  }
-
-  .icon {
-    width: clamp(44px, 10vw, 56px);
-    height: clamp(48px, 11vw, 60px);
-  }
-
-  .nav,
-  .contact {
     display: none;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .icon {
-    width: 40px;
-    height: 44px;
+@media screen and (max-width: 1083px) {
+  .burgerLayer {
+    min-height: clamp(64px, 12vw, 80px);
   }
 }

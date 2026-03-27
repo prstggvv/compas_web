@@ -3,20 +3,27 @@ import { classNames } from '../../lib/classNames/classNames';
 
 interface IBurgerButton {
   className?: string;
+  /** Светлая шапка — тёмные полоски */
+  variant?: 'dark' | 'light';
   menuOpen: boolean;
   handleBurgerClick: () => void;
   handleKeyDown: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
 }
 
-const BurgerButton = ({ 
+const BurgerButton = ({
   className,
+  variant = 'dark',
   menuOpen,
   handleBurgerClick,
   handleKeyDown,
 }: IBurgerButton) => {
   return (
     <button
-      className={classNames(cls.burger, { [cls.open]: menuOpen }, [className || ''])}
+      className={classNames(
+        cls.burger,
+        { [cls.open]: menuOpen, [cls.themeLight]: variant === 'light' },
+        [className || ''],
+      )}
       aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
       aria-expanded={menuOpen}
       aria-controls='mobile-nav'
@@ -26,25 +33,25 @@ const BurgerButton = ({
       type='button'
     >
       <span
-        className={classNames(cls.burgerLine, 
-          { 
-            [cls.line1]: true, 
-            [cls.active]: menuOpen 
-          }, [])} 
-      />
-      <span 
-        className={classNames(cls.burgerLine, 
+        className={classNames(cls.burgerLine,
           {
-            [cls.line2]: true, 
-            [cls.active]: menuOpen 
-          }, [])} 
+            [cls.line1]: true,
+            [cls.active]: menuOpen
+          }, [])}
       />
       <span
-        className={classNames(cls.burgerLine, 
-          { 
-            [cls.line3]: true, 
-            [cls.active]: menuOpen 
-          }, [])} 
+        className={classNames(cls.burgerLine,
+          {
+            [cls.line2]: true,
+            [cls.active]: menuOpen
+          }, [])}
+      />
+      <span
+        className={classNames(cls.burgerLine,
+          {
+            [cls.line3]: true,
+            [cls.active]: menuOpen
+          }, [])}
       />
     </button>
   );

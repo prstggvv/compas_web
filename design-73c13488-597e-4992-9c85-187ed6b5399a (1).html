@@ -1,0 +1,853 @@
+<html lang="en" class="scroll-smooth" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Compass | Traffic Regulation Solutions</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17" vid="5"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web" vid="6"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Syncopate:wght@700&amp;display=swap" rel="stylesheet" vid="7">
+    
+    <script vid="8">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            white: '#FFFFFF',
+                            red: '#E30613',
+                            redDark: '#A80000',
+                            redLight: '#FF2D2D',
+                            dark: '#1A1A1A',
+                            gray: '#F5F5F5',
+                            darkGray: '#2A2A2A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syncopate', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-brand': 'linear-gradient(135deg, #FF2D2D 0%, #A80000 100%)',
+                        'gradient-glow': 'radial-gradient(circle, rgba(255,45,45,0.4) 0%, rgba(26,26,26,0) 70%)',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 30px rgba(255,45,45,0.3)',
+                        'glow-hover': '0 0 50px rgba(255,45,45,0.6)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style vid="9">
+        
+        body {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(42, 42, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-panel-light {
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.03);
+        }
+
+        
+        .hero-perspective {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .road-plane {
+            position: absolute;
+            bottom: -20%;
+            left: 50%;
+            width: 200vw;
+            height: 150vh;
+            transform: translateX(-50%) rotateX(75deg);
+            transform-origin: bottom center;
+            background: linear-gradient(90deg, 
+                transparent 45%, 
+                rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.1) 45.2%, 
+                rgba(26,26,26,1) 45.2%, rgba(26,26,26,1) 54.8%, 
+                rgba(255,255,255,0.1) 54.8%, rgba(255,255,255,0.1) 55%, 
+                transparent 55%);
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInRoad 2s ease-out 0.5s forwards;
+        }
+
+        .road-lines {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, 
+                transparent 0%, transparent 50%, 
+                #FFFFFF 50%, #FFFFFF 100%);
+            background-size: 10px 120px;
+            background-position: center 0;
+            width: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: 
+                drawLines 1.5s ease-out 1.5s forwards,
+                moveRoad 0.6s linear infinite 2.5s;
+        }
+
+        .road-sign-left, .road-sign-right {
+            position: absolute;
+            bottom: 20%;
+            width: 60px;
+            height: 60px;
+            opacity: 0;
+            transform: translateZ(-1000px) scale(0.5);
+            animation: flyBySign 4s linear infinite;
+        }
+        
+        .road-sign-left { left: 35%; animation-delay: 3s; }
+        .road-sign-right { right: 35%; animation-delay: 5s; }
+
+        @keyframes fadeInRoad {
+            from { opacity: 0; transform: translateX(-50%) rotateX(90deg); }
+            to { opacity: 1; transform: translateX(-50%) rotateX(75deg); }
+        }
+
+        @keyframes drawLines {
+            from { opacity: 0; height: 0; }
+            to { opacity: 1; height: 100%; }
+        }
+
+        @keyframes moveRoad {
+            from { background-position: center 0; }
+            to { background-position: center 120px; }
+        }
+
+        @keyframes flyBySign {
+            0% { opacity: 0; transform: translateZ(-1000px) scale(0.2) translateY(-100px); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateZ(500px) scale(3) translateY(200px); }
+        }
+
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-gradient-red {
+            background: linear-gradient(135deg, #FF2D2D 0%, #A80000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        
+        .service-card {
+            transition: all 0.4s ease;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #FF2D2D 0%, #A80000 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+            border-radius: inherit;
+        }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        .service-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        .service-card:hover .service-icon {
+            color: #FFFFFF;
+            transform: scale(1.1);
+        }
+        .service-card:hover h3, .service-card:hover p {
+            color: #FFFFFF;
+        }
+
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1A1A1A; }
+        ::-webkit-scrollbar-thumb { background: #E30613; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #A80000; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-red selection:text-white" vid="10">
+
+    
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass-panel border-b-0" vid="11">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center" vid="12">
+            <a href="#" class="flex items-center gap-2 group" vid="13">
+                <div class="w-10 h-10 rounded-full bg-gradient-brand flex items-center justify-center shadow-glow group-hover:shadow-glow-hover transition-all" vid="14">
+                    <i class="ph ph-compass text-2xl text-white" vid="15"></i>
+                </div>
+                <span class="font-display font-bold text-xl tracking-wider text-white" vid="16">COMPASS</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium" vid="17">
+                <a href="#about" class="text-gray-300 hover:text-white transition-colors uppercase tracking-wide" vid="18">About</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition-colors uppercase tracking-wide" vid="19">Services</a>
+                <a href="#process" class="text-gray-300 hover:text-white transition-colors uppercase tracking-wide" vid="20">Process</a>
+                <a href="#projects" class="text-gray-300 hover:text-white transition-colors uppercase tracking-wide" vid="21">Projects</a>
+                <a href="#contact" class="px-6 py-2.5 bg-brand-white text-brand-dark rounded-full hover:bg-gray-200 transition-colors font-semibold" vid="22">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <header class="relative h-screen w-full flex items-center justify-center overflow-hidden hero-perspective bg-brand-dark" vid="23">
+        
+        <div class="absolute inset-0 z-0 bg-gradient-glow opacity-60" vid="24"></div>
+        
+        <div class="road-plane" vid="25">
+            <div class="road-lines" vid="26"></div>
+        </div>
+
+        
+        <div class="road-sign-left z-10" vid="27">
+            <div class="w-full h-full rounded-full bg-brand-red border-4 border-white flex items-center justify-center" vid="28">
+                <div class="w-2/3 h-2/3 border-t-4 border-l-4 border-white transform rotate-45 mb-1" vid="29"></div>
+            </div>
+        </div>
+        <div class="road-sign-right z-10" vid="30">
+            <div class="w-full h-full bg-blue-600 border-2 border-white flex items-center justify-center" vid="31">
+                <i class="ph-fill ph-car text-white text-2xl" vid="32"></i>
+            </div>
+        </div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-10" vid="33"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-transparent to-transparent z-10" vid="34"></div>
+
+        
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto flex flex-col items-center mt-20" vid="35">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-red/30 bg-brand-red/10 backdrop-blur-md mb-8 reveal animate-[fadeIn_1s_ease-out_2s_both]" vid="36">
+                <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse" vid="37"></span>
+                <span class="text-sm font-medium tracking-widest text-brand-redLight uppercase" vid="38">System Active</span>
+            </div>
+            
+            <h1 class="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter mb-6 uppercase leading-none reveal animate-[fadeInUp_1s_ease-out_2.5s_both]" vid="39">
+                <span class="text-gradient" vid="40">COMPASS</span>
+            </h1>
+            
+            <div class="glass-panel p-6 md:p-8 rounded-2xl mb-10 max-w-3xl reveal animate-[fadeInUp_1s_ease-out_2.8s_both]" vid="41">
+                <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-white" vid="42">
+                    We direct the movement. <span class="text-brand-redLight" vid="43">We ensure safety.</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-400 font-light" vid="44">
+                    Comprehensive solutions in traffic regulations. Turnkey production, installation and markup.
+                </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto reveal animate-[fadeInUp_1s_ease-out_3.1s_both]" vid="45">
+                <a href="#contact" class="px-8 py-4 bg-gradient-brand text-white rounded-full font-semibold text-lg shadow-glow hover:shadow-glow-hover hover:-translate-y-1 transition-all flex items-center justify-center gap-2" vid="46">
+                    Get a quote
+                    <i class="ph-bold ph-arrow-right" vid="47"></i>
+                </a>
+                <a href="#projects" class="px-8 py-4 glass-panel hover:bg-white/10 text-white rounded-full font-semibold text-lg transition-all flex items-center justify-center gap-2" vid="48">
+                    Our projects
+                </a>
+            </div>
+        </div>
+    </header>
+
+    
+    <section id="about" class="py-24 bg-brand-gray text-brand-dark relative z-20" vid="49">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8" vid="50">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" vid="51">
+                <div class="reveal" vid="52">
+                    <h4 class="text-brand-red font-bold tracking-widest uppercase mb-2" vid="53">About The Company</h4>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight" vid="54">
+                        Not just a contractor.<br vid="55">Your <span class="text-gradient-red" vid="56">reliable partner</span> in road safety.
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed" vid="57">
+                        With over a decade of dedicated service, COMPASS operates its own high-tech production facilities. We don't just assemble; we manufacture, certify, and install everything according to strict GOST standards. Zero compromises on safety.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8" vid="58">
+                        <li class="flex items-center gap-3" vid="59">
+                            <div class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red" vid="60">
+                                <i class="ph-bold ph-check" vid="61"></i>
+                            </div>
+                            <span class="font-medium text-lg text-brand-darkGray" vid="62">100% In-house production facility</span>
+                        </li>
+                        <li class="flex items-center gap-3" vid="63">
+                            <div class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red" vid="64">
+                                <i class="ph-bold ph-certificate" vid="65"></i>
+                            </div>
+                            <span class="font-medium text-lg text-brand-darkGray" vid="66">Fully certified materials &amp; processes</span>
+                        </li>
+                        <li class="flex items-center gap-3" vid="67">
+                            <div class="w-8 h-8 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red" vid="68">
+                                <i class="ph-bold ph-shield-check" vid="69"></i>
+                            </div>
+                            <span class="font-medium text-lg text-brand-darkGray" vid="70">Strict compliance with GOST standards</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                
+                <div class="grid grid-cols-2 gap-4 lg:gap-6 reveal" vid="71">
+                    <div class="glass-panel-light p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-transform duration-300" vid="72">
+                        <i class="ph ph-signpost text-4xl text-brand-red mb-4 group-hover:scale-110 transition-transform" vid="73"></i>
+                        <div class="text-4xl font-bold text-brand-dark mb-1" vid="74"><span class="counter" data-target="1000" vid="75">0</span>+</div>
+                        <div class="text-gray-500 font-medium uppercase text-sm tracking-wide" vid="76">Signs Installed</div>
+                    </div>
+                    <div class="glass-panel-light p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-transform duration-300" vid="77">
+                        <i class="ph ph-map-pin-line text-4xl text-brand-red mb-4 group-hover:scale-110 transition-transform" vid="78"></i>
+                        <div class="text-4xl font-bold text-brand-dark mb-1" vid="79"><span class="counter" data-target="200" vid="80">0</span>+</div>
+                        <div class="text-gray-500 font-medium uppercase text-sm tracking-wide" vid="81">Objects Completed</div>
+                    </div>
+                    <div class="glass-panel-light p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-transform duration-300" vid="82">
+                        <i class="ph ph-calendar-check text-4xl text-brand-red mb-4 group-hover:scale-110 transition-transform" vid="83"></i>
+                        <div class="text-4xl font-bold text-brand-dark mb-1" vid="84"><span class="counter" data-target="10" vid="85">0</span></div>
+                        <div class="text-gray-500 font-medium uppercase text-sm tracking-wide" vid="86">Years Experience</div>
+                    </div>
+                    <div class="glass-panel-light p-8 rounded-2xl flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-transform duration-300" vid="87">
+                        <i class="ph ph-users-three text-4xl text-brand-red mb-4 group-hover:scale-110 transition-transform" vid="88"></i>
+                        <div class="text-4xl font-bold text-brand-dark mb-1" vid="89"><span class="counter" data-target="50" vid="90">0</span>+</div>
+                        <div class="text-gray-500 font-medium uppercase text-sm tracking-wide" vid="91">Regular Clients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="services" class="py-24 bg-white relative z-20 border-t border-gray-100" vid="92">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8" vid="93">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal" vid="94">
+                <h4 class="text-brand-red font-bold tracking-widest uppercase mb-2" vid="95">Our Expertise</h4>
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-dark mb-6" vid="96">Comprehensive Services</h2>
+                <p class="text-gray-600 text-lg" vid="97">We offer end-to-end solutions for road infrastructure, ensuring seamless execution from blueprint to final installation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" vid="98">
+                
+                <div class="service-card relative overflow-hidden bg-brand-gray rounded-2xl p-8 cursor-pointer reveal shadow-sm border border-gray-100" vid="99">
+                    <i class="ph ph-warning-octagon text-5xl text-brand-red mb-6 service-icon transition-colors duration-300" vid="100"></i>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-3 transition-colors duration-300" vid="101">Traffic Signs</h3>
+                    <p class="text-gray-600 transition-colors duration-300 mb-6" vid="102">Production and installation of all types of standard and individual design road signs according to GOST.</p>
+                    <div class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide opacity-0 group-hover:opacity-100 transition-opacity" vid="103">
+                        Learn more <i class="ph-bold ph-arrow-right" vid="104"></i>
+                    </div>
+                </div>
+
+                
+                <div class="service-card relative overflow-hidden bg-brand-gray rounded-2xl p-8 cursor-pointer reveal shadow-sm border border-gray-100" style="transition-delay: 100ms;" vid="105">
+                    <i class="ph ph-columns text-5xl text-brand-red mb-6 service-icon transition-colors duration-300" vid="106"></i>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-3 transition-colors duration-300" vid="107">Supports &amp; Structures</h3>
+                    <p class="text-gray-600 transition-colors duration-300 mb-6" vid="108">Manufacturing of metal poles, L-shaped and U-shaped frames, and custom structures for traffic lights and signs.</p>
+                </div>
+
+                
+                <div class="service-card relative overflow-hidden bg-brand-gray rounded-2xl p-8 cursor-pointer reveal shadow-sm border border-gray-100" style="transition-delay: 200ms;" vid="109">
+                    <i class="ph ph-path text-5xl text-brand-red mb-6 service-icon transition-colors duration-300" vid="110"></i>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-3 transition-colors duration-300" vid="111">Road Markings</h3>
+                    <p class="text-gray-600 transition-colors duration-300 mb-6" vid="112">Application of durable road markings using modern paint, cold plastic, and thermoplastic materials.</p>
+                </div>
+
+                
+                <div class="service-card relative overflow-hidden bg-brand-gray rounded-2xl p-8 cursor-pointer reveal shadow-sm border border-gray-100" style="transition-delay: 300ms;" vid="113">
+                    <i class="ph ph-blueprint text-5xl text-brand-red mb-6 service-icon transition-colors duration-300" vid="114"></i>
+                    <h3 class="text-2xl font-bold text-brand-dark mb-3 transition-colors duration-300" vid="115">Traffic Pattern Design</h3>
+                    <p class="text-gray-600 transition-colors duration-300 mb-6" vid="116">Development and coordination of complex traffic organization schemes for roads and private territories.</p>
+                </div>
+
+                
+                <div class="service-card relative overflow-hidden bg-brand-gray rounded-2xl p-8 cursor-pointer reveal shadow-sm border border-gray-100 md:col-span-2 lg:col-span-2" style="transition-delay: 400ms;" vid="117">
+                    <div class="flex flex-col md:flex-row gap-8 items-start md:items-center h-full" vid="118">
+                        <div class="flex-1" vid="119">
+                            <i class="ph ph-wrench text-5xl text-brand-red mb-6 service-icon transition-colors duration-300" vid="120"></i>
+                            <h3 class="text-2xl font-bold text-brand-dark mb-3 transition-colors duration-300" vid="121">Installation &amp; Setup</h3>
+                            <p class="text-gray-600 transition-colors duration-300" vid="122">Professional turnkey installation services. Our experienced brigades operate specialized equipment to deploy infrastructure quickly and safely in any conditions.</p>
+                        </div>
+                        <div class="hidden md:block w-32 h-32 rounded-full border-4 border-dashed border-gray-300 flex items-center justify-center service-icon group-hover:border-white/50 transition-colors duration-300" vid="123">
+                            <i class="ph-fill ph-hard-hat text-4xl text-gray-400 group-hover:text-white transition-colors duration-300" vid="124"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="process" class="py-24 bg-brand-dark text-white relative z-20 overflow-hidden" vid="125">
+        
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden lg:block" vid="126"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative" vid="127">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal" vid="128">
+                <h4 class="text-brand-red font-bold tracking-widest uppercase mb-2" vid="129">Workflow</h4>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6" vid="130">How We Work</h2>
+                <p class="text-gray-400 text-lg" vid="131">A transparent, step-by-step methodology ensuring quality from the first call to object delivery.</p>
+            </div>
+
+            
+            <div class="hidden lg:block relative reveal" vid="132">
+                
+                <div class="absolute top-[45px] left-0 w-full h-1 bg-gray-800" vid="133">
+                    <div class="h-full bg-brand-red w-full origin-left scale-x-0 transition-transform duration-1000 ease-out" id="timeline-progress" vid="134"></div>
+                </div>
+
+                <div class="grid grid-cols-6 gap-4" vid="135">
+                    
+                    <div class="relative flex flex-col items-center group" vid="136">
+                        <div class="w-[90px] h-[90px] rounded-full bg-brand-dark border-4 border-gray-800 flex items-center justify-center mb-6 relative z-10 group-hover:border-brand-red transition-colors duration-300 bg-brand-dark" vid="137">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-brand-red transition-colors" vid="138">01</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center" vid="139">Application</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="140">Request submission</p>
+                    </div>
+                    
+                    <div class="relative flex flex-col items-center group" vid="141">
+                        <div class="w-[90px] h-[90px] rounded-full bg-brand-dark border-4 border-gray-800 flex items-center justify-center mb-6 relative z-10 group-hover:border-brand-red transition-colors duration-300 bg-brand-dark" vid="142">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-brand-red transition-colors" vid="143">02</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center" vid="144">Consultation</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="145">Needs analysis</p>
+                    </div>
+                    
+                    <div class="relative flex flex-col items-center group" vid="146">
+                        <div class="w-[90px] h-[90px] rounded-full bg-brand-dark border-4 border-gray-800 flex items-center justify-center mb-6 relative z-10 group-hover:border-brand-red transition-colors duration-300 bg-brand-dark" vid="147">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-brand-red transition-colors" vid="148">03</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center" vid="149">Design</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="150">Scheme creation</p>
+                    </div>
+                    
+                    <div class="relative flex flex-col items-center group" vid="151">
+                        <div class="w-[90px] h-[90px] rounded-full bg-brand-dark border-4 border-brand-red flex items-center justify-center mb-6 relative z-10 shadow-glow bg-brand-dark" vid="152">
+                            <i class="ph-fill ph-factory text-3xl text-brand-red" vid="153"></i>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center text-brand-redLight" vid="154">Production</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="155">In-house manufacturing</p>
+                    </div>
+                    
+                    <div class="relative flex flex-col items-center group" vid="156">
+                        <div class="w-[90px] h-[90px] rounded-full bg-brand-dark border-4 border-gray-800 flex items-center justify-center mb-6 relative z-10 group-hover:border-brand-red transition-colors duration-300 bg-brand-dark" vid="157">
+                            <span class="text-2xl font-bold text-gray-500 group-hover:text-brand-red transition-colors" vid="158">05</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center" vid="159">Installation</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="160">On-site setup</p>
+                    </div>
+                    
+                    <div class="relative flex flex-col items-center group" vid="161">
+                        <div class="w-[90px] h-[90px] rounded-full bg-gradient-brand border-4 border-brand-dark flex items-center justify-center mb-6 relative z-10 shadow-glow" vid="162">
+                            <i class="ph-bold ph-check text-3xl text-white" vid="163"></i>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-center text-white" vid="164">Delivery</h4>
+                        <p class="text-sm text-gray-400 text-center" vid="165">Object handover</p>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="lg:hidden space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-red before:via-gray-800 before:to-gray-800 reveal" vid="166">
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active" vid="167">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-brand-red text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-glow z-10" vid="168">
+                        1
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="169">
+                        <h4 class="font-bold text-lg mb-1" vid="170">Application</h4>
+                        <p class="text-sm text-gray-400" vid="171">Request submission</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" vid="172">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-gray-800 text-gray-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10" vid="173">
+                        2
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="174">
+                        <h4 class="font-bold text-lg mb-1" vid="175">Consultation</h4>
+                        <p class="text-sm text-gray-400" vid="176">Needs analysis</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" vid="177">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-gray-800 text-gray-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10" vid="178">
+                        3
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="179">
+                        <h4 class="font-bold text-lg mb-1" vid="180">Design</h4>
+                        <p class="text-sm text-gray-400" vid="181">Scheme creation</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" vid="182">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-gray-800 text-gray-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10" vid="183">
+                        4
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="184">
+                        <h4 class="font-bold text-lg mb-1 text-brand-redLight" vid="185">Production</h4>
+                        <p class="text-sm text-gray-400" vid="186">In-house manufacturing</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" vid="187">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-gray-800 text-gray-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10" vid="188">
+                        5
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="189">
+                        <h4 class="font-bold text-lg mb-1" vid="190">Installation</h4>
+                        <p class="text-sm text-gray-400" vid="191">On-site setup</p>
+                    </div>
+                </div>
+                
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group" vid="192">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-brand-dark bg-gray-800 text-gray-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10" vid="193">
+                        6
+                    </div>
+                    <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl glass-panel" vid="194">
+                        <h4 class="font-bold text-lg mb-1" vid="195">Delivery</h4>
+                        <p class="text-sm text-gray-400" vid="196">Object handover</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-20 bg-brand-gray border-b border-gray-200 relative z-20" vid="197">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8" vid="198">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8" vid="199">
+                <div class="flex flex-col items-center text-center reveal" vid="200">
+                    <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-red mb-4" vid="201">
+                        <i class="ph ph-factory text-3xl" vid="202"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-dark mb-2" vid="203">In-house Production</h4>
+                    <p class="text-sm text-gray-500" vid="204">Direct control over quality</p>
+                </div>
+                <div class="flex flex-col items-center text-center reveal" style="transition-delay: 100ms;" vid="205">
+                    <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-red mb-4" vid="206">
+                        <i class="ph ph-timer text-3xl" vid="207"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-dark mb-2" vid="208">Fast Deadlines</h4>
+                    <p class="text-sm text-gray-500" vid="209">Optimized logistics</p>
+                </div>
+                <div class="flex flex-col items-center text-center reveal" style="transition-delay: 200ms;" vid="210">
+                    <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-red mb-4" vid="211">
+                        <i class="ph ph-shield-check text-3xl" vid="212"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-dark mb-2" vid="213">GOST Standards</h4>
+                    <p class="text-sm text-gray-500" vid="214">Strict compliance</p>
+                </div>
+                <div class="flex flex-col items-center text-center reveal" style="transition-delay: 300ms;" vid="215">
+                    <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-red mb-4" vid="216">
+                        <i class="ph ph-users text-3xl" vid="217"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-dark mb-2" vid="218">Expert Specialists</h4>
+                    <p class="text-sm text-gray-500" vid="219">Certified brigades</p>
+                </div>
+                <div class="flex flex-col items-center text-center reveal" style="transition-delay: 400ms;" vid="220">
+                    <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-brand-red mb-4" vid="221">
+                        <i class="ph ph-medal text-3xl" vid="222"></i>
+                    </div>
+                    <h4 class="font-bold text-brand-dark mb-2" vid="223">Solid Guarantee</h4>
+                    <p class="text-sm text-gray-500" vid="224">Long-term reliability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="projects" class="py-24 bg-white relative z-20" vid="225">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8" vid="226">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal" vid="227">
+                <div class="max-w-2xl" vid="228">
+                    <h4 class="text-brand-red font-bold tracking-widest uppercase mb-2" vid="229">Portfolio</h4>
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-dark" vid="230">Featured Projects</h2>
+                </div>
+                <a href="#" class="mt-6 md:mt-0 inline-flex items-center gap-2 text-brand-red font-semibold hover:text-brand-redDark transition-colors" vid="231">
+                    View all cases <i class="ph-bold ph-arrow-right" vid="232"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" vid="233">
+                
+                <div class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer reveal" vid="234">
+                    <div class="absolute inset-0 bg-gray-200" vid="235">
+                        
+                        <div class="w-full h-full bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3e%3crect width=\'400\' height=\'300\' fill=\'%23e5e7eb\'/%3e%3cpath d=\'M150 200 L200 120 L250 200 Z\' fill=\'%239ca3af\'/%3e%3ccircle cx=\'280\' cy=\'100\' r=\'20\' fill=\'%239ca3af\'/%3e%3c/svg%3e')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110" vid="236"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" vid="237"></div>
+                    
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end" vid="238">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-300" vid="239">
+                            <div class="inline-block px-3 py-1 bg-brand-red text-white text-xs font-bold uppercase rounded mb-3" vid="240">Moscow</div>
+                            <h3 class="text-2xl font-bold text-white mb-2" vid="241">Federal Highway M-4</h3>
+                            
+                            
+                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 overflow-hidden transition-all duration-300 mt-2" vid="242">
+                                <p class="text-gray-300 text-sm mb-3" vid="243">Complete overhaul of road markings (thermoplastic) and installation of 120+ high-visibility signs over a 15km stretch.</p>
+                                <div class="flex items-center gap-4 text-xs font-semibold text-gray-400 uppercase" vid="244">
+                                    <span class="flex items-center gap-1" vid="245"><i class="ph ph-arrows-left-right" vid="246"></i> Before / After</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer reveal" style="transition-delay: 100ms;" vid="247">
+                    <div class="absolute inset-0 bg-gray-200" vid="248">
+                        <div class="w-full h-full bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3e%3crect width=\'400\' height=\'300\' fill=\'%23e5e7eb\'/%3e%3cpath d=\'M100 250 L200 100 L300 250 Z\' fill=\'%239ca3af\'/%3e%3c/svg%3e')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110" vid="249"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" vid="250"></div>
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end" vid="251">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-300" vid="252">
+                            <div class="inline-block px-3 py-1 bg-brand-red text-white text-xs font-bold uppercase rounded mb-3" vid="253">St. Petersburg</div>
+                            <h3 class="text-2xl font-bold text-white mb-2" vid="254">City Center Intersections</h3>
+                            
+                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 overflow-hidden transition-all duration-300 mt-2" vid="255">
+                                <p class="text-gray-300 text-sm mb-3" vid="256">Installation of new L-shaped supports, traffic lights, and complex pedestrian crossing markings.</p>
+                                <div class="flex items-center gap-4 text-xs font-semibold text-gray-400 uppercase" vid="257">
+                                    <span class="flex items-center gap-1" vid="258"><i class="ph ph-arrows-left-right" vid="259"></i> Before / After</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer reveal" style="transition-delay: 200ms;" vid="260">
+                    <div class="absolute inset-0 bg-gray-200" vid="261">
+                        <div class="w-full h-full bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3e%3crect width=\'400\' height=\'300\' fill=\'%23e5e7eb\'/%3e%3ccircle cx=\'200\' cy=\'150\' r=\'80\' fill=\'%239ca3af\'/%3e%3c/svg%3e')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110" vid="262"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" vid="263"></div>
+                    
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end" vid="264">
+                        <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-300" vid="265">
+                            <div class="inline-block px-3 py-1 bg-brand-red text-white text-xs font-bold uppercase rounded mb-3" vid="266">Kazan</div>
+                            <h3 class="text-2xl font-bold text-white mb-2" vid="267">Industrial Park "Synergy"</h3>
+                            
+                            <div class="h-0 opacity-0 group-hover:h-auto group-hover:opacity-100 overflow-hidden transition-all duration-300 mt-2" vid="268">
+                                <p class="text-gray-300 text-sm mb-3" vid="269">Turnkey design and implementation of internal traffic schemes, sign placement, and zoning markings.</p>
+                                <div class="flex items-center gap-4 text-xs font-semibold text-gray-400 uppercase" vid="270">
+                                    <span class="flex items-center gap-1" vid="271"><i class="ph ph-arrows-left-right" vid="272"></i> Before / After</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="contact" class="bg-brand-dark text-white relative z-20 overflow-hidden border-t border-gray-800" vid="273">
+        
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-red/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none" vid="274"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-24 relative z-10" vid="275">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16" vid="276">
+                
+                
+                <div class="reveal" vid="277">
+                    <h4 class="text-brand-red font-bold tracking-widest uppercase mb-2" vid="278">Get in touch</h4>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8" vid="279">Ready to start your project?</h2>
+                    
+                    <div class="space-y-8 mb-12" vid="280">
+                        <div class="flex items-start gap-4" vid="281">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-brand-red shrink-0" vid="282">
+                                <i class="ph-fill ph-map-pin text-2xl" vid="283"></i>
+                            </div>
+                            <div vid="284">
+                                <h5 class="text-gray-400 text-sm uppercase tracking-wider mb-1" vid="285">Head Office</h5>
+                                <p class="text-lg font-medium" vid="286">123 Industrial Ave, Business Park "Techno", Moscow, 123456</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4" vid="287">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-brand-red shrink-0" vid="288">
+                                <i class="ph-fill ph-phone text-2xl" vid="289"></i>
+                            </div>
+                            <div vid="290">
+                                <h5 class="text-gray-400 text-sm uppercase tracking-wider mb-1" vid="291">Phone</h5>
+                                <p class="text-2xl font-bold text-white" vid="292">+7 (800) 123-45-67</p>
+                                <p class="text-sm text-gray-500" vid="293">Mon-Fri, 9:00 - 18:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-4" vid="294">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-brand-red shrink-0" vid="295">
+                                <i class="ph-fill ph-envelope-simple text-2xl" vid="296"></i>
+                            </div>
+                            <div vid="297">
+                                <h5 class="text-gray-400 text-sm uppercase tracking-wider mb-1" vid="298">Email</h5>
+                                <p class="text-lg font-medium" vid="299">info@compass-roads.ru</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="w-full h-64 rounded-xl overflow-hidden glass-panel relative group" vid="300">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgwaXoiIGZpbGw9IiMxYTFhMWEiLz48cGF0aCBkPSJNMCAwaDQwdjFIMHoiIGZpbGw9IiMzMzMiLz48cGF0aCBkPSJNMCAwaDF2NDBIMHoiIGZpbGw9IiMzMzMiLz48L3N2Zz4=')] opacity-30" vid="301"></div>
+                        <div class="absolute inset-0 flex items-center justify-center" vid="302">
+                            <div class="w-12 h-12 rounded-full bg-brand-red text-white flex items-center justify-center shadow-glow animate-bounce" vid="303">
+                                <i class="ph-fill ph-map-pin text-2xl" vid="304"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="reveal" style="transition-delay: 200ms;" vid="305">
+                    <div class="glass-panel p-8 md:p-10 rounded-2xl relative overflow-hidden border-brand-red/20" vid="306">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/20 blur-3xl rounded-full" vid="307"></div>
+                        
+                        <h3 class="text-2xl font-bold mb-2" vid="308">Request a Call</h3>
+                        <p class="text-gray-400 mb-8 text-sm" vid="309">Leave your details and we will contact you within 15 minutes.</p>
+                        
+                        <form class="space-y-6 relative z-10" vid="310">
+                            <div vid="311">
+                                <label class="block text-sm font-medium text-gray-400 mb-2" for="name" vid="312">Your Name</label>
+                                <input type="text" id="name" class="w-full bg-white/5 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-red focus:bg-white/10 transition-colors" placeholder="Ivan Ivanov" vid="313">
+                            </div>
+                            
+                            <div vid="314">
+                                <label class="block text-sm font-medium text-gray-400 mb-2" for="phone" vid="315">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full bg-white/5 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-red focus:bg-white/10 transition-colors" placeholder="+7 (___) ___-__-__" vid="316">
+                            </div>
+                            
+                            <div vid="317">
+                                <label class="block text-sm font-medium text-gray-400 mb-2" for="comment" vid="318">Project Details (Optional)</label>
+                                <textarea id="comment" rows="4" class="w-full bg-white/5 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-red focus:bg-white/10 transition-colors resize-none" placeholder="Briefly describe what you need..." vid="319"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full py-4 bg-gradient-brand text-white rounded-lg font-bold text-lg shadow-glow hover:shadow-glow-hover hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2" vid="320">
+                                Send Request <i class="ph-bold ph-paper-plane-tilt" vid="321"></i>
+                            </button>
+                            
+                            <p class="text-xs text-gray-500 text-center mt-4" vid="322">
+                                By clicking the button, you agree to the processing of personal data.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        
+        <footer class="border-t border-gray-800 bg-[#111] py-8 relative z-10" vid="323">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4" vid="324">
+                <div class="flex items-center gap-2" vid="325">
+                    <i class="ph ph-compass text-xl text-brand-red" vid="326"></i>
+                    <span class="font-display font-bold text-sm tracking-wider text-white" vid="327">COMPASS</span>
+                </div>
+                <p class="text-gray-500 text-sm" vid="328">© 2024 Compass Ltd. All rights reserved.</p>
+                <div class="flex gap-4" vid="329">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors" vid="330"><i class="ph-fill ph-telegram-logo text-xl" vid="331"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors" vid="332"><i class="ph-fill ph-whatsapp-logo text-xl" vid="333"></i></a>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <script vid="334">
+        
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-brand-dark/90', 'border-b', 'border-gray-800', 'shadow-lg');
+                navbar.classList.remove('py-4', 'border-b-0');
+                navbar.classList.add('py-3');
+            } else {
+                navbar.classList.remove('bg-brand-dark/90', 'border-b', 'border-gray-800', 'shadow-lg');
+                navbar.classList.add('py-4', 'border-b-0');
+                navbar.classList.remove('py-3');
+            }
+        });
+
+        
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasCounted) {
+                    hasCounted = true;
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; 
+                        const step = target / (duration / 16); 
+                        
+                        let current = 0;
+                        const updateCounter = () => {
+                            current += step;
+                            if (current < target) {
+                                counter.innerText = Math.ceil(current);
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if(document.querySelector('.counter')) {
+            counterObserver.observe(document.querySelector('.counter').parentElement);
+        }
+
+        
+        const timelineProgress = document.getElementById('timeline-progress');
+        if(timelineProgress) {
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        timelineProgress.style.transform = 'scaleX(1)';
+                    }
+                });
+            }, { threshold: 0.5 });
+            timelineObserver.observe(timelineProgress.parentElement.parentElement);
+        }
+    </script>
+
+</body></html>
