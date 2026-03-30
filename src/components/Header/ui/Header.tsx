@@ -24,12 +24,18 @@ const itemVariants = {
   },
 };
 
-const navItems = [
+interface NavItem {
+  id: string;
+  label: string;
+  href?: string;
+}
+
+const navItems: NavItem[] = [
   { id: 'about', label: 'О компании' },
-  { id: 'services', label: 'Услуги' },
+  { id: 'services', label: 'Услуги', href: '/services' },
   { id: 'process', label: 'Процесс' },
   { id: 'projects', label: 'Проекты' },
-] as const;
+];
 
 interface IHeaderData {
   className?: string;
@@ -136,9 +142,9 @@ export const Header = ({ className }: IHeaderData) => {
             {navItems.map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={item.href ?? `#${item.id}`}
                 className={cls.navLink}
-                onClick={handleAnchorClick(item.id)}
+                onClick={item.href ? undefined : handleAnchorClick(item.id)}
               >
                 {item.label}
               </a>
@@ -180,9 +186,9 @@ export const Header = ({ className }: IHeaderData) => {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={item.href ?? `#${item.id}`}
               className={cls.mobileLink}
-              onClick={handleAnchorClick(item.id)}
+              onClick={item.href ? undefined : handleAnchorClick(item.id)}
             >
               {item.label}
             </a>

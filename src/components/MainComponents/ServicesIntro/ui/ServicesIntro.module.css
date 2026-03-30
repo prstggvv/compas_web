@@ -1,0 +1,221 @@
+.section {
+  width: 100%;
+  padding: clamp(112px, 12vw, 140px) 0 clamp(48px, 7vw, 72px);
+  background-color: var(--color-brand-white);
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(95.83%, 1280px);
+  margin: 0 auto;
+  padding: 0 max(24px, env(safe-area-inset-left)) 0 max(24px, env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 4vw, 44px);
+  box-sizing: border-box;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--color-brand-red);
+  font-family: var(--font-inter);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.title {
+  margin: 0;
+  max-width: 860px;
+  color: #1d1f24;
+  font-family: var(--font-inter);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.leadText {
+  margin: 0;
+  max-width: 860px;
+  color: #555e6c;
+  font-family: var(--font-inter);
+  font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+  line-height: 1.6;
+}
+
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eeebe6;
+}
+
+.serviceRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: clamp(18px, 3vw, 28px);
+  align-items: center;
+  padding: clamp(24px, 3vw, 34px) 0;
+  border-bottom: 1px solid #eeebe6;
+  overflow: hidden;
+}
+
+.serviceRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-brand-red);
+  transition: width 0.32s ease;
+}
+
+.serviceRow:hover::before {
+  width: 100%;
+}
+
+.serviceIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  color: #9aa1ab;
+  transition: color 0.24s ease, transform 0.24s ease;
+}
+
+.serviceRow:hover .serviceIconWrap {
+  color: var(--color-brand-red);
+  transform: translateX(2px);
+}
+
+.serviceIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.serviceContent {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.serviceTitle {
+  margin: 0;
+  color: #1a1d23;
+  font-family: var(--font-inter);
+  font-size: clamp(1.55rem, 2vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.18;
+  transition: transform 0.24s ease, color 0.24s ease;
+}
+
+.serviceRow:hover .serviceTitle {
+  color: #15181e;
+  transform: translateX(4px);
+}
+
+.serviceText {
+  margin: 0;
+  max-width: 760px;
+  color: #707783;
+  font-family: var(--font-inter);
+  font-size: clamp(1rem, 1.35vw, 1.08rem);
+  line-height: 1.6;
+  transition: color 0.24s ease, transform 0.24s ease;
+}
+
+.serviceRow:hover .serviceText {
+  color: #555d69;
+  transform: translateX(4px);
+}
+
+.serviceArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-red);
+}
+
+.serviceArrowIcon {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.28s ease;
+}
+
+.serviceRow:hover .serviceArrowIcon {
+  transform: translateX(8px);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-top: 104px;
+  }
+
+  .serviceRow {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding-top: 96px;
+    padding-bottom: 40px;
+  }
+
+  .container {
+    width: 100%;
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    gap: 28px;
+  }
+
+  .serviceRow {
+    grid-template-columns: 1fr auto;
+    gap: 12px 16px;
+  }
+
+  .serviceIconWrap {
+    grid-column: 1;
+    grid-row: 1;
+    width: 40px;
+    height: 40px;
+  }
+
+  .serviceContent {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .serviceArrow {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .serviceTitle,
+  .serviceText,
+  .serviceRow:hover .serviceTitle,
+  .serviceRow:hover .serviceText {
+    transform: none;
+  }
+}
