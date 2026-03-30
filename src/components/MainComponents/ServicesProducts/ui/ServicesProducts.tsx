@@ -38,9 +38,9 @@ export const ServicesProducts = ({ className }: IServicesProductsProps) => {
     <section id="catalog" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="catalog-title">
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>УСЛУГИ</span>
+          <span className={classNames(cls.kicker, {}, [])}>Товары</span>
           <h2 id="catalog-title" className={classNames(cls.title, {}, [])}>
-            Услуги и продукция
+            Товары и продукция
           </h2>
         </div>
 

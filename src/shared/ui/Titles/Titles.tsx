@@ -4,24 +4,23 @@ import { classNames } from '../../lib/classNames/classNames';
 interface ITitlesProps {
   className?: string;
   uptitle: string;
-  title: string;
-  dark: boolean;
+  subtitle: string;
 }
 
 const Titles = ({
   className,
   uptitle,
-  title,
-  dark,
+  subtitle,
 }: ITitlesProps) => {
   return (
-    <div className={classNames(cls.titles, {}, [className ?? ''])}>
-      <h2 className={classNames(cls.subheading, {
-        [cls.dark]: dark,
-      }, [])}>{uptitle}</h2>
-      <h3 className={classNames(cls.heading, {
-        [cls.dark]: dark
-      }, [])}>{title}</h3>
+    <div className={classNames(cls.head, {}, [className ?? ''])}>
+      <h2
+        className={classNames(cls.title, {}, [])}>
+        {uptitle}
+      </h2>
+      <p className={classNames(cls.leadText, {}, [])}>
+        {subtitle}
+      </p>
     </div>
   )
 };
