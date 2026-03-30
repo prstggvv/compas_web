@@ -1,0 +1,18 @@
+.viewport {
+  display: flex;
+  gap: clamp(14px, 2vw, 20px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(0px, env(safe-area-inset-left));
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.viewport::-webkit-scrollbar {
+  height: 6px;
+}
+
+.viewport::-webkit-scrollbar-thumb {
+  background-color: rgba(26, 26, 26, 0.2);
+  border-radius: 999px;
+}

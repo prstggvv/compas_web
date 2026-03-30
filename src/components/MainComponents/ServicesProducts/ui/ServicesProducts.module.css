@@ -1,0 +1,119 @@
+.section {
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(40px, 8vw, 110px) 0;
+  background-color: var(--color-brand-white);
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.4vw, 28px);
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--color-brand-red);
+  font-family: var(--font-inter);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.title {
+  margin: 0;
+  max-width: 860px;
+  width: 100%;
+  color: var(--color-brand-dark);
+  font-family: var(--font-inter);
+  font-size: clamp(1.5rem, 5.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.16;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.leadText {
+  margin: 0;
+  max-width: 920px;
+  width: 100%;
+  color: #555e6c;
+  font-family: var(--font-inter);
+  font-size: clamp(0.95rem, 2.8vw, 1.08rem);
+  line-height: 1.6;
+}
+
+.afterIntro {
+  display: flex;
+  justify-content: center;
+}
+
+.catalogLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--color-brand-red);
+  background-color: var(--color-brand-white);
+  color: var(--color-brand-red);
+  font-family: var(--font-inter);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.catalogLink:hover {
+  background-color: var(--color-brand-red);
+  color: var(--color-brand-white);
+}
+
+.grid {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 3vw, 24px);
+  align-items: stretch;
+  margin-top: clamp(8px, 1.2vw, 14px);
+}
+
+@media (min-width: 640px) {
+  .afterIntro {
+    justify-content: flex-end;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

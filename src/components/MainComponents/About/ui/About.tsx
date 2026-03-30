@@ -1,7 +1,5 @@
 import cls from './About.module.css';
 import { classNames } from '../../../../shared/lib/classNames/classNames';
-import TeamPhoto from '../../../../shared/assets/images/photos/1222222.jpg';
-import FactoryPhoto from '../../../../shared/assets/images/photos/done.jpg';
 
 interface IAboutProps {
   className?: string;
@@ -62,6 +60,7 @@ export const About = ({ className }: IAboutProps) => {
           </a>
         </div>
 
+        {/*
         <div className={classNames(cls.cardsGrid, {}, [])}>
           <article className={classNames(cls.photoCard, {}, [])}>
             <img className={classNames(cls.photoImage, {}, [])} src={TeamPhoto} alt="Команда на объекте" loading="lazy" />
@@ -117,7 +116,7 @@ export const About = ({ className }: IAboutProps) => {
               <p className={classNames(cls.cardText, {}, [])}>Финальная проверка качества перед установкой.</p>
             </div>
           </article>
-        </div>
+        </div> */}
       </div>
     </section>
   );

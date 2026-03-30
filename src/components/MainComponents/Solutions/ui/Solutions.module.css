@@ -1,0 +1,345 @@
+@keyframes solutionsRowIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  padding: clamp(72px, 9vw, 112px) 0;
+  background-color: #f7f6f3;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left));
+  padding-right: max(16px, env(safe-area-inset-right));
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 44px);
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--color-brand-red);
+  font-family: var(--font-inter);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.title {
+  margin: 0;
+  max-width: 860px;
+  width: 100%;
+  color: #1d1f24;
+  font-family: var(--font-inter);
+  font-size: clamp(1.75rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.16;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.leadText {
+  margin: 0;
+  max-width: 720px;
+  width: 100%;
+  color: #555e6c;
+  font-family: var(--font-inter);
+  font-size: clamp(0.95rem, 2.6vw, 1.08rem);
+  line-height: 1.6;
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.cta {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: 1px solid #c9c4bc;
+  text-decoration: none;
+  background-color: #ece9e2;
+  color: #1d1f24;
+  font-family: var(--font-inter);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.cta:hover {
+  background-color: var(--color-brand-red);
+  border-color: var(--color-brand-red);
+  color: #fff;
+}
+
+.ctaIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.cta:hover .ctaIcon {
+  transform: translateX(4px);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 40px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 48px) 0;
+  border-bottom: 1px solid #e3e0da;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .row {
+    animation: solutionsRowIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .row:nth-child(1) {
+    animation-delay: 0.04s;
+  }
+
+  .row:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .row:nth-child(3) {
+    animation-delay: 0.16s;
+  }
+}
+
+.row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.textCol {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding-left: 14px;
+  border-left: 3px solid transparent;
+  transition: border-color 0.35s ease;
+}
+
+.row:hover .textCol {
+  border-left-color: rgba(227, 6, 19, 0.55);
+}
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-brand-red);
+  font-family: var(--font-inter);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.categoryIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+
+.rowTitle {
+  margin: 0;
+  color: #1d1f24;
+  font-family: var(--font-inter);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.28;
+  transition: color 0.25s ease;
+}
+
+.row:hover .rowTitle {
+  color: #12151c;
+}
+
+.rowText {
+  margin: 0;
+  color: #5d6674;
+  font-family: var(--font-inter);
+  font-size: clamp(0.92rem, 1.6vw, 1rem);
+  line-height: 1.55;
+}
+
+.moment {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 2.5vw, 18px);
+  width: 100%;
+  margin: 6px 0 4px;
+  padding: 18px 0 20px;
+  border-top: 1px solid #dcd7cf;
+  border-bottom: 1px solid #dcd7cf;
+  box-sizing: border-box;
+}
+
+.momentMark {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(227, 6, 19, 0.4);
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: border-color 0.35s ease, background-color 0.35s ease;
+}
+
+.row:hover .momentMark {
+  border-color: rgba(227, 6, 19, 0.65);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.momentMarkIcon {
+  width: 21px;
+  height: 21px;
+  color: var(--color-brand-red);
+}
+
+.momentCopy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.momentEyebrow {
+  font-family: var(--font-inter);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8b919c;
+}
+
+.momentText {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: clamp(0.9rem, 1.55vw, 1.02rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.58;
+  color: #2f3540;
+  letter-spacing: 0.01em;
+}
+
+.imageCol {
+  position: relative;
+  min-width: 0;
+}
+
+.visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageClip {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background-color: #ddd8cc;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.rowImageRight .textCol {
+  order: 1;
+}
+
+.rowImageRight .imageCol {
+  order: 2;
+}
+
+.rowImageLeft .textCol {
+  order: 2;
+}
+
+.rowImageLeft .imageCol {
+  order: 1;
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: clamp(22px, 5vw, 32px) 0;
+  }
+
+  .rowImageRight .textCol,
+  .rowImageLeft .textCol {
+    order: 2;
+  }
+
+  .rowImageRight .imageCol,
+  .rowImageLeft .imageCol {
+    order: 1;
+  }
+
+  .textCol {
+    padding-left: 12px;
+  }
+}
