@@ -1,0 +1,92 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  border: 1px solid #ece7df;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: border-color 0.22s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 45, 45, 0.32);
+}
+
+.imageWrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #f5f3ef;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+}
+
+.category {
+  margin: 0;
+  color: #9ba1aa;
+  font-family: var(--font-inter);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: #1d1f24;
+  font-family: var(--font-inter);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.description {
+  margin: 0;
+  color: #717985;
+  font-family: var(--font-inter);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 14px 0 0;
+  border: 0;
+  border-top: 1px solid #f0ece6;
+  background: transparent;
+  color: #ff2d2d;
+  font-family: var(--font-inter);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.buttonIcon {
+  width: 16px;
+  height: 16px;
+}
