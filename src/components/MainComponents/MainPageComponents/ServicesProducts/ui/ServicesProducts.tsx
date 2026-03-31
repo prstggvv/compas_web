@@ -1,10 +1,10 @@
 import cls from './ServicesProducts.module.css';
-import { classNames } from '../../../../shared/lib/classNames/classNames';
-import { GalleryCard } from '../../../../shared/ui/GalleryCard';
-import { SectionUnderlineLink } from '../../../../shared/ui/SectionUnderlineLink';
-import signsImg from '../../../../shared/assets/images/photos/signs.jpg';
-import markingsImg from '../../../../shared/assets/images/photos/markings.jpg';
-import nerovnostImg from '../../../../shared/assets/images/photos/nerovnost.jpg';
+import { classNames } from '../../../../../shared/lib/classNames/classNames';
+import { GalleryCard } from '../../../../../shared/ui/GalleryCard';
+import { SectionUnderlineLink } from '../../../../../shared/ui/SectionUnderlineLink';
+import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
+import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
+import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
 
 interface IServicesProductsProps {
   className?: string;

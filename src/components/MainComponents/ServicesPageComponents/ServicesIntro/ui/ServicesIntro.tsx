@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import cls from './ServicesIntro.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 
@@ -10,21 +11,29 @@ type ServiceVariant = 'installation' | 'design' | 'metal' | 'tooling';
 
 const serviceItems = [
   {
+    id: 'construction',
+    href: '/services/construction',
     title: 'Строительно-монтажные работы',
-    text: 'Профессиональная установка дорожных знаков, барьерных ограждений и нанесение разметки любой сложности.',
+    text: 'Профессиональная установка дорожных знаков, барьерных ограждений и нанесение разметки.',
     variant: 'installation' as const,
   },
   {
+    id: 'design',
+    href: '/services/design',
     title: 'Проектирование и аудит',
     text: 'Разработка комплексных схем организации дорожного движения и аудит безопасности транспортных узлов.',
     variant: 'design' as const,
   },
   {
+    id: 'metal',
+    href: '/services/metal',
     title: 'Металлообработка',
     text: 'Резка, сварка, гибка и изготовление конструкций под требования конкретного объекта.',
     variant: 'metal' as const,
   },
   {
+    id: 'tooling',
+    href: '/services/tooling',
     title: 'Оснастка и пресс-формы',
     text: 'Производство технологической оснастки и пресс-форм под серийные изделия и индивидуальные задачи.',
     variant: 'tooling' as const,
@@ -71,25 +80,20 @@ const ServiceIcon = ({ variant }: { variant: ServiceVariant }) => {
 
 export const ServicesIntro = ({ className }: ServicesIntroProps) => {
   return (
-    <section id="services" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="services-title">
+    <section
+      id="services"
+      className={classNames(cls.section, {}, [className ?? ''])}
+      aria-labelledby="services-list-title"
+    >
       <div className={classNames(cls.container, {}, [])}>
-        <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>ЭКСПЕРТИЗА</span>
-          <h1 id="services-title" className={classNames(cls.title, {}, [])}>
-            Услуги
-          </h1>
-        </div>
-
-        <div className={classNames(cls.intro, {}, [])}>
-          <p className={classNames(cls.leadText, {}, [])}>
-            Мы предлагаем полный цикл работ по обустройству дорожной инфраструктуры и организации дорожного движения —
-            от проектирования до монтажа и обслуживания.
-          </p>
-        </div>
+        <h2 id="services-list-title" className={classNames(cls.visuallyHidden, {}, [])}>
+          Каталог услуг
+        </h2>
 
         <div className={classNames(cls.servicesList, {}, [])}>
           {serviceItems.map((item) => (
-            <article key={item.title} className={classNames(cls.serviceRow, {}, [])}>
+            <Link key={item.id} to={item.href} className={classNames(cls.serviceRow, {}, [])}>
+              <span className={classNames(cls.serviceLine, {}, [])} aria-hidden />
               <div className={classNames(cls.serviceIconWrap, {}, [])}>
                 <ServiceIcon variant={item.variant} />
               </div>
@@ -102,7 +106,7 @@ export const ServicesIntro = ({ className }: ServicesIntroProps) => {
               <span className={classNames(cls.serviceArrow, {}, [])} aria-hidden>
                 <ArrowRight className={classNames(cls.serviceArrowIcon, {}, [])} strokeWidth={2} />
               </span>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

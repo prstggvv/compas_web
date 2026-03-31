@@ -13,7 +13,12 @@ const ProductPage = ({ className }: IProductPageProps) => {
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <ProductPageIntro />
       <ProductCatalog />
-      <ProductCta />
+      <ProductCta
+        sectionId="product-page-cta"
+        title="Не нашли нужный товар?"
+        text="Мы осуществляем поставки нестандартного оборудования и производим продукцию по индивидуальным чертежам заказчика."
+        buttonLabel="Получить подбор под проект"
+      />
     </main>
   )
 }
