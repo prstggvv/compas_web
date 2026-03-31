@@ -72,7 +72,7 @@
 .cardTitle {
   margin: 0;
   color: #ffffff;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(1.05rem, 3.2vw, 1.65rem);
   font-weight: 800;
   line-height: 1.2;
@@ -83,7 +83,7 @@
 .subtitle {
   margin: 0;
   color: rgba(255, 255, 255, 0.88);
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(0.78rem, 2.2vw, 0.95rem);
   font-weight: 500;
   line-height: 1.35;
@@ -140,7 +140,7 @@
 
 .ctaText {
   color: #ffffff;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.02em;

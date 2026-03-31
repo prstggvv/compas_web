@@ -47,7 +47,7 @@
   padding: 8px 12px;
   background-color: #ffffff;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -96,7 +96,7 @@
 .category {
   margin: 0 0 12px;
   color: #8b93a0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -107,7 +107,7 @@
 .title {
   margin: 0 0 20px;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(36px, 4vw, 56px);
   font-weight: 700;
   line-height: 1.04;
@@ -117,7 +117,7 @@
   max-width: 640px;
   margin: 0 0 36px;
   color: #666f7b;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.7;
@@ -139,7 +139,7 @@
 
 .specLabel {
   color: #959daa;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -150,7 +150,7 @@
 .specValue {
   margin: 0;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.45;
@@ -172,7 +172,7 @@
   min-height: 60px;
   padding: 0 28px;
   border: 0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -216,7 +216,7 @@
   padding: 10px 14px;
   background-color: #f8f6f2;
   color: #6a727e;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;

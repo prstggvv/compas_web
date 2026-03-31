@@ -23,7 +23,7 @@
   border: 0;
   background: transparent;
   color: #8f96a0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 15px;
   font-weight: 500;
   line-height: 1.4;
@@ -54,7 +54,7 @@
 .count {
   margin: 24px 0 0;
   color: #717985;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;

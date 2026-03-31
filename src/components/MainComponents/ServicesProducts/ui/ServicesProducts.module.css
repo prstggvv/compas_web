@@ -10,10 +10,8 @@
 .container {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left));
-  padding-right: max(16px, env(safe-area-inset-right));
+  padding: 0 var(--product-page-padding-x);
   display: flex;
   flex-direction: column;
   gap: clamp(16px, 2.4vw, 28px);
@@ -31,10 +29,11 @@
 .kicker {
   margin: 0;
   color: var(--color-brand-red);
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .title {
@@ -42,9 +41,9 @@
   max-width: 860px;
   width: 100%;
   color: var(--color-brand-dark);
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(1.5rem, 5.5vw, 3.2rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.16;
 }
 
@@ -61,7 +60,7 @@
   max-width: 920px;
   width: 100%;
   color: #555e6c;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(0.95rem, 2.8vw, 1.08rem);
   line-height: 1.6;
 }
@@ -69,27 +68,6 @@
 .afterIntro {
   display: flex;
   justify-content: center;
-}
-
-.catalogLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 24px;
-  border-bottom: 1px solid var(--color-brand-red);
-  background-color: var(--color-brand-white);
-  color: var(--color-brand-red);
-  font-family: var(--font-inter);
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.catalogLink:hover {
-  background-color: var(--color-brand-red);
-  color: var(--color-brand-white);
 }
 
 .grid {

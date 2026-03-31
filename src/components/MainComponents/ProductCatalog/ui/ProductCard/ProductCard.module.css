@@ -59,7 +59,7 @@
 .category {
   margin: 0 0 8px;
   color: #9ca3af;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -70,7 +70,7 @@
 .title {
   margin: 0;
   color: #111827;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 18px;
   font-weight: 500;
   line-height: 1.25;
@@ -83,7 +83,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   color: #6b7280;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.625;
@@ -106,7 +106,7 @@
   gap: 8px;
   padding: 0;
   color: #ff2d2d;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.05em;

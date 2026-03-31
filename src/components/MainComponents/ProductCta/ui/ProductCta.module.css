@@ -21,7 +21,7 @@
 .title {
   margin: 0;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 2.25rem;
   font-weight: 300;
   line-height: 1.12;
@@ -31,7 +31,7 @@
   max-width: 620px;
   margin: 0;
   color: #7b838f;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.55;
@@ -48,7 +48,7 @@
   border: 0;
   background-color: #ff2d2d;
   color: #ffffff;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.08em;

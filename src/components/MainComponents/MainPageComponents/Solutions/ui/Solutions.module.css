@@ -20,10 +20,8 @@
 .container {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1280px;
   margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left));
-  padding-right: max(16px, env(safe-area-inset-right));
+  padding: 0 var(--product-page-padding-x);
   display: flex;
   flex-direction: column;
   gap: clamp(28px, 4vw, 44px);
@@ -41,10 +39,11 @@
 .kicker {
   margin: 0;
   color: var(--color-brand-red);
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .title {
@@ -52,9 +51,9 @@
   max-width: 860px;
   width: 100%;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(1.75rem, 4vw, 3.2rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.16;
 }
 
@@ -71,7 +70,7 @@
   max-width: 720px;
   width: 100%;
   color: #555e6c;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(0.95rem, 2.6vw, 1.08rem);
   line-height: 1.6;
 }
@@ -86,24 +85,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 0 22px;
-  border-radius: 12px;
-  border: 1px solid #c9c4bc;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 32px;
+  border: 0;
   text-decoration: none;
-  background-color: #ece9e2;
-  color: #1d1f24;
-  font-family: var(--font-inter);
-  font-size: 0.95rem;
+  background-color: #ff2d2d;
+  color: #ffffff;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 14px;
   font-weight: 700;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .cta:hover {
   background-color: var(--color-brand-red);
-  border-color: var(--color-brand-red);
   color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(227, 6, 19, 0.18);
 }
 
 .ctaIcon {
@@ -180,7 +181,7 @@
   align-items: center;
   gap: 8px;
   color: var(--color-brand-red);
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -197,9 +198,9 @@
 .rowTitle {
   margin: 0;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(1.1rem, 2vw, 1.35rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.28;
   transition: color 0.25s ease;
 }
@@ -211,7 +212,7 @@
 .rowText {
   margin: 0;
   color: #5d6674;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(0.92rem, 1.6vw, 1rem);
   line-height: 1.55;
 }
@@ -262,7 +263,7 @@
 }
 
 .momentEyebrow {
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -272,7 +273,7 @@
 
 .momentText {
   margin: 0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: clamp(0.9rem, 1.55vw, 1.02rem);
   font-weight: 500;
   font-style: italic;

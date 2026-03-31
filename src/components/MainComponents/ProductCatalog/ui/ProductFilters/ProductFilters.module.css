@@ -10,7 +10,7 @@
 .caption {
   margin: 0;
   color: #a1a7b0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -44,7 +44,7 @@
 .groupTitle {
   margin: 0;
   color: #20232a;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -97,7 +97,7 @@
 .optionLabel {
   margin: 0;
   color: #626a76;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 16px;
   font-weight: 400;
   line-height: 1.45;
@@ -119,7 +119,7 @@
   border: 1px solid #ece7df;
   background-color: #f7f5f1;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;

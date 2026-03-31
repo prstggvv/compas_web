@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import cls from './About.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 
@@ -57,6 +58,7 @@ export const About = ({ className }: IAboutProps) => {
           </div>
           <a href="#contact" className={classNames(cls.ctaButton, {}, [])}>
             Записаться
+            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} aria-hidden />
           </a>
         </div>
       </div>

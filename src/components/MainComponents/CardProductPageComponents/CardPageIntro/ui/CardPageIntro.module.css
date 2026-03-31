@@ -23,7 +23,7 @@
 .breadcrumbLink,
 .breadcrumbCurrent {
   margin: 0;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   line-height: 1.4;
 }
@@ -56,7 +56,7 @@
   border: 0;
   background: transparent;
   color: #1d1f24;
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;

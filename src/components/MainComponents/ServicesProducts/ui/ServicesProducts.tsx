@@ -1,6 +1,7 @@
 import cls from './ServicesProducts.module.css';
 import { classNames } from '../../../../shared/lib/classNames/classNames';
 import { GalleryCard } from '../../../../shared/ui/GalleryCard';
+import { SectionUnderlineLink } from '../../../../shared/ui/SectionUnderlineLink';
 import signsImg from '../../../../shared/assets/images/photos/signs.jpg';
 import markingsImg from '../../../../shared/assets/images/photos/markings.jpg';
 import nerovnostImg from '../../../../shared/assets/images/photos/nerovnost.jpg';
@@ -52,9 +53,7 @@ export const ServicesProducts = ({ className }: IServicesProductsProps) => {
         </div>
 
         <div className={classNames(cls.afterIntro, {}, [])}>
-          <a href="#contact" className={classNames(cls.catalogLink, {}, [])}>
-            Весь каталог
-          </a>
+          <SectionUnderlineLink to="/product" label="Все услуги" />
         </div>
 
         <div className={classNames(cls.grid, {}, [])}>
