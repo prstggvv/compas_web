@@ -57,11 +57,11 @@
 
 .leadText {
   margin: 0;
-  max-width: 920px;
+  max-width: 720px;
   width: 100%;
   color: #555e6c;
-  font-family: var(--font-gt-pro-regular);
-  font-size: clamp(0.95rem, 2.8vw, 1.08rem);
+  font-family: var(--font-gt-pro-light);
+  font-size: 18px;
   line-height: 1.6;
 }
 
@@ -93,5 +93,17 @@
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .leadText {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .leadText {
+    font-size: 16px;
   }
 }

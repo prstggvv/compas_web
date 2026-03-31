@@ -1,7 +1,7 @@
 .section {
   width: 100%;
   padding: clamp(56px, 8vw, 96px) 0;
-  background-color: var(--color-brand-white);
+  background-color: rgb(249, 250, 251);
   box-sizing: border-box;
 }
 
@@ -53,11 +53,11 @@
 }
 
 .leadText {
-  max-width: 840px;
+  max-width: 720px;
   margin: 0;
   color: #555e6c;
   font-family: var(--font-gt-pro-light);
-  font-size: clamp(1rem, 1.45vw, 1.08rem);
+  font-size: 18px;
   font-weight: 300;
   line-height: 1.7;
 }
@@ -105,8 +105,8 @@
 .cardTitle {
   margin: 0 0 16px;
   color: #111827;
-  font-family: var(--font-gt-pro-bold);
-  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-family: var(--font-gt-pro-regular);
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.24;
   transition: color 0.3s ease;
@@ -120,7 +120,7 @@
   margin: 0 0 40px;
   color: #6b7280;
   font-family: var(--font-gt-pro-light);
-  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.7;
   flex-grow: 1;
@@ -171,5 +171,17 @@
 @media (min-width: 1200px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .leadText {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .leadText {
+    font-size: 16px;
   }
 }

@@ -1,40 +1,26 @@
+import { useMemo } from 'react';
 import cls from './ServicesProducts.module.css';
+import { productItems } from '../../../ProductCatalog/model/products';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import { GalleryCard } from '../../../../../shared/ui/GalleryCard';
 import { SectionUnderlineLink } from '../../../../../shared/ui/SectionUnderlineLink';
-import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
-import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
-import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
 
 interface IServicesProductsProps {
   className?: string;
 }
 
-const items = [
-  {
-    id: 'signs',
-    title: 'Дорожные знаки',
-    description: 'Производство и монтаж по ГОСТ',
-    href: '#contact',
-    image: signsImg,
-  },
-  {
-    id: 'markings',
-    title: 'Разметка и пластик',
-    description: 'Организация движения на объекте',
-    href: '#contact',
-    image: markingsImg,
-  },
-  {
-    id: 'speed',
-    title: 'Искусственные неровности',
-    description: 'Безопасность на въездах и парковках',
-    href: '#contact',
-    image: nerovnostImg,
-  },
-] as const;
-
 export const ServicesProducts = ({ className }: IServicesProductsProps) => {
+  const items = useMemo(() => {
+    const shuffled = [...productItems];
+
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+
+    return shuffled.slice(0, 3);
+  }, []);
+
   return (
     <section id="catalog" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="catalog-title">
       <div className={classNames(cls.container, {}, [])}>
@@ -60,9 +46,9 @@ export const ServicesProducts = ({ className }: IServicesProductsProps) => {
           {items.map((item) => (
             <GalleryCard
               key={item.id}
-              title={item.title}
+              title={item.name}
               description={item.description}
-              href={item.href}
+              to={`/product/${item.id}`}
               image={item.image}
               ctaLabel="Подробнее"
             />

@@ -58,7 +58,7 @@ export const About = ({ className }: IAboutProps) => {
           </div>
           <a href="#contact" className={classNames(cls.ctaButton, {}, [])}>
             Записаться
-            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} aria-hidden />
+            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
           </a>
         </div>
       </div>

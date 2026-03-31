@@ -8,17 +8,7 @@ html {
   --font-gt-pro-light: 'GT Eesti Pro Display-light', sans-serif, serif;
   --font-gt-pro-regular: 'GT Eesti Pro Display-regular', sans-serif, serif;
   --font-gt-pro-bold: 'GT Eesti Pro Display-bold', sans-serif, serif;
-  --font-inter: 'Inter', system-ui, sans-serif;
-  --font-display: 'Syncopate', system-ui, sans-serif;
 
-  --color-bg: #1a1a1a;
-  --color-bar: #0a0a0a;
-  --color-text: #f2f2f2;
-  --color-text-muted: #999;
-  --color-accent: #e67e22;
-  --color-metric: #2ecc71;
-
-  /* Brand (Компас) */
   --color-brand-white: #ffffff;
   --color-brand-red: #e30613;
   --color-brand-red-dark: #a80000;
@@ -32,7 +22,6 @@ html {
   --shadow-glow: 0 0 30px rgba(255, 45, 45, 0.3);
   --shadow-glow-hover: 0 0 50px rgba(255, 45, 45, 0.6);
 
-  /* Страница «Товары»: только горизонтальные отступы контейнеров */
   --product-page-padding-x: 3rem;
 }
 

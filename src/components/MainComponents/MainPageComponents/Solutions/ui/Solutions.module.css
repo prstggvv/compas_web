@@ -12,7 +12,7 @@
 
 .section {
   padding: clamp(72px, 9vw, 112px) 0;
-  background-color: #f7f6f3;
+  background-color: var(--color-brand-white);
   box-sizing: border-box;
   overflow-x: clip;
 }
@@ -70,8 +70,8 @@
   max-width: 720px;
   width: 100%;
   color: #555e6c;
-  font-family: var(--font-gt-pro-regular);
-  font-size: clamp(0.95rem, 2.6vw, 1.08rem);
+  font-family: var(--font-gt-pro-light);
+  font-size: 18px;
   line-height: 1.6;
 }
 
@@ -197,12 +197,12 @@
 
 .rowTitle {
   margin: 0;
-  color: #1d1f24;
+  color: #111827;
   font-family: var(--font-gt-pro-regular);
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.28;
-  transition: color 0.25s ease;
+  line-height: 1.24;
+  transition: color 0.3s ease;
 }
 
 .row:hover .rowTitle {
@@ -211,10 +211,11 @@
 
 .rowText {
   margin: 0;
-  color: #5d6674;
-  font-family: var(--font-gt-pro-regular);
-  font-size: clamp(0.92rem, 1.6vw, 1rem);
-  line-height: 1.55;
+  color: #6b7280;
+  font-family: var(--font-gt-pro-light);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 .moment {
@@ -323,6 +324,12 @@
   order: 1;
 }
 
+@media screen and (max-width: 1024px) {
+  .leadText {
+    font-size: 17px;
+  }
+}
+
 @media (max-width: 767px) {
   .row {
     grid-template-columns: 1fr;
@@ -342,5 +349,11 @@
 
   .textCol {
     padding-left: 12px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .leadText {
+    font-size: 16px;
   }
 }
