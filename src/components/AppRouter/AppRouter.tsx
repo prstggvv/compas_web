@@ -1,13 +1,39 @@
-import { Suspense } from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Suspense, useEffect, useMemo, useState } from 'react';
+import { Routes, Route, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Main } from '../../pages/Main';
 import { Services } from '../../pages/Services';
 import { Preloader } from '../../shared/ui/Preloader/Preloader';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { Header } from '../Header';
 import { ProductPage } from '../../pages/ProductPage';
+import CardPage from '../../pages/CardProductPage/ui/CardPage';
+import { cardProductsById } from '../../pages/CardProductPage/model/cardProducts';
 
 const PageLoader = () => <Preloader isActive />;
+
+const CardProductRoute = () => {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const product = useMemo(() => (id ? cardProductsById[id] : undefined), [id]);
+  const [activeImageId, setActiveImageId] = useState(product?.gallery[0]?.id ?? '');
+
+  useEffect(() => {
+    setActiveImageId(product?.gallery[0]?.id ?? '');
+  }, [product]);
+
+  if (!product) {
+    return <NotFoundPage />;
+  }
+
+  return (
+    <CardPage
+      product={product}
+      activeImageId={activeImageId}
+      onBack={() => navigate('/product')}
+      onImageChange={setActiveImageId}
+    />
+  );
+};
 
 
 const AppRouter = () => {
@@ -35,6 +61,14 @@ const AppRouter = () => {
           element={
             <Suspense fallback={<PageLoader />}>
               <ProductPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="product/:id"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <CardProductRoute />
             </Suspense>
           }
         />

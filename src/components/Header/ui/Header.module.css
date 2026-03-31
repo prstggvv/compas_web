@@ -31,8 +31,7 @@
   justify-content: space-between;
   align-items: center;
   min-height: clamp(64px, 10vw, 80px);
-  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px)
-    max(24px, env(safe-area-inset-left));
+  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-left));
 }
 
 .logo {
@@ -92,9 +91,8 @@
 }
 
 .navLink {
-  font-family: var(--font-inter);
+  font-family: var(--font-gt-pro-regular);
   font-size: 0.875rem;
-  font-weight: 500;
   color: #d1d5db;
   text-decoration: none;
   text-transform: uppercase;
@@ -116,7 +114,7 @@
 .navCta {
   font-family: var(--font-inter);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-family: var(--font-gt-pro-regular);
   padding: 10px 22px;
   border-radius: 9999px;
   background: var(--color-brand-white);
@@ -157,12 +155,11 @@
   align-items: center;
   justify-content: flex-end;
   min-height: clamp(64px, 10vw, 80px);
-  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px)
-    max(24px, env(safe-area-inset-left));
+  padding: clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-right)) clamp(12px, 1.5vw, 16px) max(24px, env(safe-area-inset-left));
   pointer-events: none;
 }
 
-.burgerLayer > * {
+.burgerLayer>* {
   pointer-events: auto;
 }
 

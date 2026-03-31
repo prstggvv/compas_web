@@ -1,8 +1,8 @@
-import { Hero } from "../../../components/MainComponents/Hero";
-import { StatsStrip } from "../../../components/MainComponents/StatsStrip";
+import { Hero } from "../../../components/MainComponents/MainPageComponents/Hero";
+import { StatsStrip } from "../../../components/MainComponents/MainPageComponents/StatsStrip";
 import { ServicesProducts } from "../../../components/MainComponents/ServicesProducts";
-import { About } from "../../../components/MainComponents/About";
-import { Solutions } from "../../../components/MainComponents/Solutions";
+import { About } from "../../../components/MainComponents/MainPageComponents/About";
+import { Solutions } from "../../../components/MainComponents/MainPageComponents/Solutions";
 import { classNames } from "../../../shared/lib/classNames/classNames";
 import cls from './Main.module.css';
 

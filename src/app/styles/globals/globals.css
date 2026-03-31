@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syncopate:wght@700&display=swap');
+@import url('../fonts.css');
 
 html {
   scroll-behavior: smooth;
 }
 
 :root {
-  --font-sf-pro-light: 'Sf-pro-light', sans-serif, serif;
-  --font-roboto-regular: 'Roboto-regular', sans-serif, serif;
-  --font-cera-pro-medium: 'CeraPro-medium', sans-serif, serif;
+  --font-gt-pro-light: 'GT Eesti Pro Display-light', sans-serif, serif;
+  --font-gt-pro-regular: 'GT Eesti Pro Display-regular', sans-serif, serif;
+  --font-gt-pro-bold: 'GT Eesti Pro Display-bold', sans-serif, serif;
   --font-inter: 'Inter', system-ui, sans-serif;
   --font-display: 'Syncopate', system-ui, sans-serif;
 
@@ -31,6 +31,15 @@ html {
   --gradient-glow: radial-gradient(circle, rgba(255, 45, 45, 0.4) 0%, rgba(26, 26, 26, 0) 70%);
   --shadow-glow: 0 0 30px rgba(255, 45, 45, 0.3);
   --shadow-glow-hover: 0 0 50px rgba(255, 45, 45, 0.6);
+
+  /* Страница «Товары»: только горизонтальные отступы контейнеров */
+  --product-page-padding-x: 3rem;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --product-page-padding-x: 1.5rem;
+  }
 }
 
 .heroPerspective {
