@@ -2,8 +2,7 @@ import cls from './Services.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
 import { ServicesIntro } from '../../../components/MainComponents/ServicesPageComponents/ServicesIntro';
-import { ServicesPageIntro } from '../../../components/MainComponents/ServicesPageComponents/ServicesPageIntro';
-import { ServicesProcess } from '../../../components/MainComponents/ServicesPageComponents/ServicesProcess';
+import { ServicesPageHero } from '../../../components/MainComponents/ServicesPageComponents/ServicesPageHero';
 
 interface ServicesProps {
   className?: string;
@@ -12,9 +11,8 @@ interface ServicesProps {
 const Services = ({ className }: ServicesProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
-      <ServicesPageIntro />
+      <ServicesPageHero />
       <ServicesIntro />
-      <ServicesProcess />
       <ProductCta
         sectionId="services-page-cta"
         title="Нужна комплексная услуга под объект?"

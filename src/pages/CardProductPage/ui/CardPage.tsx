@@ -1,4 +1,4 @@
-import { CardPageIntro } from '../../../components/MainComponents/CardProductPageComponents/CardPageIntro';
+import { CardProductPageHero } from '../../../components/MainComponents/CardProductPageComponents/CardPageHero';
 import { CardProductDescription } from '../../../components/MainComponents/CardProductPageComponents/CardProductDescription';
 import { CardProductShowcase } from '../../../components/MainComponents/CardProductPageComponents/CardProductShowcase';
 import type { CardProductContent } from '../model/cardProducts';
@@ -16,7 +16,7 @@ interface ICardPageProps {
 const CardPage = ({ className, product, activeImageId, onBack, onImageChange }: ICardPageProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
-      <CardPageIntro currentLabel={product.title} onBack={onBack} />
+      <CardProductPageHero currentLabel={product.title} onBack={onBack} />
       <CardProductShowcase product={product} activeImageId={activeImageId} onImageChange={onImageChange} />
       <CardProductDescription paragraphs={product.description} />
     </main>

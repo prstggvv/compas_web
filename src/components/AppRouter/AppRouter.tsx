@@ -8,6 +8,8 @@ import { Header } from '../Header';
 import { ProductPage } from '../../pages/ProductPage';
 import CardPage from '../../pages/CardProductPage/ui/CardPage';
 import { cardProductsById } from '../../pages/CardProductPage/model/cardProducts';
+import ServiceDetailPage from '../../pages/ServiceDetailPage/ui/ServiceDetailPage';
+import { servicesContentById } from '../../shared/lib/constants';
 
 const PageLoader = () => <Preloader isActive />;
 
@@ -35,6 +37,18 @@ const CardProductRoute = () => {
   );
 };
 
+const ServiceDetailRoute = () => {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const service = useMemo(() => (id ? servicesContentById[id as keyof typeof servicesContentById] : undefined), [id]);
+
+  if (!service) {
+    return <NotFoundPage />;
+  }
+
+  return <ServiceDetailPage service={service} onBack={() => navigate('/services')} />;
+};
+
 
 const AppRouter = () => {
   return (
@@ -53,6 +67,14 @@ const AppRouter = () => {
           element={
             <Suspense fallback={<PageLoader />}>
               <Services />
+            </Suspense>
+          }
+        />
+        <Route
+          path="services/:id"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ServiceDetailRoute />
             </Suspense>
           }
         />

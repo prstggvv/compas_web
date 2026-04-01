@@ -3,35 +3,39 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import cls from './ServicesProcess.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
+import type { ServiceProcessStep } from '../../../../../shared/lib/constants';
 
 interface ServicesProcessProps {
   className?: string;
+  title?: string;
+  leadText?: string;
+  steps?: ServiceProcessStep[];
 }
 
-const steps = [
+const defaultSteps: ServiceProcessStep[] = [
   {
     title: 'Заявка',
     text: 'Первичная консультация и сбор требований.',
-    icon: 'request' as const,
+    icon: 'request',
   },
   {
     title: 'Проект',
     text: 'Инженерные изыскания и разработка схем.',
-    icon: 'project' as const,
+    icon: 'project',
   },
   {
     title: 'Производство',
     text: 'Изготовление конструкций и подготовка к монтажу.',
-    icon: 'production' as const,
+    icon: 'production',
   },
   {
     title: 'Монтаж',
     text: 'Установка на объекте и сдача работ.',
-    icon: 'install' as const,
+    icon: 'install',
   },
 ] as const;
 
-type StepIconType = (typeof steps)[number]['icon'];
+type StepIconType = ServiceProcessStep['icon'];
 
 const StepIcon = ({ type }: { type: StepIconType }) => {
   if (type === 'request') {
@@ -68,7 +72,12 @@ const StepIcon = ({ type }: { type: StepIconType }) => {
   );
 };
 
-export const ServicesProcess = ({ className }: ServicesProcessProps) => {
+export const ServicesProcess = ({
+  className,
+  title = 'Как мы работаем',
+  leadText = 'Прозрачный процесс реализации вашего проекта',
+  steps = defaultSteps,
+}: ServicesProcessProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.35 });
 
@@ -82,9 +91,9 @@ export const ServicesProcess = ({ className }: ServicesProcessProps) => {
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
           <h2 id="services-process-title" className={classNames(cls.title, {}, [])}>
-            Как мы работаем
+            {title}
           </h2>
-          <p className={classNames(cls.leadText, {}, [])}>Прозрачный процесс реализации вашего проекта</p>
+          <p className={classNames(cls.leadText, {}, [])}>{leadText}</p>
         </div>
 
         <div className={classNames(cls.flow, {}, [])}>

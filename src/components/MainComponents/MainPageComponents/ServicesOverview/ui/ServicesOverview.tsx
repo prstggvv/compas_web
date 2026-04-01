@@ -1,36 +1,20 @@
-import { ArrowRight, DraftingCompass, Factory, Hammer } from 'lucide-react';
+import { ArrowRight, DraftingCompass, Factory, Hammer, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './ServicesOverview.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
+import { servicesContent } from '../../../../../shared/lib/constants';
 import { SectionUnderlineLink } from '../../../../../shared/ui/SectionUnderlineLink';
 
 interface ServicesOverviewProps {
   className?: string;
 }
 
-const services = [
-  {
-    id: 'construction',
-    title: 'Строительно-монтажные работы',
-    description: 'Профессиональная установка дорожных знаков, барьерных ограждений и нанесение разметки.',
-    to: '/services/construction',
-    Icon: Hammer,
-  },
-  {
-    id: 'design',
-    title: 'Проектирование и аудит',
-    description: 'Разработка комплексных схем организации дорожного движения (ПОДД) и аудит текущей инфраструктуры объектов.',
-    to: '/services/design',
-    Icon: DraftingCompass,
-  },
-  {
-    id: 'metal',
-    title: 'Металлообработка',
-    description: 'Резка, сварка, гибка и изготовление конструкций под требования конкретного объекта.',
-    to: '/services/metal',
-    Icon: Factory,
-  },
-] as const;
+const serviceIcons = {
+  installation: Hammer,
+  design: DraftingCompass,
+  metal: Factory,
+  tooling: Settings2,
+} as const;
 
 export const ServicesOverview = ({ className }: ServicesOverviewProps) => {
   return (
@@ -59,11 +43,11 @@ export const ServicesOverview = ({ className }: ServicesOverviewProps) => {
         </div>
 
         <div className={classNames(cls.grid, {}, [])}>
-          {services.map((service) => {
-            const Icon = service.Icon;
+          {servicesContent.slice(0, 3).map((service) => {
+            const Icon = serviceIcons[service.iconKey];
 
             return (
-              <Link key={service.id} to={service.to} className={classNames(cls.card, {}, [])}>
+              <Link key={service.id} to={service.href} className={classNames(cls.card, {}, [])}>
                 <article className={classNames(cls.cardInner, {}, [])}>
                   <div className={classNames(cls.iconWrap, {}, [])}>
                     <Icon className={classNames(cls.icon, {}, [])} strokeWidth={1.6} aria-hidden />

@@ -2,45 +2,13 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './ServicesIntro.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
+import { servicesContent, type ServiceIconKey } from '../../../../../shared/lib/constants';
 
 interface ServicesIntroProps {
   className?: string;
 }
 
-type ServiceVariant = 'installation' | 'design' | 'metal' | 'tooling';
-
-const serviceItems = [
-  {
-    id: 'construction',
-    href: '/services/construction',
-    title: 'Строительно-монтажные работы',
-    text: 'Профессиональная установка дорожных знаков, барьерных ограждений и нанесение разметки.',
-    variant: 'installation' as const,
-  },
-  {
-    id: 'design',
-    href: '/services/design',
-    title: 'Проектирование и аудит',
-    text: 'Разработка комплексных схем организации дорожного движения и аудит безопасности транспортных узлов.',
-    variant: 'design' as const,
-  },
-  {
-    id: 'metal',
-    href: '/services/metal',
-    title: 'Металлообработка',
-    text: 'Резка, сварка, гибка и изготовление конструкций под требования конкретного объекта.',
-    variant: 'metal' as const,
-  },
-  {
-    id: 'tooling',
-    href: '/services/tooling',
-    title: 'Оснастка и пресс-формы',
-    text: 'Производство технологической оснастки и пресс-форм под серийные изделия и индивидуальные задачи.',
-    variant: 'tooling' as const,
-  },
-] as const;
-
-const ServiceIcon = ({ variant }: { variant: ServiceVariant }) => {
+const ServiceIcon = ({ variant }: { variant: ServiceIconKey }) => {
   if (variant === 'installation') {
     return (
       <svg className={cls.serviceIcon} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -91,16 +59,16 @@ export const ServicesIntro = ({ className }: ServicesIntroProps) => {
         </h2>
 
         <div className={classNames(cls.servicesList, {}, [])}>
-          {serviceItems.map((item) => (
+          {servicesContent.map((item) => (
             <Link key={item.id} to={item.href} className={classNames(cls.serviceRow, {}, [])}>
               <span className={classNames(cls.serviceLine, {}, [])} aria-hidden />
               <div className={classNames(cls.serviceIconWrap, {}, [])}>
-                <ServiceIcon variant={item.variant} />
+                <ServiceIcon variant={item.iconKey} />
               </div>
 
               <div className={classNames(cls.serviceContent, {}, [])}>
                 <h2 className={classNames(cls.serviceTitle, {}, [])}>{item.title}</h2>
-                <p className={classNames(cls.serviceText, {}, [])}>{item.text}</p>
+                <p className={classNames(cls.serviceText, {}, [])}>{item.description}</p>
               </div>
 
               <span className={classNames(cls.serviceArrow, {}, [])} aria-hidden>

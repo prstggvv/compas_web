@@ -1,6 +1,6 @@
 import cls from './ProductPage.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
-import { ProductPageIntro } from '../../../components/MainComponents/ProductPageIntro';
+import { ProductPageHero } from '../../../components/MainComponents/ProductPageHero';
 import { ProductCatalog } from '../../../components/MainComponents/ProductCatalog';
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
 
@@ -11,7 +11,7 @@ interface IProductPageProps {
 const ProductPage = ({ className }: IProductPageProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
-      <ProductPageIntro />
+      <ProductPageHero />
       <ProductCatalog />
       <ProductCta
         sectionId="product-page-cta"
