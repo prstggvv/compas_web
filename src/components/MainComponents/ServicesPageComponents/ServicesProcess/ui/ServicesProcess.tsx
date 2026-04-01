@@ -93,7 +93,6 @@ export const ServicesProcess = ({
           <h2 id="services-process-title" className={classNames(cls.title, {}, [])}>
             {title}
           </h2>
-          <p className={classNames(cls.leadText, {}, [])}>{leadText}</p>
         </div>
 
         <div className={classNames(cls.flow, {}, [])}>

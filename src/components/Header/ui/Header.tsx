@@ -1,40 +1,26 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cls from './Header.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
 import BurgerButton from '../../../shared/ui/BurgerButton/BurgerButton';
 import { scrollToSection } from '../../../shared/lib/scrollToSection/scrollToSection';
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: -8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 0.61, 0.36, 1] as const },
-  },
-};
-
 interface NavItem {
   id: string;
   label: string;
-  href?: string;
+  description: string;
+  type: 'route' | 'section';
+  to?: string;
+  sectionId?: string;
 }
 
 const navItems: NavItem[] = [
-  { id: 'about', label: 'О компании' },
-  { id: 'services', label: 'Услуги', href: '/services' },
-  { id: 'process', label: 'Процесс' },
-  { id: 'projects', label: 'Проекты' },
+  { id: 'home', label: 'Главная', description: 'Главная страница компании', type: 'route', to: '/' },
+  { id: 'services', label: 'Услуги', description: 'Проектирование, монтаж и производство', type: 'route', to: '/services' },
+  { id: 'products', label: 'Товары', description: 'Категории продукции и поставки', type: 'route', to: '/product' },
+  { id: 'solutions', label: 'Решения', description: 'Реализованные объекты и кейсы', type: 'section', sectionId: 'solutions' },
+  { id: 'contact', label: 'Контакты', description: 'Телефон, почта и обратная связь', type: 'section', sectionId: 'contact' },
 ];
 
 interface IHeaderData {
@@ -64,144 +50,205 @@ const CompassGlyph = () => (
 
 export const Header = ({ className }: IHeaderData) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleBurgerClick = useCallback(() => {
     setMenuOpen((prev) => !prev);
   }, []);
 
-  const handleNavLinkClick = useCallback((sectionId: string) => {
-    scrollToSection(sectionId);
+  const handleHomeClick = useCallback(() => {
+    if (location.pathname === '/') {
+      window.history.replaceState(null, '', '/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
     setMenuOpen(false);
-  }, []);
+  }, [location.pathname, navigate]);
 
-  const handleAnchorClick =
-    (sectionId: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
-      handleNavLinkClick(sectionId);
-    };
+  const handleSectionNavigation = useCallback(
+    (sectionId: string) => {
+      if (location.pathname === '/') {
+        window.history.replaceState(null, '', `/#${sectionId}`);
+        scrollToSection(sectionId);
+      } else {
+        navigate(`/#${sectionId}`);
+      }
+      setMenuOpen(false);
+    },
+    [location.pathname, navigate],
+  );
+
+  const handleMenuItemClick = useCallback(
+    (item: NavItem) => {
+      if (item.type === 'route') {
+        if (item.to === '/') {
+          handleHomeClick();
+        } else if (item.to) {
+          navigate(item.to);
+          setMenuOpen(false);
+        }
+        return;
+      }
+
+      if (item.sectionId) {
+        handleSectionNavigation(item.sectionId);
+      }
+    },
+    [handleHomeClick, handleSectionNavigation, navigate],
+  );
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setMenuOpen((prev) => !prev);
+    if (e.key === 'Escape') {
+      setMenuOpen(false);
     }
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    if (location.pathname === '/' && location.hash) {
+      const sectionId = location.hash.replace('#', '');
+      const timer = window.setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 60);
+
+      return () => window.clearTimeout(timer);
+    }
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    };
+
     document.body.style.overflow = menuOpen ? 'hidden' : '';
+    window.addEventListener('keydown', handleEscape);
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleEscape);
     };
   }, [menuOpen]);
 
-  const handleOverlayPointerDown = useCallback(() => {
+  useEffect(() => {
     setMenuOpen(false);
-  }, []);
-
-  const handleMobileNavPointerDown = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-  }, []);
+  }, [location.pathname, location.hash]);
 
   return (
     <>
-      <header
-        ref={headerRef}
-        className={classNames(cls.header, { [cls.scrolled]: scrolled }, [className ?? ''])}
-      >
-        <motion.div
-          className={classNames(cls.container, {}, [])}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.a
-            href="#hero"
-            onClick={handleAnchorClick('hero')}
-            className={classNames(cls.logo, {}, [])}
-            aria-label="Компас — на главную"
-            variants={itemVariants}
-          >
-            <span className={cls.logoMark}>
+      <header className={classNames(cls.header, {}, [className ?? ''])}>
+        <div className={classNames(cls.container, {}, [])}>
+          <Link to="/" className={classNames(cls.logo, {}, [])} aria-label="Компас — на главную">
+            <span className={classNames(cls.logoMark, {}, [])}>
               <CompassGlyph />
             </span>
-            <span className={classNames(cls.logoText, {}, [])}>КОМПАС</span>
-          </motion.a>
+            <span className={classNames(cls.logoCopy, {}, [])}>
+              <span className={classNames(cls.logoText, {}, [])}>Компас</span>
+              <span className={classNames(cls.logoCaption, {}, [])}>дорожная инфраструктура</span>
+            </span>
+          </Link>
 
-          <nav className={cls.desktopNav} aria-label="Основная навигация">
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href ?? `#${item.id}`}
-                className={cls.navLink}
-                onClick={item.href ? undefined : handleAnchorClick(item.id)}
-              >
-                {item.label}
+          <div className={classNames(cls.actions, {}, [])}>
+            <div className={classNames(cls.contacts, {}, [])}>
+              <a href="tel:88005553535" className={classNames(cls.contactLink, {}, [])}>
+                8 (800) 555-35-35
               </a>
-            ))}
-            <a
-              href="#contact"
-              className={cls.navCta}
-              onClick={handleAnchorClick('contact')}
-            >
-              Оставить заявку
-            </a>
-          </nav>
+              <a href="mailto:info@compass-dor.ru" className={classNames(cls.contactLink, {}, [])}>
+                info@compass-dor.ru
+              </a>
+            </div>
 
-          <div className={cls.burgerPlaceholder} aria-hidden />
-        </motion.div>
+            <BurgerButton
+              className={classNames(cls.burgerButton, {}, [])}
+              menuOpen={menuOpen}
+              handleBurgerClick={handleBurgerClick}
+              handleKeyDown={handleKeyDown}
+              controlsId="header-menu"
+              variant="light"
+            />
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {menuOpen ? (
+            <motion.div
+              id="header-menu"
+              className={classNames(cls.menuPanel, {}, [])}
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+            >
+              <div className={classNames(cls.menuContainer, {}, [])}>
+                <div className={classNames(cls.menuLayout, {}, [])}>
+                  <nav className={classNames(cls.menuNav, {}, [])} aria-label="Основное меню">
+                    {navItems.map((item, index) => (
+                      <motion.button
+                        key={item.id}
+                        type="button"
+                        className={classNames(cls.menuItem, {}, [])}
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.24, delay: index * 0.04 }}
+                        onClick={() => handleMenuItemClick(item)}
+                      >
+                        <span className={classNames(cls.menuItemTitle, {}, [])}>{item.label}</span>
+                        <span className={classNames(cls.menuItemDescription, {}, [])}>{item.description}</span>
+                      </motion.button>
+                    ))}
+                  </nav>
+
+                  <motion.div
+                    className={classNames(cls.menuAside, {}, [])}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 12 }}
+                    transition={{ duration: 0.28, delay: 0.08 }}
+                  >
+                    <p className={classNames(cls.menuEyebrow, {}, [])}>Навигация и связь</p>
+                    <p className={classNames(cls.menuText, {}, [])}>
+                      Комплексные решения для дорожной инфраструктуры, организации движения и городской среды.
+                    </p>
+
+                    <div className={classNames(cls.menuContacts, {}, [])}>
+                      <a href="tel:88005553535" className={classNames(cls.menuContactLink, {}, [])}>
+                        8 (800) 555-35-35
+                      </a>
+                      <a href="mailto:info@compass-dor.ru" className={classNames(cls.menuContactLink, {}, [])}>
+                        info@compass-dor.ru
+                      </a>
+                      <span className={classNames(cls.menuContactText, {}, [])}>г. Москва, ул. Дорожная, д. 12</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      className={classNames(cls.menuCta, {}, [])}
+                      onClick={() => handleSectionNavigation('contact')}
+                    >
+                      Оставить заявку
+                    </button>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </header>
 
-      <div className={cls.burgerLayer}>
-        <BurgerButton
-          className={classNames(cls.button, {}, [])}
-          menuOpen={menuOpen}
-          handleBurgerClick={handleBurgerClick}
-          handleKeyDown={handleKeyDown}
-        />
-      </div>
-
-      <div
-        className={classNames(cls.mobileOverlay, { [cls.mobileOverlayOpen]: menuOpen })}
-        aria-hidden={!menuOpen}
-        aria-modal={menuOpen ? true : undefined}
-        role={menuOpen ? 'dialog' : undefined}
-        onPointerDown={handleOverlayPointerDown}
-      >
-        <nav
-          className={cls.mobileNav}
-          aria-label="Мобильное меню"
-          onPointerDown={handleMobileNavPointerDown}
-        >
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={item.href ?? `#${item.id}`}
-              className={cls.mobileLink}
-              onClick={item.href ? undefined : handleAnchorClick(item.id)}
-            >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            className={cls.mobileCta}
-            onClick={handleAnchorClick('contact')}
-          >
-            Оставить заявку
-          </a>
-        </nav>
-      </div>
+      <AnimatePresence>
+        {menuOpen ? (
+          <motion.div
+            className={classNames(cls.overlay, {}, [])}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        ) : null}
+      </AnimatePresence>
     </>
   );
 };
