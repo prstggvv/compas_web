@@ -13,31 +13,7 @@
 }
 
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
-}
-
-.kicker {
-  margin: 0;
-  color: var(--color-brand-red);
-  font-family: var(--font-gt-pro-regular);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.title {
-  margin: 0;
-  max-width: 720px;
-  color: #1d1f24;
-  font-family: var(--font-gt-pro-regular);
-  font-size: 52px;
-  font-weight: 700;
-  line-height: 1.16;
+  width: 100%;
 }
 
 .introLayout {
@@ -235,10 +211,6 @@
     padding: 88px 0;
   }
 
-  .title {
-    font-size: 42px;
-  }
-
   .introLayout {
     grid-template-columns: 1fr;
   }
@@ -259,10 +231,6 @@
 
   .container {
     gap: 32px;
-  }
-
-  .title {
-    font-size: 32px;
   }
 
   .primaryLead {
@@ -288,11 +256,6 @@
 }
 
 @media screen and (max-width: 640px) {
-  .head {
-    align-items: flex-start;
-    text-align: start;
-  }
-
   .copyColumn {
     gap: 32px;
   }

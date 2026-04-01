@@ -14,21 +14,22 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 72px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 48px;
   align-items: start;
 }
 
 .galleryColumn {
+  grid-column: span 7;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 24px;
 }
 
 .mainMedia {
   position: relative;
   margin: 0;
-  aspect-ratio: 1 / 1;
+  height: 600px;
   overflow: hidden;
   background-color: #f4f5f6;
 }
@@ -42,14 +43,14 @@
 
 .articleBadge {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
-  padding: 8px 12px;
+  left: 32px;
+  bottom: 32px;
+  padding: 14px 18px;
   background-color: #ffffff;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
@@ -57,26 +58,22 @@
 
 .thumbGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .thumbButton {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1.4 / 1;
   padding: 0;
-  border: 1px solid transparent;
   background-color: #f4f5f6;
   cursor: pointer;
-  opacity: 0.58;
   overflow: hidden;
-  transition: opacity 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: transform 0.25s ease, filter 0.25s ease;
 }
 
-.thumbButton:hover,
-.thumbButtonActive {
-  opacity: 1;
-  border-color: rgba(255, 45, 45, 0.28);
+.thumbButton:hover {
   transform: translateY(-1px);
+  filter: grayscale(0);
 }
 
 .thumbImage {
@@ -84,17 +81,31 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: grayscale(1);
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.thumbButton:hover .thumbImage {
+  filter: grayscale(0);
+  transform: scale(1.02);
 }
 
 .content {
+  grid-column: span 5;
+  position: sticky;
+  top: 128px;
+}
+
+.panel {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 100%;
+  padding: 48px;
+  background-color: #f8f6f2;
 }
 
 .category {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   color: #8b93a0;
   font-family: var(--font-gt-pro-regular);
   font-size: 12px;
@@ -105,16 +116,24 @@
 }
 
 .title {
+  margin: 0 0 28px;
+  color: #1d1f24;
+  font-family: var(--font-gt-pro-regular);
+  font-size: clamp(34px, 3vw, 48px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.specHeading {
   margin: 0 0 20px;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: clamp(36px, 4vw, 56px);
-  font-weight: 700;
-  line-height: 1.04;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.15;
 }
 
 .lead {
-  max-width: 640px;
   margin: 0 0 36px;
   color: #666f7b;
   font-family: var(--font-gt-pro-regular);
@@ -124,24 +143,24 @@
 }
 
 .specs {
-  margin: 0 0 36px;
-  padding-top: 8px;
-  border-top: 1px solid #ece7df;
+  margin: 0 0 28px;
 }
 
 .specRow {
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 18px 0;
-  border-bottom: 1px solid #f1ece5;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.specRow + .specRow {
+  margin-top: 28px;
 }
 
 .specLabel {
   color: #959daa;
   font-family: var(--font-gt-pro-regular);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.14em;
   line-height: 1.4;
   text-transform: uppercase;
@@ -151,25 +170,22 @@
   margin: 0;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 1.45;
-  text-align: right;
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  margin-top: 36px;
 }
 
-.primaryButton,
-.secondaryButton {
+.primaryButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 60px;
+  width: 100%;
+  min-height: 64px;
   padding: 0 28px;
   border: 0;
   font-family: var(--font-gt-pro-regular);
@@ -187,14 +203,8 @@
   color: #ffffff;
 }
 
-.primaryButton:hover,
-.secondaryButton:hover {
+.primaryButton:hover {
   transform: translateY(-2px);
-}
-
-.secondaryButton {
-  background-color: #f4f5f6;
-  color: #1d1f24;
 }
 
 .buttonIcon {
@@ -207,14 +217,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 28px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .statusItem {
   padding: 10px 14px;
-  background-color: #f8f6f2;
+  background-color: #ffffff;
   color: #6a727e;
   font-family: var(--font-gt-pro-regular);
   font-size: 11px;
@@ -229,11 +239,24 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  .galleryColumn,
+  .content {
+    grid-column: auto;
+  }
+
+  .content {
+    position: static;
+  }
 }
 
 @media (max-width: 720px) {
   .section {
     padding-bottom: 64px;
+  }
+
+  .mainMedia {
+    height: 420px;
   }
 
   .thumbGrid {
@@ -243,29 +266,19 @@
   .articleBadge {
     left: 16px;
     bottom: 16px;
+    padding: 10px 12px;
+  }
+
+  .panel {
+    padding: 28px 20px;
+  }
+
+  .specHeading {
+    font-size: 24px;
   }
 
   .lead {
     margin-bottom: 28px;
     font-size: 16px;
-  }
-
-  .specRow {
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 0;
-  }
-
-  .specValue {
-    text-align: left;
-  }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
   }
 }

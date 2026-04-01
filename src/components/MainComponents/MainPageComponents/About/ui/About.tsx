@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import cls from './About.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import objectImg from '../../../../../shared/assets/images/photos/object.jpg';
+import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 
 interface IAboutProps {
   className?: string;
@@ -51,9 +52,12 @@ export const About = ({ className }: IAboutProps) => {
     <section id="about" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="about-title">
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <h2 id="solutions-title" className={classNames(cls.title, {}, [])}>
-            О нас
-          </h2>
+          <MainPageTitle
+            id="about-title"
+            title="О компании"
+            sectionLabel="Раздел 01"
+            sectionDescription="Строительство, ОДД и благоустройство"
+          />
         </div>
         <div className={classNames(cls.introLayout, {}, [])}>
           <div className={classNames(cls.copyColumn, {}, [])}>

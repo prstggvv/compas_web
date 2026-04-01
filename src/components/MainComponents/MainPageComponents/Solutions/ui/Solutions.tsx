@@ -4,6 +4,7 @@ import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
 import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
 import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
+import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 
 interface ISolutionsProps {
   className?: string;
@@ -57,9 +58,12 @@ export const Solutions = ({ className }: ISolutionsProps) => {
     >
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <h2 id="solutions-title" className={classNames(cls.title, {}, [])}>
-            Наши решения
-          </h2>
+          <MainPageTitle
+            id="solutions-title"
+            title="Наши решения"
+            sectionLabel="Раздел 03"
+            sectionDescription="Реализованные объекты и логика движения"
+          />
         </div>
 
         <div className={classNames(cls.intro, {}, [])}>

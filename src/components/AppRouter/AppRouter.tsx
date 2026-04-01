@@ -8,16 +8,16 @@ import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { ProductPage } from '../../pages/ProductPage';
 import CardPage from '../../pages/CardProductPage/ui/CardPage';
-import { cardProductsById } from '../../pages/CardProductPage/model/cardProducts';
 import ServiceDetailPage from '../../pages/ServiceDetailPage/ui/ServiceDetailPage';
 import { servicesContentById } from '../../shared/lib/constants';
+import { productCategoryContentById, type ProductCategoryId } from '../../components/MainComponents/ProductPageComponents/ProductCatalog/ui/products';
 
 const PageLoader = () => <Preloader isActive />;
 
 const CardProductRoute = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const product = useMemo(() => (id ? cardProductsById[id] : undefined), [id]);
+  const product = useMemo(() => (id ? productCategoryContentById[id as ProductCategoryId] : undefined), [id]);
   const [activeImageId, setActiveImageId] = useState(product?.gallery[0]?.id ?? '');
 
   useEffect(() => {

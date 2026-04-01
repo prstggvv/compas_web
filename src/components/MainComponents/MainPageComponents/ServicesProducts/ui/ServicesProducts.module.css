@@ -19,39 +19,14 @@
 }
 
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  text-align: center;
-}
-
-.kicker {
-  margin: 0;
-  color: var(--color-brand-red);
-  font-family: var(--font-gt-pro-regular);
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.title {
-  margin: 0;
-  max-width: 860px;
   width: 100%;
-  color: var(--color-brand-dark);
-  font-family: var(--font-gt-pro-regular);
-  font-size: clamp(1.5rem, 5.5vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.16;
 }
 
 .intro {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: start;
   gap: 18px;
 }
 
@@ -59,15 +34,15 @@
   margin: 0;
   max-width: 720px;
   width: 100%;
-  color: #555e6c;
-  font-family: var(--font-gt-pro-light);
+  color: #7a7a7a;
+  font-family: var(--font-gt-pro-regular);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .afterIntro {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .grid {
@@ -81,10 +56,6 @@
 }
 
 @media (min-width: 640px) {
-  .afterIntro {
-    justify-content: flex-end;
-  }
-
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -103,11 +74,6 @@
 }
 
 @media screen and (max-width: 640px) {
-  .head {
-    align-items: flex-start;
-    text-align: start;
-  }
-
   .leadText {
     align-self: flex-start;
     text-align: start;

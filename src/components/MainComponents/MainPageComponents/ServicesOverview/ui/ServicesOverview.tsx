@@ -4,6 +4,7 @@ import cls from './ServicesOverview.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import { servicesContent } from '../../../../../shared/lib/constants';
 import { SectionUnderlineLink } from '../../../../../shared/ui/SectionUnderlineLink';
+import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 
 interface ServicesOverviewProps {
   className?: string;
@@ -25,9 +26,12 @@ export const ServicesOverview = ({ className }: ServicesOverviewProps) => {
     >
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <h2 id="services-overview-title" className={classNames(cls.title, {}, [])}>
-            Наши услуги
-          </h2>
+          <MainPageTitle
+            id="services-overview-title"
+            title="Наши услуги"
+            sectionLabel="Раздел 02"
+            sectionDescription="Проектирование, производство и монтаж"
+          />
         </div>
 
         <div className={classNames(cls.intro, {}, [])}>
