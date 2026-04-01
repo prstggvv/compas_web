@@ -1,4 +1,4 @@
-import { PageHero } from '../../../../shared/ui/PageHero';
+import { PageHero } from "../../../../../shared/ui/PageHero";
 
 interface ProductPageHeroProps {
   className?: string;

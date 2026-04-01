@@ -1,10 +1,11 @@
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { Routes, Route, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Main } from '../../pages/Main';
-import { Services } from '../../pages/Services';
+import { Services } from '../../pages/ServicesPage';
 import { Preloader } from '../../shared/ui/Preloader/Preloader';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { Header } from '../Header';
+import { Footer } from '../Footer';
 import { ProductPage } from '../../pages/ProductPage';
 import CardPage from '../../pages/CardProductPage/ui/CardPage';
 import { cardProductsById } from '../../pages/CardProductPage/model/cardProducts';
@@ -53,7 +54,7 @@ const ServiceDetailRoute = () => {
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<><Header /><Outlet /></>}>
+      <Route path="/" element={<><Header /><Outlet /><Footer /></>}>
         <Route
           index
           element={

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ChevronDown, RotateCcw } from 'lucide-react';
 import cls from './ProductFilters.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
-import type { ProductFilterGroup } from '../../model/products';
+import type { ProductFilterGroup } from '../../../ProductCatalog/model/products';
 
 interface ProductFiltersProps {
   groups: ProductFilterGroup[];

@@ -6,9 +6,9 @@ import {
   productFilterGroups,
   productItems,
   type ProductCategoryId,
-} from '../../model/products';
-import { ProductFilters } from '../ProductFilters/ProductFilters';
-import { ProductGrid } from '../ProductGrid/ProductGrid';
+} from '../../../ProductCatalog/model/products';
+import { ProductFilters } from '../../ProductFilters/ui/ProductFilters';
+import { ProductGrid } from '../../ProductGrid/ui/ProductGrid';
 
 interface ProductCatalogProps {
   className?: string;

@@ -1,1 +1,1 @@
-export { ServicesPageHero } from './ui/ServicesPageIntro';
+export { ServicesPageHero } from './ui/ServicesPageHero';

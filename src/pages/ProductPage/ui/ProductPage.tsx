@@ -1,7 +1,7 @@
 import cls from './ProductPage.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
-import { ProductPageHero } from '../../../components/MainComponents/ProductPageHero';
-import { ProductCatalog } from '../../../components/MainComponents/ProductCatalog';
+import { ProductPageHero } from '../../../components/MainComponents/ProductPageComponents/ProductPageHero';
+import { ProductCatalog } from '../../../components/MainComponents/ProductPageComponents/ProductCatalog';
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
 
 interface IProductPageProps {

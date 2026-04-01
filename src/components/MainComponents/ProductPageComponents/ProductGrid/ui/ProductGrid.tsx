@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import cls from './ProductGrid.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
-import type { ProductCategory, ProductCategoryId, ProductItem } from '../../model/products';
-import { ProductCard } from '../ProductCard/ProductCard';
+import type { ProductCategory, ProductCategoryId, ProductItem } from '../../../ProductCatalog/model/products';
+import { ProductCard } from '../../ProductCard';
 
 interface ProductGridProps {
   categories: ProductCategory[];

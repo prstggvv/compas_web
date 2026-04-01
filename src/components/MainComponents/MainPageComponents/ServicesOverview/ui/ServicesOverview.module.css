@@ -130,16 +130,16 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   width: max-content;
   margin-top: auto;
   color: #111827;
-  font-family: var(--font-gt-pro-bold);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
   text-transform: uppercase;
+  opacity: 0.8;
   transition: color 0.3s ease;
 }
 
@@ -155,7 +155,7 @@
 }
 
 .card:hover .cardLinkIcon {
-  transform: translateX(12px);
+  transform: translateX(4px);
 }
 
 @media (min-width: 768px) {

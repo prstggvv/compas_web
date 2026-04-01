@@ -1,4 +1,4 @@
-import cls from './Services.module.css';
+import cls from './ServicesPage.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
 import { ServicesIntro } from '../../../components/MainComponents/ServicesPageComponents/ServicesIntro';

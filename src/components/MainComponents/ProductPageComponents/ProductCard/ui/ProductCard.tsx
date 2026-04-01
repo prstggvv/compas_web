@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './ProductCard.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
-import type { ProductItem } from '../../model/products';
+import type { ProductItem } from '../../../ProductCatalog/model/products';
 
 interface ProductCardProps {
   item: ProductItem;
