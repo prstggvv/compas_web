@@ -35,8 +35,7 @@
 .leadText {
   margin: 0;
   color: var(--color-brand-red-light);
-  font-family: var(--font-gt-pro-regular);
-  font-size: 14px;
+  font-family: var(--font-gt-pro-light);
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;

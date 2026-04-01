@@ -55,8 +55,6 @@
   color: #9aa1ab;
   font-family: var(--font-gt-pro-regular);
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
   line-height: 1.8;
   text-transform: uppercase;
 }
@@ -64,10 +62,8 @@
 .columnTitle {
   margin: 0 0 32px;
   color: #9aa1ab;
-  font-family: var(--font-gt-pro-bold);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 16px;
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -85,21 +81,21 @@
 .navLink,
 .contactLink,
 .contactText {
+  margin: 0;
   color: var(--color-brand-dark);
   font-family: var(--font-gt-pro-regular);
   font-size: 16px;
   line-height: 1.45;
 }
 
+.navLink {
+  text-transform: uppercase;
+}
+
 .navLink,
 .contactLink {
   text-decoration: none;
   transition: color 0.2s ease;
-}
-
-.navLink {
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .navLink:hover,

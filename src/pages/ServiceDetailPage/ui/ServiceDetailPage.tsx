@@ -1,6 +1,7 @@
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
+import { ServiceDetailAdvantages } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailAdvantages';
 import { ServiceDetailPageHero } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailHero';
-import { ServiceDetailProjects } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailProjects';
+// import { ServiceDetailProjects } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailProjects';
 import { ServiceDetailScope } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailScope';
 import { ServicesProcess } from '../../../components/MainComponents/ServicesPageComponents/ServicesProcess';
 import cls from './ServiceDetailPage.module.css';
@@ -32,7 +33,7 @@ const ServiceDetailPage = ({ className, service, onBack }: ServiceDetailPageProp
         leadText={service.processLead}
         steps={service.processSteps}
       />
-      <ServiceDetailProjects items={service.projects} />
+      <ServiceDetailAdvantages />
       <ProductCta
         title="Получите расчет проекта"
         text="Оставьте заявку на бесплатную консультацию и предварительную оценку стоимости объекта. Мы свяжемся с вами и предложим оптимальное решение под ваш проект."

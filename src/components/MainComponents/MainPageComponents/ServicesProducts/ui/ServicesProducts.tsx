@@ -25,16 +25,15 @@ export const ServicesProducts = ({ className }: IServicesProductsProps) => {
     <section id="catalog" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="catalog-title">
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>Товары</span>
           <h2 id="catalog-title" className={classNames(cls.title, {}, [])}>
-            Товары и продукция
+            Наша продукция
           </h2>
         </div>
 
         <div className={classNames(cls.intro, {}, [])}>
           <p className={classNames(cls.leadText, {}, [])}>
-            Производим и монтируем знаки, разметку, искусственные неровности и изделия из пластика. Выберите
-            направление или перейдите в полный каталог.
+            Компания КОМПАС имеет собственное производство, которое предлагает
+            самые конкурентные условия. Мы производим различную продукцию для дорог по ГОСТ.
           </p>
         </div>
 

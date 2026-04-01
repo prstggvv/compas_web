@@ -25,9 +25,8 @@ export const ServicesOverview = ({ className }: ServicesOverviewProps) => {
     >
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>Услуги</span>
           <h2 id="services-overview-title" className={classNames(cls.title, {}, [])}>
-            Что мы делаем
+            Наши услуги
           </h2>
         </div>
 

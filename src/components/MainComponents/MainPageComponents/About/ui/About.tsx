@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import cls from './About.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
+import objectImg from '../../../../../shared/assets/images/photos/object.jpg';
 
 interface IAboutProps {
   className?: string;
@@ -8,20 +9,40 @@ interface IAboutProps {
 
 const keyFeatures = [
   {
-    title: 'Единый цикл работ',
-    text: 'Производство, комплектация и монтаж в одной команде без потери сроков.',
+    title: 'Устройство дорог, проездов, парковок',
+    text: 'Строим и приводим в порядок дорожные покрытия под жилые, коммерческие и инфраструктурные объекты.',
   },
   {
-    title: 'Контроль по ГОСТ',
-    text: 'Материалы и схемы установки проверяются по нормам до выхода на объект.',
+    title: 'Монтаж барьерных и пешеходных ограждений',
+    text: 'Устанавливаем системы безопасности и направляющие элементы под требования участка и трафика.',
   },
   {
-    title: 'Прозрачный план',
-    text: 'Фиксируем этапы, сроки и статусы, чтобы проект был предсказуемым.',
+    title: 'Установка дорожных знаков, ТОДД, светофоров',
+    text: 'Подготавливаем и монтируем оборудование организации движения с учетом норм и схем.',
   },
   {
-    title: 'Сопровождение сдачи',
-    text: 'Передаем документы и закрываем вопросы до финальной приемки объекта.',
+    title: 'Устройство тротуаров, велодорожек, съездов',
+    text: 'Формируем безопасные пешеходные и транспортные связи вокруг объекта и внутри территории.',
+  },
+  {
+    title: 'Благоустройство въездных групп и уличного освещения',
+    text: 'Комплексно оформляем входные зоны и повышаем удобство эксплуатации пространства.',
+  },
+  {
+    title: 'Производство и монтаж остановок, МАФ',
+    text: 'Изготавливаем и устанавливаем остановочные павильоны и малые архитектурные формы.',
+  },
+  {
+    title: 'Спортивные площадки',
+    text: 'Обустраиваем функциональные площадки с покрытием, ограждениями и сопутствующей инфраструктурой.',
+  },
+  {
+    title: 'Шумозащитные экраны при необходимости',
+    text: 'Подбираем и монтируем решения для снижения шумовой нагрузки на прилегающие территории.',
+  },
+  {
+    title: 'Проектирование ОДД',
+    text: 'Разрабатываем схемы и документацию для организации дорожного движения под конкретную задачу.',
   },
 ] as const;
 
@@ -30,36 +51,59 @@ export const About = ({ className }: IAboutProps) => {
     <section id="about" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="about-title">
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>О НАС</span>
-          <h2 id="about-title" className={classNames(cls.title, {}, [])}>
-            Мы закрываем задачи дорожной безопасности под ключ
+          <h2 id="solutions-title" className={classNames(cls.title, {}, [])}>
+            О нас
           </h2>
         </div>
+        <div className={classNames(cls.introLayout, {}, [])}>
+          <div className={classNames(cls.copyColumn, {}, [])}>
+            <div className={classNames(cls.copyStack, {}, [])}>
+              <p className={classNames(cls.primaryLead, {}, [])}>
+                «Компас» — это системный подход к созданию городской и транспортной инфраструктуры. Мы превращаем
+                строительные площадки в готовую жизненную среду.
+              </p>
+              <p className={classNames(cls.secondaryLead, {}, [])}>
+                Как комплексный подрядчик, мы берем на себя полную ответственность за жизненный цикл проекта: от
+                проектирования схем движения до финального благоустройства и установки малых архитектурных форм.
+              </p>
+            </div>
 
-        <div className={classNames(cls.intro, {}, [])}>
-          <p className={classNames(cls.leadText, {}, [])}>
-            Компас - команда производства и монтажа дорожных знаков, искусственных неровностей и элементов
-            инфраструктуры. Мы берем объект от первичной консультации до итоговой установки, чтобы вы получили
-            прогнозируемый результат по срокам, качеству и документам.
-          </p>
-          <div className={classNames(cls.featuresPanel, {}, [])}>
-            <span className={classNames(cls.featuresLabel, {}, [])}>
-              <span className={classNames(cls.featuresDot, {}, [])} aria-hidden />
-              КАК РЕШАЕМ ПРОБЛЕМЫ
-            </span>
-            <ul className={classNames(cls.featuresGrid, {}, [])}>
-              {keyFeatures.map((feature) => (
-                <li key={feature.title} className={classNames(cls.featureItem, {}, [])}>
-                  <h3 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h3>
-                  <p className={classNames(cls.featureText, {}, [])}>{feature.text}</p>
-                </li>
-              ))}
-            </ul>
+            <a href="#contact" className={classNames(cls.ctaButton, {}, [])}>
+              Записаться
+              <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
+            </a>
           </div>
-          <a href="#contact" className={classNames(cls.ctaButton, {}, [])}>
-            Записаться
-            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
-          </a>
+
+          <div className={classNames(cls.visualPanel, {}, [])} aria-hidden>
+            <img
+              src={objectImg}
+              alt=""
+              className={classNames(cls.visualImage, {}, [])}
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div className={classNames(cls.featuresSection, {}, [])}>
+          <div className={classNames(cls.featuresHeading, {}, [])}>
+            <span className={classNames(cls.featuresIndex, {}, [])}>*</span>
+            <h3 className={classNames(cls.featuresHeadingTitle, {}, [])}>Что мы предлагаем</h3>
+          </div>
+
+          <ul className={classNames(cls.featuresGrid, {}, [])}>
+            {keyFeatures.map((feature, index) => (
+              <li key={feature.title} className={classNames(cls.featureCard, {}, [])}>
+                <div className={classNames(cls.featureHead, {}, [])}>
+                  <h4 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h4>
+                  <span className={classNames(cls.featureNumber, {}, [])}>
+                    ({String(index + 1).padStart(2, '0')})
+                  </span>
+                </div>
+                <p className={classNames(cls.featureText, {}, [])}>{feature.text}</p>
+                <span className={classNames(cls.featureLine, {}, [])} aria-hidden />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

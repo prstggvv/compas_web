@@ -57,9 +57,8 @@ export const Solutions = ({ className }: ISolutionsProps) => {
     >
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.head, {}, [])}>
-          <span className={classNames(cls.kicker, {}, [])}>РЕШЕНИЯ</span>
           <h2 id="solutions-title" className={classNames(cls.title, {}, [])}>
-            Как мы закрываем задачи на объектах
+            Наши решения
           </h2>
         </div>
 

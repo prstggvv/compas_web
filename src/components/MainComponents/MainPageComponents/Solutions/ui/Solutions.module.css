@@ -133,7 +133,6 @@
   gap: clamp(20px, 4vw, 40px);
   align-items: center;
   padding: clamp(28px, 4vw, 48px) 0;
-  border-bottom: 1px solid #e3e0da;
   position: relative;
 }
 
@@ -167,13 +166,8 @@
   align-items: flex-start;
   gap: 12px;
   text-align: left;
-  padding-left: 14px;
   border-left: 3px solid transparent;
   transition: border-color 0.35s ease;
-}
-
-.row:hover .textCol {
-  border-left-color: rgba(227, 6, 19, 0.55);
 }
 
 .category {
@@ -213,7 +207,7 @@
   margin: 0;
   color: #6b7280;
   font-family: var(--font-gt-pro-light);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.7;
 }
@@ -346,14 +340,21 @@
   .rowImageLeft .imageCol {
     order: 1;
   }
-
-  .textCol {
-    padding-left: 12px;
-  }
 }
 
 @media screen and (max-width: 640px) {
+  .head {
+    align-items: flex-start;
+    text-align: start;
+  }
+
   .leadText {
+    align-self: flex-start;
+    text-align: start;
     font-size: 16px;
+  }
+
+  .afterIntro {
+    justify-content: flex-start;
   }
 }

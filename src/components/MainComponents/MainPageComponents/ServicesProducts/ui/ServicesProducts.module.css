@@ -103,7 +103,18 @@
 }
 
 @media screen and (max-width: 640px) {
+  .head {
+    align-items: flex-start;
+    text-align: start;
+  }
+
   .leadText {
+    align-self: flex-start;
+    text-align: start;
     font-size: 16px;
+  }
+
+  .afterIntro {
+    justify-content: flex-start;
   }
 }

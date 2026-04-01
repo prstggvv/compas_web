@@ -3,6 +3,7 @@ import { classNames } from '../../../shared/lib/classNames/classNames';
 import { ProductCta } from '../../../components/MainComponents/ProductCta';
 import { ServicesIntro } from '../../../components/MainComponents/ServicesPageComponents/ServicesIntro';
 import { ServicesPageHero } from '../../../components/MainComponents/ServicesPageComponents/ServicesPageHero';
+import { ServiceDetailAdvantages } from '../../../components/MainComponents/ServiceDetailPageComponents/ServiceDetailAdvantages';
 
 interface ServicesProps {
   className?: string;
@@ -13,6 +14,7 @@ const Services = ({ className }: ServicesProps) => {
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <ServicesPageHero />
       <ServicesIntro />
+      <ServiceDetailAdvantages />
       <ProductCta
         sectionId="services-page-cta"
         title="Нужна комплексная услуга под объект?"
