@@ -7,9 +7,10 @@ import { ServiceDetailAdvantages } from '../../../components/MainComponents/Serv
 
 interface ServicesProps {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
-const Services = ({ className }: ServicesProps) => {
+const Services = ({ className, onOpenContactPopup }: ServicesProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <ServicesPageHero />
@@ -20,6 +21,7 @@ const Services = ({ className }: ServicesProps) => {
         title="Нужна комплексная услуга под объект?"
         text="Подберем состав работ, этапность, смету и сроки под ваш проект: от обследования и схем до производства и монтажа."
         buttonLabel="Обсудить проект"
+        onOpenContactPopup={onOpenContactPopup}
       />
     </main>
   );

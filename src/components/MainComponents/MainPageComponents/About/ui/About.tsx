@@ -8,6 +8,7 @@ import { createStaggerContainer, MOTION_EASE, VIEWPORT_ONCE } from '../../../../
 
 interface IAboutProps {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
 const keyFeatures = [
@@ -94,7 +95,7 @@ const aboutImageReveal = {
   },
 } as const;
 
-export const About = ({ className }: IAboutProps) => {
+export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
   return (
     <motion.section
       id="about"
@@ -127,10 +128,15 @@ export const About = ({ className }: IAboutProps) => {
               </motion.p>
             </motion.div>
 
-            <motion.a href="#contact" className={classNames(cls.ctaButton, {}, [])} variants={aboutRevealSoft}>
+            <motion.button
+              type="button"
+              className={classNames(cls.ctaButton, {}, [])}
+              variants={aboutRevealSoft}
+              onClick={onOpenContactPopup}
+            >
               Записаться
               <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
-            </motion.a>
+            </motion.button>
           </motion.div>
 
           <motion.div className={classNames(cls.visualPanel, {}, [])} aria-hidden variants={aboutImageReveal}>

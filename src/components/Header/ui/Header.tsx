@@ -25,6 +25,7 @@ const navItems: NavItem[] = [
 
 interface IHeaderData {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
 const CompassGlyph = () => (
@@ -48,7 +49,7 @@ const CompassGlyph = () => (
   </svg>
 );
 
-export const Header = ({ className }: IHeaderData) => {
+export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -226,7 +227,11 @@ export const Header = ({ className }: IHeaderData) => {
                       type="button"
                       className={classNames(cls.menuCta, {}, [])}
                       onClick={() => {
-                        navigate('/contact');
+                        if (onOpenContactPopup) {
+                          onOpenContactPopup();
+                        } else {
+                          navigate('/contact');
+                        }
                         setMenuOpen(false);
                       }}
                     >

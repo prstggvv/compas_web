@@ -8,6 +8,7 @@ interface CardProductShowcaseProps {
   product: ProductCategoryContent;
   activeImageId: string;
   onImageChange: (imageId: string) => void;
+  onOpenContactPopup?: () => void;
 }
 
 export const CardProductShowcase = ({
@@ -15,6 +16,7 @@ export const CardProductShowcase = ({
   product,
   activeImageId,
   onImageChange,
+  onOpenContactPopup,
 }: CardProductShowcaseProps) => {
   const activeImage =
     product.gallery.find((image) => image.id === activeImageId) ?? product.gallery[0];
@@ -77,8 +79,8 @@ export const CardProductShowcase = ({
               </ul>
 
               <div className={classNames(cls.actions, {}, [])}>
-                <button type="button" className={classNames(cls.primaryButton, {}, [])}>
-                  <span>Запросить КП</span>
+                <button type="button" className={classNames(cls.primaryButton, {}, [])} onClick={onOpenContactPopup}>
+                  <span>Оставить заявку</span>
                   <ArrowRight className={classNames(cls.buttonIcon, {}, [])} strokeWidth={1.8} aria-hidden />
                 </button>
               </div>

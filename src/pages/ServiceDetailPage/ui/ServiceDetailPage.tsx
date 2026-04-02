@@ -12,9 +12,10 @@ interface ServiceDetailPageProps {
   className?: string;
   service: ServiceContent;
   onBack: () => void;
+  onOpenContactPopup?: () => void;
 }
 
-const ServiceDetailPage = ({ className, service, onBack }: ServiceDetailPageProps) => {
+const ServiceDetailPage = ({ className, service, onBack, onOpenContactPopup }: ServiceDetailPageProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <ServiceDetailPageHero
@@ -39,6 +40,7 @@ const ServiceDetailPage = ({ className, service, onBack }: ServiceDetailPageProp
         text="Оставьте заявку на бесплатную консультацию и предварительную оценку стоимости объекта. Мы свяжемся с вами и предложим оптимальное решение под ваш проект."
         buttonLabel="Оставить заявку"
         sectionId={`service-cta-${service.id}`}
+        onOpenContactPopup={onOpenContactPopup}
       />
     </main>
   );

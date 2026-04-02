@@ -8,6 +8,7 @@ interface ProductCtaProps {
   text?: string;
   buttonLabel?: string;
   sectionId?: string;
+  onOpenContactPopup?: () => void;
 }
 
 export const ProductCta = ({
@@ -16,6 +17,7 @@ export const ProductCta = ({
   text = 'Мы осуществляем поставки нестандартного оборудования и производим продукцию по индивидуальным чертежам заказчика.',
   buttonLabel = 'Оставить заявку',
   sectionId = 'page-cta',
+  onOpenContactPopup,
 }: ProductCtaProps) => {
   const titleId = `${sectionId}-title`;
 
@@ -33,6 +35,7 @@ export const ProductCta = ({
             className={classNames(cls.button, {}, [])}
             whileHover={{ y: -2 }}
             transition={{ duration: 0.18, ease: 'easeOut' }}
+            onClick={onOpenContactPopup}
           >
             <span>{buttonLabel}</span>
           </motion.button>

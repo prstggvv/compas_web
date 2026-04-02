@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useState, type FormEvent } from 'react';
 import { Routes, Route, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Main } from '../../pages/Main';
 import { Services } from '../../pages/ServicesPage';
@@ -12,8 +12,20 @@ import { ServiceDetailPageAsync as ServiceDetailPage } from '../../pages/Service
 import { servicesContentById } from '../../shared/lib/constants';
 import { productCategoryContentById, type ProductCategoryId } from '../../components/MainComponents/ProductPageComponents/ProductCatalog/ui/products';
 import { ContactPage } from '../../pages/ContactPage';
+import { ContactPopup } from '../../shared/ui/ContactPopup';
+import { useForm } from '../../shared/lib/hooks/useForm';
+import type { ContactFormState } from '../../types';
 
 const PageLoader = () => <Preloader isActive />;
+
+const initialContactPopupValues: ContactFormState = {
+  name: '',
+  phone: '+7',
+  email: '',
+  company: '',
+  message: '',
+  agreement: true,
+};
 
 const ScrollManager = () => {
   const { pathname } = useLocation();
@@ -25,7 +37,7 @@ const ScrollManager = () => {
   return null;
 };
 
-const CardProductRoute = () => {
+const CardProductRoute = ({ onOpenContactPopup }: { onOpenContactPopup?: () => void }) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const product = useMemo(() => (id ? productCategoryContentById[id as ProductCategoryId] : undefined), [id]);
@@ -45,11 +57,12 @@ const CardProductRoute = () => {
       activeImageId={activeImageId}
       onBack={() => navigate('/product')}
       onImageChange={setActiveImageId}
+      onOpenContactPopup={onOpenContactPopup}
     />
   );
 };
 
-const ServiceDetailRoute = () => {
+const ServiceDetailRoute = ({ onOpenContactPopup }: { onOpenContactPopup?: () => void }) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const service = useMemo(() => (id ? servicesContentById[id as keyof typeof servicesContentById] : undefined), [id]);
@@ -58,19 +71,116 @@ const ServiceDetailRoute = () => {
     return <NotFoundPage />;
   }
 
-  return <ServiceDetailPage service={service} onBack={() => navigate('/services')} />;
+  return (
+    <ServiceDetailPage
+      service={service}
+      onBack={() => navigate('/services')}
+      onOpenContactPopup={onOpenContactPopup}
+    />
+  );
 };
 
 
 const AppRouter = () => {
+  const location = useLocation();
+  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
+  const [isContactPopupSubmitted, setIsContactPopupSubmitted] = useState(false);
+  const [contactPopupValues, setContactPopupValues] = useState<ContactFormState>(initialContactPopupValues);
+
+  const { handleChange, handlePhoneChange } = useForm(contactPopupValues, setContactPopupValues);
+
+  const canSubmitContactPopup = useMemo(
+    () => contactPopupValues.name.trim().length > 1 && contactPopupValues.phone.replace(/\D/g, '').length >= 11,
+    [contactPopupValues.name, contactPopupValues.phone]
+  );
+
+  const openContactPopup = useCallback(() => {
+    setIsContactPopupSubmitted(false);
+    setIsContactPopupOpen(true);
+  }, []);
+
+  const closeContactPopup = useCallback(() => {
+    setIsContactPopupOpen(false);
+    setIsContactPopupSubmitted(false);
+    setContactPopupValues(initialContactPopupValues);
+  }, []);
+
+  const handleContactPopupSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!canSubmitContactPopup) {
+      return;
+    }
+
+    setIsContactPopupSubmitted(true);
+  }, [canSubmitContactPopup]);
+
+  useEffect(() => {
+    if (!isContactPopupOpen) {
+      return undefined;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeContactPopup();
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [closeContactPopup, isContactPopupOpen]);
+
+  useEffect(() => {
+    if (!isContactPopupSubmitted) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      closeContactPopup();
+    }, 1800);
+
+    return () => window.clearTimeout(timer);
+  }, [closeContactPopup, isContactPopupSubmitted]);
+
+  useEffect(() => {
+    if (isContactPopupOpen || isContactPopupSubmitted) {
+      closeContactPopup();
+    }
+  }, [closeContactPopup, location.hash, location.pathname]);
+
   return (
     <Routes>
-      <Route path="/" element={<><ScrollManager /><Header /><Outlet /><Footer /></>}>
+      <Route
+        path="/"
+        element={(
+          <>
+            <ScrollManager />
+            <Header onOpenContactPopup={openContactPopup} />
+            <Outlet />
+            <Footer />
+            <ContactPopup
+              isOpen={isContactPopupOpen}
+              values={contactPopupValues}
+              canSubmit={canSubmitContactPopup}
+              isSubmitted={isContactPopupSubmitted}
+              onClose={closeContactPopup}
+              onSubmit={handleContactPopupSubmit}
+              onNameChange={(value) => handleChange('name', value)}
+              onPhoneChange={handlePhoneChange}
+            />
+          </>
+        )}
+      >
         <Route
           index
           element={
             <Suspense fallback={<PageLoader />}>
-              <Main />
+              <Main onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
         />
@@ -78,7 +188,7 @@ const AppRouter = () => {
           path="services"
           element={
             <Suspense fallback={<PageLoader />}>
-              <Services />
+              <Services onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
         />
@@ -86,7 +196,7 @@ const AppRouter = () => {
           path="services/:id"
           element={
             <Suspense fallback={<PageLoader />}>
-              <ServiceDetailRoute />
+              <ServiceDetailRoute onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
         />
@@ -94,7 +204,7 @@ const AppRouter = () => {
           path="product"
           element={
             <Suspense fallback={<PageLoader />}>
-              <ProductPage />
+              <ProductPage onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
         />
@@ -102,7 +212,7 @@ const AppRouter = () => {
           path="product/:id"
           element={
             <Suspense fallback={<PageLoader />}>
-              <CardProductRoute />
+              <CardProductRoute onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
         />

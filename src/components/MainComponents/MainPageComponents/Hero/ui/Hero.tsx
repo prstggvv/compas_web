@@ -4,6 +4,7 @@ import { scrollToSection } from '../../../../../shared/lib/scrollToSection/scrol
 
 interface IHeroProps {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
 const handleSectionLinkClick =
@@ -36,7 +37,7 @@ const ArrowRightIcon = () => (
   </svg>
 );
 
-export const Hero = ({ className }: IHeroProps) => {
+export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
   return (
     <section
       id="hero"
@@ -69,15 +70,15 @@ export const Hero = ({ className }: IHeroProps) => {
           <div className={classNames(cls.buttonsLower, {}, [])}>
             <ul className={classNames(cls.actions, {}, [])}>
               <li className={classNames(cls.actionItem, {}, [])}>
-                <a
-                  href="#contact"
+                <button
+                  type="button"
                   className={classNames(cls.btnPrimary, {}, [])}
-                  onClick={handleSectionLinkClick('contact')}
-                  aria-label="Оставить заявку — перейти к форме связи"
+                  onClick={onOpenContactPopup}
+                  aria-label="Оставить заявку"
                 >
                   Оставить заявку
                   <ArrowRightIcon />
-                </a>
+                </button>
               </li>
               <li className={classNames(cls.actionItem, {}, [])}>
                 <a

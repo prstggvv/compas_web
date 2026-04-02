@@ -9,14 +9,15 @@ import cls from './Main.module.css';
 
 interface MainProps {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
-const Main = ({ className }: MainProps) => {
+const Main = ({ className, onOpenContactPopup }: MainProps) => {
   return (
     <div className={classNames(cls.main, {}, [className ?? ''])}>
-      <Hero />
+      <Hero onOpenContactPopup={onOpenContactPopup} />
       <StatsStrip />
-      <About />
+      <About onOpenContactPopup={onOpenContactPopup} />
       <ServicesProducts />
       <ServicesOverview />
       <Solutions />

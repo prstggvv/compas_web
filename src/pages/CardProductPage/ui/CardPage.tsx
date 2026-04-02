@@ -12,13 +12,26 @@ interface ICardPageProps {
   activeImageId: string;
   onBack: () => void;
   onImageChange: (imageId: string) => void;
+  onOpenContactPopup?: () => void;
 }
 
-const CardPage = ({ className, product, activeImageId, onBack, onImageChange }: ICardPageProps) => {
+const CardPage = ({
+  className,
+  product,
+  activeImageId,
+  onBack,
+  onImageChange,
+  onOpenContactPopup,
+}: ICardPageProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <CardProductPageHero currentLabel={product.title} onBack={onBack} />
-      <CardProductShowcase product={product} activeImageId={activeImageId} onImageChange={onImageChange} />
+      <CardProductShowcase
+        product={product}
+        activeImageId={activeImageId}
+        onImageChange={onImageChange}
+        onOpenContactPopup={onOpenContactPopup}
+      />
       <CardProductDescription
         title={product.assortmentTitle}
         items={product.assortmentItems}
@@ -29,6 +42,7 @@ const CardPage = ({ className, product, activeImageId, onBack, onImageChange }: 
         title="Нужна продукция под конкретный проект?"
         text="Поможем осуществляем поставки нестандартного оборудования и производим продукцию по индивидуальным чертежам заказчика."
         buttonLabel="Получить детальный расчет"
+        onOpenContactPopup={onOpenContactPopup}
       />
     </main>
   );

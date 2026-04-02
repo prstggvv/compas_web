@@ -6,9 +6,10 @@ import { ProductCta } from '../../../components/MainComponents/ProductCta';
 
 interface IProductPageProps {
   className?: string;
+  onOpenContactPopup?: () => void;
 }
 
-const ProductPage = ({ className }: IProductPageProps) => {
+const ProductPage = ({ className, onOpenContactPopup }: IProductPageProps) => {
   return (
     <main className={classNames(cls.page, {}, [className ?? ''])}>
       <ProductPageHero />
@@ -18,6 +19,7 @@ const ProductPage = ({ className }: IProductPageProps) => {
         title="Не нашли нужный товар?"
         text="Мы осуществляем поставки нестандартного оборудования и производим продукцию по индивидуальным чертежам заказчика."
         buttonLabel="Получить подбор под проект"
+        onOpenContactPopup={onOpenContactPopup}
       />
     </main>
   )
