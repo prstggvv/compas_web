@@ -128,28 +128,29 @@
 }
 
 .button {
+  margin: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 260px;
-  min-height: 68px;
-  padding: 0 36px;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 32px;
   border: 0;
+  text-decoration: none;
   background-color: #ff2d2d;
   color: #ffffff;
-  font-family: var(--font-gt-pro-bold);
+  font-family: var(--font-gt-pro-regular);
   font-size: 14px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .button:hover {
-  background-color: #e21d1d;
-  transform: translateY(-1px);
+  background-color: #111111;
+  color: #ffffff;
 }
 
 .buttonDisabled,

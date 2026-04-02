@@ -89,7 +89,7 @@
 
   .mediaWrap,
   .image {
-    max-height: none;
+    max-height: 440px;
     min-height: 340px;
   }
 }
