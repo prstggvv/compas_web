@@ -1,8 +1,10 @@
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import cls from './About.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import objectImg from '../../../../../shared/assets/images/photos/object.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
+import { createStaggerContainer, MOTION_EASE, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
 interface IAboutProps {
   className?: string;
@@ -47,56 +49,109 @@ const keyFeatures = [
   },
 ] as const;
 
+const aboutViewport = {
+  ...VIEWPORT_ONCE,
+  amount: 0.18,
+} as const;
+
+const aboutSectionStagger = createStaggerContainer(0.1, 0.04);
+const aboutListStagger = createStaggerContainer(0.08, 0.06);
+
+const aboutReveal = {
+  hidden: { opacity: 0, y: 26 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.78,
+      ease: MOTION_EASE,
+    },
+  },
+} as const;
+
+const aboutRevealSoft = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.72,
+      ease: MOTION_EASE,
+    },
+  },
+} as const;
+
+const aboutImageReveal = {
+  hidden: { opacity: 0, scale: 0.975, y: 14 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.85,
+      ease: MOTION_EASE,
+    },
+  },
+} as const;
+
 export const About = ({ className }: IAboutProps) => {
   return (
-    <section id="about" className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="about-title">
+    <motion.section
+      id="about"
+      className={classNames(cls.section, {}, [className ?? ''])}
+      aria-labelledby="about-title"
+      initial="hidden"
+      whileInView="visible"
+      viewport={aboutViewport}
+      variants={aboutSectionStagger}
+    >
       <div className={classNames(cls.container, {}, [])}>
-        <div className={classNames(cls.head, {}, [])}>
+        <motion.div className={classNames(cls.head, {}, [])} variants={aboutRevealSoft}>
           <MainPageTitle
             id="about-title"
             title="О компании"
             sectionLabel="Раздел 01"
             sectionDescription="Строительство, ОДД и благоустройство"
           />
-        </div>
+        </motion.div>
         <div className={classNames(cls.introLayout, {}, [])}>
-          <div className={classNames(cls.copyColumn, {}, [])}>
-            <div className={classNames(cls.copyStack, {}, [])}>
-              <p className={classNames(cls.primaryLead, {}, [])}>
+          <motion.div className={classNames(cls.copyColumn, {}, [])} variants={aboutReveal}>
+            <motion.div className={classNames(cls.copyStack, {}, [])} variants={aboutListStagger}>
+              <motion.p className={classNames(cls.primaryLead, {}, [])} variants={aboutRevealSoft}>
                 «Компас» — это системный подход к созданию городской и транспортной инфраструктуры. Мы превращаем
                 строительные площадки в готовую жизненную среду.
-              </p>
-              <p className={classNames(cls.secondaryLead, {}, [])}>
+              </motion.p>
+              <motion.p className={classNames(cls.secondaryLead, {}, [])} variants={aboutRevealSoft}>
                 Как комплексный подрядчик, мы берем на себя полную ответственность за жизненный цикл проекта: от
                 проектирования схем движения до финального благоустройства и установки малых архитектурных форм.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            <a href="#contact" className={classNames(cls.ctaButton, {}, [])}>
+            <motion.a href="#contact" className={classNames(cls.ctaButton, {}, [])} variants={aboutRevealSoft}>
               Записаться
               <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
-          <div className={classNames(cls.visualPanel, {}, [])} aria-hidden>
+          <motion.div className={classNames(cls.visualPanel, {}, [])} aria-hidden variants={aboutImageReveal}>
             <img
               src={objectImg}
               alt=""
               className={classNames(cls.visualImage, {}, [])}
               loading="lazy"
             />
-          </div>
+          </motion.div>
         </div>
 
-        <div className={classNames(cls.featuresSection, {}, [])}>
+        <motion.div className={classNames(cls.featuresSection, {}, [])} variants={aboutReveal}>
           <div className={classNames(cls.featuresHeading, {}, [])}>
             <span className={classNames(cls.featuresIndex, {}, [])}>*</span>
             <h3 className={classNames(cls.featuresHeadingTitle, {}, [])}>Что мы предлагаем</h3>
           </div>
 
-          <ul className={classNames(cls.featuresGrid, {}, [])}>
+          <motion.ul className={classNames(cls.featuresGrid, {}, [])} variants={aboutListStagger}>
             {keyFeatures.map((feature, index) => (
-              <li key={feature.title} className={classNames(cls.featureCard, {}, [])}>
+              <motion.li key={feature.title} className={classNames(cls.featureCard, {}, [])} variants={aboutRevealSoft}>
                 <div className={classNames(cls.featureHead, {}, [])}>
                   <h4 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h4>
                   <span className={classNames(cls.featureNumber, {}, [])}>
@@ -105,11 +160,11 @@ export const About = ({ className }: IAboutProps) => {
                 </div>
                 <p className={classNames(cls.featureText, {}, [])}>{feature.text}</p>
                 <span className={classNames(cls.featureLine, {}, [])} aria-hidden />
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from 'framer-motion';
 import cls from "./StatsStrip.module.css";
 import { classNames } from "../../../../../shared/lib/classNames/classNames";
+import { createStaggerContainer, itemReveal, VIEWPORT_DEEP } from '../../../../../shared/lib/motion';
 
 interface IStatsStripProps {
   className?: string;
@@ -24,31 +26,11 @@ const DURATION_MS = 1600;
 
 export const StatsStrip = ({ className }: IStatsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [started, setStarted] = useState(false);
+  const isInView = useInView(sectionRef, VIEWPORT_DEEP);
   const [values, setValues] = useState<number[]>(() => stats.map(() => 0));
 
   useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.35 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!started) {
+    if (!isInView) {
       return;
     }
 
@@ -68,23 +50,34 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [started]);
+  }, [isInView]);
 
   return (
-    <section ref={sectionRef} className={classNames(cls.section, {}, [className ?? ""])} aria-label="Ключевые показатели">
+    <motion.section
+      ref={sectionRef}
+      className={classNames(cls.section, {}, [className ?? ""])}
+      aria-label="Ключевые показатели"
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT_DEEP}
+      variants={itemReveal}
+    >
       <div className={classNames(cls.container, {}, [])}>
-        <ul className={classNames(cls.statsGrid, {}, [])}>
+        <motion.ul
+          className={classNames(cls.statsGrid, {}, [])}
+          variants={createStaggerContainer(0.12)}
+        >
           {stats.map((item, index) => (
-            <li key={item.id} className={classNames(cls.statItem, {}, [])}>
+            <motion.li key={item.id} className={classNames(cls.statItem, {}, [])} variants={itemReveal}>
               <div className={classNames(cls.value, {}, [])}>
                 {values[index]}
                 {item.suffix}
               </div>
               <p className={classNames(cls.label, {}, [])}>{item.label}</p>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
-    </section>
+    </motion.section>
   );
 };

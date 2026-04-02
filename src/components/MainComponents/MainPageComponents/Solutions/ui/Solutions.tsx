@@ -1,10 +1,12 @@
 import { ArrowRight, Building2, CarFront, Compass, Warehouse } from 'lucide-react';
+import { motion } from 'framer-motion';
 import cls from './Solutions.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
 import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
 import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
+import { fadeUp, fadeUpSoft, scaleFadeIn, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
 interface ISolutionsProps {
   className?: string;
@@ -57,16 +59,28 @@ export const Solutions = ({ className }: ISolutionsProps) => {
       aria-labelledby="solutions-title"
     >
       <div className={classNames(cls.container, {}, [])}>
-        <div className={classNames(cls.head, {}, [])}>
+        <motion.div
+          className={classNames(cls.head, {}, [])}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_ONCE}
+          variants={fadeUpSoft}
+        >
           <MainPageTitle
             id="solutions-title"
             title="Наши решения"
             sectionLabel="Раздел 03"
             sectionDescription="Реализованные объекты и логика движения"
           />
-        </div>
+        </motion.div>
 
-        <div className={classNames(cls.intro, {}, [])}>
+        <motion.div
+          className={classNames(cls.intro, {}, [])}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT_ONCE}
+          variants={fadeUp}
+        >
           <p className={classNames(cls.leadText, {}, [])}>
             Подбираем комплект знаков, разметки и элементов инфраструктуры под сценарий движения: от жилых кварталов до
             логистики и городских парковок. Ниже — примеры реализованных проектов.
@@ -77,19 +91,23 @@ export const Solutions = ({ className }: ISolutionsProps) => {
               <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} aria-hidden />
             </a>
           </div>
-        </div>
+        </motion.div>
 
         <ul className={classNames(cls.list, {}, [])}>
           {cases.map((item) => {
             const Icon = item.Icon;
             return (
-              <li
+              <motion.li
                 key={item.id}
                 className={classNames(cls.row, {}, [
                   item.imageFirst ? cls.rowImageLeft : cls.rowImageRight,
                 ])}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VIEWPORT_ONCE}
+                variants={fadeUp}
               >
-                <div className={classNames(cls.textCol, {}, [])}>
+                <motion.div className={classNames(cls.textCol, {}, [])} variants={fadeUpSoft}>
                   <span className={classNames(cls.category, {}, [])}>
                     <Icon className={classNames(cls.categoryIcon, {}, [])} strokeWidth={2} aria-hidden />
                     {item.category}
@@ -110,8 +128,8 @@ export const Solutions = ({ className }: ISolutionsProps) => {
                     </div>
                   </aside>
                   <p className={classNames(cls.rowText, {}, [])}>{item.text}</p>
-                </div>
-                <div className={classNames(cls.imageCol, {}, [])}>
+                </motion.div>
+                <motion.div className={classNames(cls.imageCol, {}, [])} variants={scaleFadeIn}>
                   <div className={classNames(cls.visual, {}, [])}>
                     <div className={classNames(cls.imageClip, {}, [])}>
                       <img
@@ -122,8 +140,8 @@ export const Solutions = ({ className }: ISolutionsProps) => {
                       />
                     </div>
                   </div>
-                </div>
-              </li>
+                </motion.div>
+              </motion.li>
             );
           })}
         </ul>

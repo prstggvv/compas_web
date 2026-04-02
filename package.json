@@ -2,12 +2,11 @@
   "name": "igor",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://prstggvv.github.io/compas_web",
+  "homepage": "https://prstggvv.github.io/compas_web/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "postbuild": "cp dist/index.html dist/404.html && touch dist/.nojekyll",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",

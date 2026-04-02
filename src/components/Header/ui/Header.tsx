@@ -20,7 +20,7 @@ const navItems: NavItem[] = [
   { id: 'services', label: 'Услуги', description: 'Проектирование, монтаж и производство', type: 'route', to: '/services' },
   { id: 'products', label: 'Товары', description: 'Категории продукции и поставки', type: 'route', to: '/product' },
   { id: 'solutions', label: 'Решения', description: 'Реализованные объекты и кейсы', type: 'section', sectionId: 'solutions' },
-  { id: 'contact', label: 'Контакты', description: 'Телефон, почта и обратная связь', type: 'section', sectionId: 'contact' },
+  { id: 'contact', label: 'Контакты', description: 'Телефон, почта и обратная связь', type: 'route', to: '/contact' },
 ];
 
 interface IHeaderData {
@@ -225,7 +225,10 @@ export const Header = ({ className }: IHeaderData) => {
                     <button
                       type="button"
                       className={classNames(cls.menuCta, {}, [])}
-                      onClick={() => handleSectionNavigation('contact')}
+                      onClick={() => {
+                        navigate('/contact');
+                        setMenuOpen(false);
+                      }}
                     >
                       Оставить заявку
                     </button>

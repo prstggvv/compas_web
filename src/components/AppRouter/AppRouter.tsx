@@ -11,6 +11,7 @@ import { CardPageAsync as CardPage } from '../../pages/CardProductPage';
 import { ServiceDetailPageAsync as ServiceDetailPage } from '../../pages/ServiceDetailPage';
 import { servicesContentById } from '../../shared/lib/constants';
 import { productCategoryContentById, type ProductCategoryId } from '../../components/MainComponents/ProductPageComponents/ProductCatalog/ui/products';
+import { ContactPage } from '../../pages/ContactPage';
 
 const PageLoader = () => <Preloader isActive />;
 
@@ -102,6 +103,14 @@ const AppRouter = () => {
           element={
             <Suspense fallback={<PageLoader />}>
               <CardProductRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path='contact'
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ContactPage />
             </Suspense>
           }
         />
