@@ -75,7 +75,6 @@ const StepIcon = ({ type }: { type: StepIconType }) => {
 export const ServicesProcess = ({
   className,
   title = 'Как мы работаем',
-  leadText = 'Прозрачный процесс реализации вашего проекта',
   steps = defaultSteps,
 }: ServicesProcessProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);

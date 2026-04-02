@@ -8,6 +8,6 @@ export function scrollToSection(sectionId: string): void {
 
   window.scrollTo({
     top: Math.max(0, top),
-    behavior: 'smooth',
+    behavior: 'auto',
   });
 }

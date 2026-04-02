@@ -1,5 +1,5 @@
-import { Suspense, useEffect, useMemo, useState } from 'react';
-import { Routes, Route, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Routes, Route, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Main } from '../../pages/Main';
 import { Services } from '../../pages/ServicesPage';
 import { Preloader } from '../../shared/ui/Preloader/Preloader';
@@ -7,12 +7,22 @@ import { NotFoundPage } from '../../pages/NotFoundPage';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
 import { ProductPage } from '../../pages/ProductPage';
-import CardPage from '../../pages/CardProductPage/ui/CardPage';
-import ServiceDetailPage from '../../pages/ServiceDetailPage/ui/ServiceDetailPage';
+import { CardPageAsync as CardPage } from '../../pages/CardProductPage';
+import { ServiceDetailPageAsync as ServiceDetailPage } from '../../pages/ServiceDetailPage';
 import { servicesContentById } from '../../shared/lib/constants';
 import { productCategoryContentById, type ProductCategoryId } from '../../components/MainComponents/ProductPageComponents/ProductCatalog/ui/products';
 
 const PageLoader = () => <Preloader isActive />;
+
+const ScrollManager = () => {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
+};
 
 const CardProductRoute = () => {
   const navigate = useNavigate();
@@ -54,7 +64,7 @@ const ServiceDetailRoute = () => {
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<><Header /><Outlet /><Footer /></>}>
+      <Route path="/" element={<><ScrollManager /><Header /><Outlet /><Footer /></>}>
         <Route
           index
           element={

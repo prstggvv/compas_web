@@ -1,9 +1,5 @@
 @import url('../fonts.css');
 
-html {
-  scroll-behavior: smooth;
-}
-
 :root {
   --font-gt-pro-light: 'GT Eesti Pro Display-light', sans-serif, serif;
   --font-gt-pro-regular: 'GT Eesti Pro Display-regular', sans-serif, serif;

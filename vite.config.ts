@@ -4,9 +4,9 @@ import mkcert from 'vite-plugin-mkcert';
 import react from '@vitejs/plugin-react';
 
 
-export default () => {
+export default ({ command }: { command: 'build' | 'serve' }) => {
   return defineConfig({
-    base: '/',
+    base: command === 'build' ? '/compas_web/' : '/',
     plugins: [
       react(),
       tsconfigPaths(),

@@ -60,7 +60,7 @@ export const Header = ({ className }: IHeaderData) => {
   const handleHomeClick = useCallback(() => {
     if (location.pathname === '/') {
       window.history.replaceState(null, '', '/');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     } else {
       navigate('/');
     }
