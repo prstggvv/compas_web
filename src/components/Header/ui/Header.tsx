@@ -51,6 +51,7 @@ const CompassGlyph = () => (
 
 export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroMode, setHeroMode] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -136,9 +137,37 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
     setMenuOpen(false);
   }, [location.pathname, location.hash]);
 
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setHeroMode(false);
+      return undefined;
+    }
+
+    const updateHeroMode = () => {
+      const hero = document.getElementById('hero');
+
+      if (!hero) {
+        setHeroMode(false);
+        return;
+      }
+
+      const heroRect = hero.getBoundingClientRect();
+      setHeroMode(heroRect.bottom > 140);
+    };
+
+    updateHeroMode();
+    window.addEventListener('scroll', updateHeroMode, { passive: true });
+    window.addEventListener('resize', updateHeroMode);
+
+    return () => {
+      window.removeEventListener('scroll', updateHeroMode);
+      window.removeEventListener('resize', updateHeroMode);
+    };
+  }, [location.pathname]);
+
   return (
     <>
-      <header className={classNames(cls.header, {}, [className ?? ''])}>
+      <header className={classNames(cls.header, { [cls.heroMode]: heroMode && !menuOpen }, [className ?? ''])}>
         <div className={classNames(cls.container, {}, [])}>
           <Link to="/" className={classNames(cls.logo, {}, [])} aria-label="Компас — на главную">
             <span className={classNames(cls.logoMark, {}, [])}>

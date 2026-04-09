@@ -34,7 +34,6 @@ const BurgerButton = ({
       onKeyDown={handleKeyDown}
       type="button"
     >
-      <span className={classNames(cls.label, {}, [])}>Меню</span>
       <span className={classNames(cls.icon, {}, [])} aria-hidden>
         <motion.span
           className={classNames(cls.line, {}, [])}
