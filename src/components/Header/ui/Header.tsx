@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useLayoutEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cls from './Header.module.css';
@@ -51,9 +51,9 @@ const CompassGlyph = () => (
 
 export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [heroMode, setHeroMode] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [heroMode, setHeroMode] = useState(location.pathname === '/');
 
   const handleBurgerClick = useCallback(() => {
     setMenuOpen((prev) => !prev);
@@ -137,7 +137,7 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
     setMenuOpen(false);
   }, [location.pathname, location.hash]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (location.pathname !== '/') {
       setHeroMode(false);
       return undefined;

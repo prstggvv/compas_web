@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from 'framer-motion';
+import { useInView } from 'framer-motion';
 import cls from "./StatsStrip.module.css";
 import { classNames } from "../../../../../shared/lib/classNames/classNames";
-import { createStaggerContainer, itemReveal, VIEWPORT_DEEP } from '../../../../../shared/lib/motion';
+import { VIEWPORT_DEEP } from '../../../../../shared/lib/motion';
 
 interface IStatsStripProps {
   className?: string;
@@ -53,31 +53,24 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
   }, [isInView]);
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
       className={classNames(cls.section, {}, [className ?? ""])}
       aria-label="Ключевые показатели"
-      initial="hidden"
-      whileInView="visible"
-      viewport={VIEWPORT_DEEP}
-      variants={itemReveal}
     >
       <div className={classNames(cls.container, {}, [])}>
-        <motion.ul
-          className={classNames(cls.statsGrid, {}, [])}
-          variants={createStaggerContainer(0.12)}
-        >
+        <ul className={classNames(cls.statsGrid, {}, [])}>
           {stats.map((item, index) => (
-            <motion.li key={item.id} className={classNames(cls.statItem, {}, [])} variants={itemReveal}>
+            <li key={item.id} className={classNames(cls.statItem, {}, [])}>
               <div className={classNames(cls.value, {}, [])}>
                 {values[index]}
                 {item.suffix}
               </div>
               <p className={classNames(cls.label, {}, [])}>{item.label}</p>
-            </motion.li>
+            </li>
           ))}
-        </motion.ul>
+        </ul>
       </div>
-    </motion.section>
+    </section>
   );
 };

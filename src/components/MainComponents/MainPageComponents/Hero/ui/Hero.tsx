@@ -616,10 +616,12 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
             className={classNames(cls.title, {}, [])}
             variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: MOTION_EASE } } }}
           >
-            Создаем систему
-            движения.
-            От хаоса к
-            <span className={classNames(cls.titleAccent, {}, [])}>структуре.</span>
+            <span className={classNames(cls.titleLine, {}, [])}>Создаем{'\u00A0'}систему</span>
+            <span className={classNames(cls.titleLine, {}, [])}>движения.</span>
+            <span className={classNames(cls.titleLine, {}, [])}>От{'\u00A0'}хаоса{'\u00A0'}к</span>
+            <span className={classNames(cls.titleLine, {}, [])}>
+              <span className={classNames(cls.titleAccent, {}, [])}>структуре.</span>
+            </span>
           </motion.h1>
 
           <motion.p
