@@ -3,6 +3,7 @@ import { ServicesOverview } from "../../../components/MainComponents/MainPageCom
 import { StatsStrip } from "../../../components/MainComponents/MainPageComponents/StatsStrip";
 import { ServicesProducts } from "../../../components/MainComponents/MainPageComponents/ServicesProducts";
 import { About } from "../../../components/MainComponents/MainPageComponents/About";
+import { ContactUsSection } from "../../../components/MainComponents/MainPageComponents/ContactUsSection";
 import { Solutions } from "../../../components/MainComponents/MainPageComponents/Solutions";
 import { classNames } from "../../../shared/lib/classNames/classNames";
 import cls from './Main.module.css';
@@ -21,6 +22,7 @@ const Main = ({ className, onOpenContactPopup }: MainProps) => {
       <ServicesProducts />
       <ServicesOverview />
       <Solutions />
+      <ContactUsSection onOpenContactPopup={onOpenContactPopup} />
     </div>
   )
 };
