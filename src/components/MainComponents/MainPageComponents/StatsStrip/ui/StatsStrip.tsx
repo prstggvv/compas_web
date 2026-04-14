@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react';
+import { Building2, CalendarClock, Signpost, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from "react";
 import { useInView } from 'framer-motion';
 import cls from "./StatsStrip.module.css";
@@ -13,13 +15,14 @@ type StatItem = {
   target: number;
   suffix: string;
   label: string;
+  icon: LucideIcon;
 };
 
 const stats: StatItem[] = [
-  { id: "signs", target: 1000, suffix: "+", label: "Установлено знаков" },
-  { id: "objects", target: 200, suffix: "+", label: "Сдано объектов" },
-  { id: "years", target: 10, suffix: "", label: "Лет опыта" },
-  { id: "clients", target: 50, suffix: "+", label: "Постоянных клиентов" },
+  { id: "signs", target: 1000, suffix: "+", label: "Установлено знаков", icon: Signpost },
+  { id: "objects", target: 200, suffix: "+", label: "Сдано объектов", icon: Building2 },
+  { id: "years", target: 10, suffix: "", label: "Лет опыта", icon: CalendarClock },
+  { id: "clients", target: 50, suffix: "+", label: "Постоянных клиентов", icon: Users },
 ];
 
 const DURATION_MS = 1600;
@@ -62,6 +65,9 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
         <ul className={classNames(cls.statsGrid, {}, [])}>
           {stats.map((item, index) => (
             <li key={item.id} className={classNames(cls.statItem, {}, [])}>
+              <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
+                <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
+              </span>
               <div className={classNames(cls.value, {}, [])}>
                 {values[index]}
                 {item.suffix}

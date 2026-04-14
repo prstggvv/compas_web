@@ -208,6 +208,35 @@
   transition: transform 0.25s ease;
 }
 
+.externalLinkButton {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 32px;
+  text-decoration: none;
+  background-color: #ff2d2d;
+  color: #ffffff;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.externalLinkButton:hover {
+  transform: translateY(-2px);
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.externalLinkButton:hover .ctaIcon {
+  transform: translateX(4px);
+}
+
 @media (max-width: 1024px) {
   .section {
     padding: 88px 0;
@@ -272,5 +301,11 @@
 
   .featuresHeading {
     flex-wrap: wrap;
+  }
+
+  .externalLinkButton {
+    width: 100%;
+    min-height: 52px;
+    font-size: 12px;
   }
 }

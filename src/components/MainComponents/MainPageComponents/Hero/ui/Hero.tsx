@@ -86,6 +86,16 @@ const DUST_COUNT = 320;
 const MOBILE_DUST_COUNT = 170;
 const TRAFFIC_COUNT = 18;
 const MOBILE_TRAFFIC_COUNT = 10;
+const ROUTE_CYCLE = 16000;
+const ROUTE_LANE_RATIO = 0.36;
+const ROUTE_EDGE_OFFSET = 0.055;
+const ROUTE_EDGE_OFFSET_MOBILE = 0.07;
+const ROUTE_ARC_SPAN = Math.PI * 1.25;
+const ROUTE_ARC_START = -Math.PI * 0.55;
+const ROUTE_CHEVRON_COUNT = 5;
+const ROUTE_CHEVRON_COUNT_MOBILE = 3;
+const ROUTE_SIGNAL_COUNT = 4;
+const ROUTE_SIGNAL_COUNT_MOBILE = 2;
 
 const ArrowRightIcon = () => (
   <svg
@@ -249,6 +259,20 @@ const getLanePoint = (
     x: centerX + Math.cos(angle) * rx,
     y: centerY + Math.sin(angle) * ry,
   };
+};
+
+const getLaneTangentAngle = (
+  lane: Lane,
+  angle: number,
+  radialOffset: number,
+  zoom: number,
+) => {
+  const rx = lane.rx * (1 + radialOffset) * zoom;
+  const ry = lane.ry * (1 + radialOffset * 0.35) * zoom;
+  const dx = -Math.sin(angle) * rx;
+  const dy = Math.cos(angle) * ry;
+
+  return Math.atan2(dy, dx);
 };
 
 export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
@@ -511,6 +535,299 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       }
     };
 
+    const drawRouteOverlay = (time: number, parallaxX: number, parallaxY: number, zoom: number) => {
+      if (!sceneRef.current) {
+        return;
+      }
+
+      const { lanes: sceneLanes, width: sceneWidth, height: sceneHeight, compact } = sceneRef.current;
+      const lane = sceneLanes[Math.max(2, Math.floor(sceneLanes.length * ROUTE_LANE_RATIO))];
+      const edgeOffset = compact ? ROUTE_EDGE_OFFSET_MOBILE : ROUTE_EDGE_OFFSET;
+      const steps = compact ? 36 : 52;
+      const scrollShift = sceneRef.current.scrollY * 0.015;
+      const px = parallaxX * 0.42;
+      const py = parallaxY * 0.24 - scrollShift;
+
+      const phase = (time % ROUTE_CYCLE) / ROUTE_CYCLE;
+      const pulseWave = Math.max(0, Math.sin(phase * Math.PI * 2 - Math.PI * 0.5));
+      const pulseIntensity = Math.pow(pulseWave, 4);
+
+      const baseAlpha = 0.12 + pulseIntensity * 0.18;
+      const centerAlpha = 0.2 + pulseIntensity * 0.35;
+
+      const traceArc = (radialOff: number, style: string, lw: number, dash: boolean) => {
+        ctx.beginPath();
+
+        for (let i = 0; i <= steps; i += 1) {
+          const ratio = i / steps;
+          const angle = ROUTE_ARC_START + ROUTE_ARC_SPAN * ratio;
+          const pt = getLanePoint(lane, angle, radialOff, sceneWidth, sceneHeight, zoom);
+
+          if (i === 0) {
+            ctx.moveTo(pt.x + px, pt.y + py);
+          } else {
+            ctx.lineTo(pt.x + px, pt.y + py);
+          }
+        }
+
+        if (dash) {
+          ctx.setLineDash(compact ? [7, 13] : [10, 16]);
+          ctx.lineDashOffset = -time * 0.05;
+        }
+
+        ctx.strokeStyle = style;
+        ctx.lineWidth = lw;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      };
+
+      traceArc(-edgeOffset, `rgba(255, 255, 255, ${baseAlpha})`, compact ? 0.9 : 1, false);
+      traceArc(edgeOffset, `rgba(255, 255, 255, ${baseAlpha})`, compact ? 0.9 : 1, false);
+      traceArc(0, `rgba(255, 45, 45, ${centerAlpha})`, compact ? 0.8 : 0.9, true);
+
+      const chevronTotal = compact ? ROUTE_CHEVRON_COUNT_MOBILE : ROUTE_CHEVRON_COUNT;
+      const chevronSpacing = ROUTE_ARC_SPAN / (chevronTotal + 1);
+      const chevronPhase = (time * 0.00018) % 1;
+
+      for (let i = 0; i < chevronTotal; i += 1) {
+        const baseAngle = ROUTE_ARC_START + chevronSpacing * (i + 1);
+        const driftAngle = baseAngle + chevronPhase * chevronSpacing;
+        const wrappedAngle = ROUTE_ARC_START + ((driftAngle - ROUTE_ARC_START) % ROUTE_ARC_SPAN);
+        const pt = getLanePoint(lane, wrappedAngle, 0, sceneWidth, sceneHeight, zoom);
+        const rot = getLaneTangentAngle(lane, wrappedAngle, 0, zoom);
+        const size = compact ? 6 : 7.5;
+        const alpha = 0.22 + pulseIntensity * 0.38;
+
+        ctx.save();
+        ctx.translate(pt.x + px, pt.y + py);
+        ctx.rotate(rot);
+        ctx.beginPath();
+        ctx.moveTo(-size, -size * 0.72);
+        ctx.lineTo(0, 0);
+        ctx.lineTo(-size, size * 0.72);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.lineWidth = compact ? 1.1 : 1.3;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      const signalTotal = compact ? ROUTE_SIGNAL_COUNT_MOBILE : ROUTE_SIGNAL_COUNT;
+
+      for (let i = 0; i < signalTotal; i += 1) {
+        const angle = ROUTE_ARC_START + ROUTE_ARC_SPAN * ((i + 0.5) / signalTotal);
+        const pulse = 0.5 + Math.sin(time * 0.008 + i * 2.1) * 0.5;
+        const pt = getLanePoint(lane, angle, 0, sceneWidth, sceneHeight, zoom);
+        const x = pt.x + px;
+        const y = pt.y + py;
+        const glowRadius = compact ? 16 : 22;
+
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, glowRadius);
+        glow.addColorStop(0, `rgba(255, 45, 45, ${(0.5 + pulseIntensity * 0.4) * pulse})`);
+        glow.addColorStop(0.4, `rgba(255, 45, 45, ${(0.12 + pulseIntensity * 0.15) * pulse})`);
+        glow.addColorStop(1, 'rgba(255, 45, 45, 0)');
+
+        ctx.beginPath();
+        ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(x, y, compact ? 2 : 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.65 * pulse + pulseIntensity * 0.35})`;
+        ctx.fill();
+      }
+
+      if (pulseIntensity > 0.05) {
+        const waveAngle = ROUTE_ARC_START + phase * ROUTE_ARC_SPAN * 2.2;
+        const clampedAngle = Math.min(waveAngle, ROUTE_ARC_START + ROUTE_ARC_SPAN);
+
+        if (clampedAngle > ROUTE_ARC_START) {
+          const wavePt = getLanePoint(lane, clampedAngle, 0, sceneWidth, sceneHeight, zoom);
+          const waveX = wavePt.x + px;
+          const waveY = wavePt.y + py;
+          const waveRadius = (compact ? 38 : 56) * pulseIntensity;
+
+          const waveGlow = ctx.createRadialGradient(waveX, waveY, 0, waveX, waveY, waveRadius);
+          waveGlow.addColorStop(0, `rgba(255, 45, 45, ${0.55 * pulseIntensity})`);
+          waveGlow.addColorStop(0.3, `rgba(255, 45, 45, ${0.18 * pulseIntensity})`);
+          waveGlow.addColorStop(0.6, `rgba(138, 180, 255, ${0.06 * pulseIntensity})`);
+          waveGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+          ctx.beginPath();
+          ctx.arc(waveX, waveY, waveRadius, 0, Math.PI * 2);
+          ctx.fillStyle = waveGlow;
+          ctx.fill();
+        }
+      }
+    };
+
+    const drawRouteConnections = (time: number, parallaxX: number, parallaxY: number, zoom: number) => {
+      if (!sceneRef.current) {
+        return;
+      }
+
+      const { lanes: sceneLanes, width: sceneWidth, height: sceneHeight, compact } = sceneRef.current;
+      const scrollShift = sceneRef.current.scrollY * 0.012;
+      const px = parallaxX * 0.46;
+      const py = parallaxY * 0.24 - scrollShift;
+      const phase = (time % ROUTE_CYCLE) / ROUTE_CYCLE;
+      const pulseWave = Math.max(0, Math.sin(phase * Math.PI * 2 - Math.PI * 0.5));
+      const pulseIntensity = Math.pow(pulseWave, 4);
+
+      const nodes = [
+        {
+          laneIndex: Math.min(sceneLanes.length - 1, compact ? 1 : 2),
+          angle: -1.92,
+          radialOffset: -0.01,
+          size: compact ? 7 : 9,
+          tint: 'blue' as const,
+        },
+        {
+          laneIndex: Math.min(sceneLanes.length - 1, compact ? 3 : 5),
+          angle: -1.08,
+          radialOffset: 0,
+          size: compact ? 10 : 13,
+          tint: 'white' as const,
+        },
+        {
+          laneIndex: Math.min(sceneLanes.length - 1, compact ? 4 : 7),
+          angle: -0.18,
+          radialOffset: 0.02,
+          size: compact ? 8 : 10,
+          tint: 'red' as const,
+        },
+        {
+          laneIndex: Math.min(sceneLanes.length - 1, compact ? 6 : 9),
+          angle: 0.86,
+          radialOffset: 0.015,
+          size: compact ? 11 : 14,
+          tint: 'blue' as const,
+        },
+      ].map((node) => {
+        const point = getLanePoint(
+          sceneLanes[node.laneIndex],
+          node.angle,
+          node.radialOffset,
+          sceneWidth,
+          sceneHeight,
+          zoom,
+        );
+
+        return {
+          ...node,
+          x: point.x + px,
+          y: point.y + py,
+        };
+      });
+
+      const connections: Array<[number, number, Tint]> = compact
+        ? [
+            [0, 1, 'white'],
+            [1, 2, 'red'],
+            [2, 3, 'blue'],
+          ]
+        : [
+            [0, 1, 'white'],
+            [1, 2, 'red'],
+            [1, 3, 'blue'],
+            [2, 3, 'white'],
+          ];
+
+      connections.forEach(([fromIndex, toIndex, tint], connectionIndex) => {
+        const from = nodes[fromIndex];
+        const to = nodes[toIndex];
+        const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y);
+        const alphaBase = 0.12 + pulseIntensity * 0.16;
+
+        gradient.addColorStop(0, getColor(tint, alphaBase));
+        gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.08)');
+        gradient.addColorStop(1, getColor(tint === 'red' ? 'white' : tint, alphaBase * 0.92));
+
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.y);
+        ctx.lineTo(to.x, to.y);
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = compact ? 1 : 1.1;
+        ctx.stroke();
+
+        ctx.setLineDash(compact ? [4, 8] : [5, 10]);
+        ctx.lineDashOffset = -(time * 0.045 * (1 + connectionIndex * 0.06));
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.y);
+        ctx.lineTo(to.x, to.y);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 + pulseIntensity * 0.18})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      nodes.forEach((node, index) => {
+        const glowRadius = node.size * (compact ? 2.8 : 3.4) * (1 + pulseIntensity * 0.18);
+        const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
+
+        glow.addColorStop(0, getColor(node.tint, 0.24 + pulseIntensity * 0.18));
+        glow.addColorStop(0.45, getColor(node.tint, 0.08 + pulseIntensity * 0.05));
+        glow.addColorStop(1, getColor(node.tint, 0));
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+        ctx.fillStyle = getSolidColor(node.tint);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.size + (compact ? 4 : 5.5) + Math.sin(time * 0.0014 + index) * 0.8, 0, Math.PI * 2);
+        ctx.strokeStyle = getColor(node.tint, 0.14 + pulseIntensity * 0.12);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+
+      const launchStart = nodes[0];
+      const launchEnd = nodes[3];
+      const shipProgress = (time * 0.00006) % 1;
+      const shipX = launchStart.x + (launchEnd.x - launchStart.x) * shipProgress;
+      const shipY = launchStart.y + (launchEnd.y - launchStart.y) * shipProgress;
+      const shipAngle = Math.atan2(launchEnd.y - launchStart.y, launchEnd.x - launchStart.x);
+      const shipTrail = compact ? 34 : 48;
+
+      ctx.beginPath();
+      ctx.moveTo(shipX, shipY);
+      ctx.lineTo(
+        shipX - Math.cos(shipAngle) * shipTrail,
+        shipY - Math.sin(shipAngle) * shipTrail,
+      );
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.16 + pulseIntensity * 0.18})`;
+      ctx.lineWidth = compact ? 1 : 1.2;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(shipX, shipY);
+      ctx.rotate(shipAngle);
+
+      ctx.beginPath();
+      ctx.moveTo(compact ? 8 : 10, 0);
+      ctx.lineTo(compact ? -6 : -7.5, compact ? -4.2 : -5.2);
+      ctx.lineTo(compact ? -2.4 : -3.2, 0);
+      ctx.lineTo(compact ? -6 : -7.5, compact ? 4.2 : 5.2);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.9 + pulseIntensity * 0.08})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(compact ? -6 : -7.5, 0);
+      ctx.lineTo(compact ? -11 : -13, compact ? -3 : -3.8);
+      ctx.lineTo(compact ? -11 : -13, compact ? 3 : 3.8);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(255, 45, 45, ${0.72 + pulseIntensity * 0.16})`;
+      ctx.fill();
+
+      ctx.restore();
+    };
+
     const draw = (time: number) => {
       if (!sceneRef.current) {
         return;
@@ -531,7 +848,9 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       drawLanes(time, parallaxX * 0.3, parallaxY * 0.16, zoom);
       drawDust(delta, time, parallaxX * 0.34, parallaxY * 0.18, zoom);
       drawTraffic(delta, time, parallaxX * 0.38, parallaxY * 0.22, zoom);
+      drawRouteConnections(time, parallaxX * 0.36, parallaxY * 0.2, zoom);
       drawShootingStars(delta);
+      drawRouteOverlay(time, parallaxX * 0.34, parallaxY * 0.18, zoom);
 
       scene.raf = requestAnimationFrame(draw);
     };

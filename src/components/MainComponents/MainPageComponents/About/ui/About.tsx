@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import cls from './About.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
-import objectImg from '../../../../../shared/assets/images/photos/object.jpg';
+import aboutImg from '../../../../../shared/assets/images/about/about.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 import { MOTION_EASE, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
@@ -43,10 +43,6 @@ const keyFeatures = [
   {
     title: 'Шумозащитные экраны при необходимости',
     text: 'Подбираем и монтируем решения для снижения шумовой нагрузки на прилегающие территории.',
-  },
-  {
-    title: 'Проектирование ОДД',
-    text: 'Разрабатываем схемы и документацию для организации дорожного движения под конкретную задачу.',
   },
 ] as const;
 
@@ -120,7 +116,7 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
 
           <div className={classNames(cls.visualPanel, {}, [])} aria-hidden>
             <img
-              src={objectImg}
+              src={aboutImg}
               alt=""
               className={classNames(cls.visualImage, {}, [])}
               loading="lazy"
@@ -148,6 +144,16 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
               </li>
             ))}
           </ul>
+
+          <a
+            href="https://aikodd.ru"
+            target="_blank"
+            rel="noreferrer"
+            className={classNames(cls.externalLinkButton, {}, [])}
+          >
+            Проектирование ОДД
+            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
+          </a>
         </div>
       </div>
     </section>
