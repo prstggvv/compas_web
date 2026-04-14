@@ -9,32 +9,6 @@
   transition: background-color 0.32s ease, backdrop-filter 0.32s ease, -webkit-backdrop-filter 0.32s ease;
 }
 
-.heroMode {
-  background-color: transparent;
-}
-
-.heroMode .logo,
-.heroMode .logoText {
-  color: rgba(255, 255, 255, 0.96);
-}
-
-.heroMode .logoCaption {
-  color: rgba(255, 255, 255, 0.48);
-}
-
-.heroMode .contactLink {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.heroMode .contactLink:hover,
-.heroMode .contactLink:focus-visible {
-  color: #ffffff;
-}
-
-.heroMode .logoMark {
-  color: #ffffff;
-}
-
 .container {
   width: 100%;
   margin: 0 auto;
@@ -49,6 +23,7 @@
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
   text-decoration: none;
   color: #1a1a1a;
@@ -58,6 +33,14 @@
 .logo:focus-visible {
   outline: 2px solid var(--color-brand-red-light);
   outline-offset: 4px;
+}
+
+.logoIcon {
+  margin-top: 5px;
+  width: 180px;
+  height: 48px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .logoMark {
@@ -71,10 +54,6 @@
   transition: color 0.28s ease;
 }
 
-.logoIcon {
-  width: 26px;
-  height: 26px;
-}
 
 .logoCopy {
   display: flex;

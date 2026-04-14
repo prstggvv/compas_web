@@ -1,10 +1,11 @@
-import { useState, useCallback, useEffect, useLayoutEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cls from './Header.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
 import BurgerButton from '../../../shared/ui/BurgerButton/BurgerButton';
 import { scrollToSection } from '../../../shared/lib/scrollToSection/scrollToSection';
+import LogoIconSvg from '../../../shared/assets/images/icons/logo.svg';
 
 interface NavItem {
   id: string;
@@ -28,32 +29,10 @@ interface IHeaderData {
   onOpenContactPopup?: () => void;
 }
 
-const CompassGlyph = () => (
-  <svg
-    className={cls.logoIcon}
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path
-      fill="currentColor"
-      stroke="none"
-      d="M12 6 14.5 12 12 18 9.5 12z"
-    />
-  </svg>
-);
-
 export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [heroMode, setHeroMode] = useState(location.pathname === '/');
 
   const handleBurgerClick = useCallback(() => {
     setMenuOpen((prev) => !prev);
@@ -137,46 +116,16 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
     setMenuOpen(false);
   }, [location.pathname, location.hash]);
 
-  useLayoutEffect(() => {
-    if (location.pathname !== '/') {
-      setHeroMode(false);
-      return undefined;
-    }
-
-    const updateHeroMode = () => {
-      const hero = document.getElementById('hero');
-
-      if (!hero) {
-        setHeroMode(false);
-        return;
-      }
-
-      const heroRect = hero.getBoundingClientRect();
-      setHeroMode(heroRect.bottom > 140);
-    };
-
-    updateHeroMode();
-    window.addEventListener('scroll', updateHeroMode, { passive: true });
-    window.addEventListener('resize', updateHeroMode);
-
-    return () => {
-      window.removeEventListener('scroll', updateHeroMode);
-      window.removeEventListener('resize', updateHeroMode);
-    };
-  }, [location.pathname]);
-
   return (
     <>
-      <header className={classNames(cls.header, { [cls.heroMode]: heroMode && !menuOpen }, [className ?? ''])}>
+      <header className={classNames(cls.header, {}, [className ?? ''])}>
         <div className={classNames(cls.container, {}, [])}>
           <Link to="/" className={classNames(cls.logo, {}, [])} aria-label="Компас — на главную">
-            <span className={classNames(cls.logoMark, {}, [])}>
-              <CompassGlyph />
-            </span>
-            <span className={classNames(cls.logoCopy, {}, [])}>
-              <span className={classNames(cls.logoText, {}, [])}>Компас</span>
-              <span className={classNames(cls.logoCaption, {}, [])}>дорожная инфраструктура</span>
-            </span>
+            <img
+              className={classNames(cls.logoIcon, {}, [])}
+              src={LogoIconSvg}
+              alt='Компас - логотип'
+            />
           </Link>
 
           <div className={classNames(cls.actions, {}, [])}>

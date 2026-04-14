@@ -96,6 +96,14 @@ const ROUTE_CHEVRON_COUNT = 5;
 const ROUTE_CHEVRON_COUNT_MOBILE = 3;
 const ROUTE_SIGNAL_COUNT = 4;
 const ROUTE_SIGNAL_COUNT_MOBILE = 2;
+const CRUISE_DURATION_MS = 28000;
+
+const smoothstep = (edge0: number, edge1: number, x: number) => {
+  const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+  return t * t * (3 - 2 * t);
+};
+
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 const ArrowRightIcon = () => (
   <svg
@@ -378,6 +386,9 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       const centerY = sceneHeight * 0.47 + parallaxY * 0.2 - sceneRef.current.scrollY * 0.028;
       const highlight = hovered ? 1.22 : 1;
 
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
       for (let index = 0; index < sceneLanes.length; index += 1) {
         const lane = sceneLanes[index];
 
@@ -522,6 +533,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
 
         const alpha = Math.max(shootingStar.life / shootingStar.maxLife, 0);
 
+        ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(shootingStar.x, shootingStar.y);
         ctx.lineTo(shootingStar.x - shootingStar.vx * 1.8, shootingStar.y - shootingStar.vy * 1.8);
@@ -555,6 +567,9 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       const baseAlpha = 0.12 + pulseIntensity * 0.18;
       const centerAlpha = 0.2 + pulseIntensity * 0.35;
 
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
       const traceArc = (radialOff: number, style: string, lw: number, dash: boolean) => {
         ctx.beginPath();
 
@@ -586,17 +601,25 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       traceArc(0, `rgba(255, 45, 45, ${centerAlpha})`, compact ? 0.8 : 0.9, true);
 
       const chevronTotal = compact ? ROUTE_CHEVRON_COUNT_MOBILE : ROUTE_CHEVRON_COUNT;
-      const chevronSpacing = ROUTE_ARC_SPAN / (chevronTotal + 1);
-      const chevronPhase = (time * 0.00018) % 1;
+      const chevronDrift = (time * 0.00011) % 1;
+
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
       for (let i = 0; i < chevronTotal; i += 1) {
-        const baseAngle = ROUTE_ARC_START + chevronSpacing * (i + 1);
-        const driftAngle = baseAngle + chevronPhase * chevronSpacing;
-        const wrappedAngle = ROUTE_ARC_START + ((driftAngle - ROUTE_ARC_START) % ROUTE_ARC_SPAN);
-        const pt = getLanePoint(lane, wrappedAngle, 0, sceneWidth, sceneHeight, zoom);
-        const rot = getLaneTangentAngle(lane, wrappedAngle, 0, zoom);
+        const slot = (i + 1) / (chevronTotal + 1);
+        let u = slot + chevronDrift;
+        u -= Math.floor(u);
+        const angle = ROUTE_ARC_START + ROUTE_ARC_SPAN * u;
+        const arcEdgeFade = smoothstep(0, 0.14, u) * smoothstep(1, 0.86, u);
+        const pt = getLanePoint(lane, angle, 0, sceneWidth, sceneHeight, zoom);
+        const rot = getLaneTangentAngle(lane, angle, 0, zoom);
         const size = compact ? 6 : 7.5;
-        const alpha = 0.22 + pulseIntensity * 0.38;
+        const alpha = (0.22 + pulseIntensity * 0.38) * arcEdgeFade;
+
+        if (alpha < 0.02) {
+          continue;
+        }
 
         ctx.save();
         ctx.translate(pt.x + px, pt.y + py);
@@ -733,6 +756,9 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
             [2, 3, 'white'],
           ];
 
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
       connections.forEach(([fromIndex, toIndex, tint], connectionIndex) => {
         const from = nodes[fromIndex];
         const to = nodes[toIndex];
@@ -746,8 +772,15 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         ctx.beginPath();
         ctx.moveTo(from.x, from.y);
         ctx.lineTo(to.x, to.y);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.04 + pulseIntensity * 0.06})`;
+        ctx.lineWidth = compact ? 2.4 : 2.8;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.y);
+        ctx.lineTo(to.x, to.y);
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = compact ? 1 : 1.1;
+        ctx.lineWidth = compact ? 1.05 : 1.15;
         ctx.stroke();
 
         ctx.setLineDash(compact ? [4, 8] : [5, 10]);
@@ -756,7 +789,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         ctx.moveTo(from.x, from.y);
         ctx.lineTo(to.x, to.y);
         ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 + pulseIntensity * 0.18})`;
-        ctx.lineWidth = 0.8;
+        ctx.lineWidth = compact ? 0.85 : 0.95;
         ctx.stroke();
         ctx.setLineDash([]);
       });
@@ -785,44 +818,101 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         ctx.lineWidth = 1;
         ctx.stroke();
       });
+    };
 
-      const launchStart = nodes[0];
-      const launchEnd = nodes[3];
-      const shipProgress = (time * 0.00006) % 1;
-      const shipX = launchStart.x + (launchEnd.x - launchStart.x) * shipProgress;
-      const shipY = launchStart.y + (launchEnd.y - launchStart.y) * shipProgress;
-      const shipAngle = Math.atan2(launchEnd.y - launchStart.y, launchEnd.x - launchStart.x);
-      const shipTrail = compact ? 34 : 48;
+    const drawCruiseShip = (time: number, parallaxX: number, parallaxY: number) => {
+      if (!sceneRef.current) {
+        return;
+      }
+
+      const { width: w, height: h, compact } = sceneRef.current;
+      const scrollShift = sceneRef.current.scrollY * 0.01;
+      const px = parallaxX * 0.35;
+      const py = parallaxY * 0.22 - scrollShift;
+
+      const phase = (time % ROUTE_CYCLE) / ROUTE_CYCLE;
+      const pulseWave = Math.max(0, Math.sin(phase * Math.PI * 2 - Math.PI * 0.5));
+      const pulseIntensity = Math.pow(pulseWave, 4);
+
+      const t = (time % CRUISE_DURATION_MS) / CRUISE_DURATION_MS;
+      const travel = easeInOutCubic(t);
+      const envelope = smoothstep(0, 0.12, t) * smoothstep(1, 0.82, t);
+
+      if (envelope < 0.01) {
+        return;
+      }
+
+      const sx = -w * 0.18 + px;
+      const sy = h * 0.18 + py;
+      const ex = w * 1.15 + px;
+      const ey = h * 0.82 + py;
+      const shipX = sx + (ex - sx) * travel;
+      const shipY = sy + (ey - sy) * travel;
+      const shipAngle = Math.atan2(ey - sy, ex - sx);
+      const cos = Math.cos(shipAngle);
+      const sin = Math.sin(shipAngle);
+      const trailLen = compact ? 120 : 168;
+      const tx = shipX - cos * trailLen;
+      const ty = shipY - sin * trailLen;
+      const trailGrad = ctx.createLinearGradient(shipX, shipY, tx, ty);
+      trailGrad.addColorStop(0, `rgba(255, 255, 255, ${(0.42 + pulseIntensity * 0.22) * envelope})`);
+      trailGrad.addColorStop(0.35, `rgba(255, 45, 45, ${(0.22 + pulseIntensity * 0.18) * envelope})`);
+      trailGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(shipX, shipY);
+      ctx.lineTo(tx, ty);
+      ctx.strokeStyle = trailGrad;
+      ctx.lineWidth = compact ? 2.2 : 2.8;
+      ctx.stroke();
 
       ctx.beginPath();
       ctx.moveTo(shipX, shipY);
-      ctx.lineTo(
-        shipX - Math.cos(shipAngle) * shipTrail,
-        shipY - Math.sin(shipAngle) * shipTrail,
-      );
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.16 + pulseIntensity * 0.18})`;
-      ctx.lineWidth = compact ? 1 : 1.2;
+      ctx.lineTo(shipX - cos * (trailLen * 0.45), shipY - sin * (trailLen * 0.45));
+      ctx.strokeStyle = `rgba(255, 255, 255, ${(0.55 + pulseIntensity * 0.2) * envelope})`;
+      ctx.lineWidth = compact ? 1.1 : 1.35;
       ctx.stroke();
+
+      const nose = compact ? 11 : 14;
+      const wing = compact ? 7.5 : 9.5;
+      const tail = compact ? 9 : 11;
 
       ctx.save();
       ctx.translate(shipX, shipY);
       ctx.rotate(shipAngle);
+      ctx.globalAlpha = envelope;
 
+      const outerGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, compact ? 28 : 36);
+      outerGlow.addColorStop(0, `rgba(255, 45, 45, ${0.35 + pulseIntensity * 0.25})`);
+      outerGlow.addColorStop(0.5, 'rgba(255, 45, 45, 0.08)');
+      outerGlow.addColorStop(1, 'rgba(255, 45, 45, 0)');
       ctx.beginPath();
-      ctx.moveTo(compact ? 8 : 10, 0);
-      ctx.lineTo(compact ? -6 : -7.5, compact ? -4.2 : -5.2);
-      ctx.lineTo(compact ? -2.4 : -3.2, 0);
-      ctx.lineTo(compact ? -6 : -7.5, compact ? 4.2 : 5.2);
-      ctx.closePath();
-      ctx.fillStyle = `rgba(255, 255, 255, ${0.9 + pulseIntensity * 0.08})`;
+      ctx.arc(0, 0, compact ? 22 : 28, 0, Math.PI * 2);
+      ctx.fillStyle = outerGlow;
       ctx.fill();
 
       ctx.beginPath();
-      ctx.moveTo(compact ? -6 : -7.5, 0);
-      ctx.lineTo(compact ? -11 : -13, compact ? -3 : -3.8);
-      ctx.lineTo(compact ? -11 : -13, compact ? 3 : 3.8);
+      ctx.moveTo(nose, 0);
+      ctx.lineTo(-wing, -wing * 0.62);
+      ctx.lineTo(-tail * 0.35, 0);
+      ctx.lineTo(-wing, wing * 0.62);
       ctx.closePath();
-      ctx.fillStyle = `rgba(255, 45, 45, ${0.72 + pulseIntensity * 0.16})`;
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.96 + pulseIntensity * 0.04})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(-wing * 0.85, 0);
+      ctx.lineTo(-tail, -wing * 0.48);
+      ctx.lineTo(-tail, wing * 0.48);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(255, 45, 45, ${0.85 + pulseIntensity * 0.12})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(nose * 0.15, 0, compact ? 1.6 : 2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
       ctx.fill();
 
       ctx.restore();
@@ -851,6 +941,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       drawRouteConnections(time, parallaxX * 0.36, parallaxY * 0.2, zoom);
       drawShootingStars(delta);
       drawRouteOverlay(time, parallaxX * 0.34, parallaxY * 0.18, zoom);
+      drawCruiseShip(time, parallaxX, parallaxY);
 
       scene.raf = requestAnimationFrame(draw);
     };
@@ -956,12 +1047,12 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
           >
             <button
               type="button"
-              className={classNames(cls.btnPrimary, {}, [])}
+                  className={classNames(cls.btnPrimary, {}, [])}
               onClick={onOpenContactPopup}
               aria-label="Оставить заявку"
-            >
-              Оставить заявку
-              <ArrowRightIcon />
+                >
+                  Оставить заявку
+                  <ArrowRightIcon />
             </button>
           </motion.div>
         </div>
