@@ -117,6 +117,49 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  padding: 18px 18px 14px 14px;
+  background-color: transparent;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.featureCardAccent {
+  background-color: #ff2d2d;
+}
+
+.featureCardAccent::before,
+.featureCardAccent::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.52);
+  transition: background-color 0.25s ease, width 0.25s ease, height 0.25s ease;
+}
+
+.featureCardAccent::before {
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 1px;
+}
+
+.featureCardAccent::after {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 26px;
+}
+
+.featureCard:hover {
+  background-color: rgba(255, 45, 45, 0.05);
+}
+
+.featureCardAccent:hover {
+  background-color: #e32727;
+}
+
+.featureCardAccent:hover::before,
+.featureCardAccent:hover::after {
+  background-color: rgba(255, 255, 255, 0.88);
 }
 
 .featureHead {
@@ -140,6 +183,11 @@
   color: #ff2d2d;
 }
 
+.featureCardAccent .featureTitle,
+.featureCardAccent:hover .featureTitle {
+  color: #ffffff;
+}
+
 .featureNumber {
   flex-shrink: 0;
   color: #ff2d2d;
@@ -147,6 +195,10 @@
   font-size: 10px;
   line-height: 1;
   letter-spacing: 0.12em;
+}
+
+.featureCardAccent .featureNumber {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 .featureText {
@@ -158,6 +210,10 @@
   line-height: 1.7;
 }
 
+.featureCardAccent .featureText {
+  color: rgba(255, 255, 255, 0.86);
+}
+
 .featureLine {
   width: 48px;
   height: 1px;
@@ -165,9 +221,17 @@
   transition: width 0.5s ease, background-color 0.3s ease;
 }
 
+.featureCardAccent .featureLine {
+  background-color: rgba(255, 255, 255, 0.38);
+}
+
 .featureCard:hover .featureLine {
   width: 100%;
   background-color: rgba(255, 45, 45, 0.45);
+}
+
+.featureCardAccent:hover .featureLine {
+  background-color: rgba(255, 255, 255, 0.86);
 }
 
 .ctaButton {
@@ -283,6 +347,10 @@
   .featuresGrid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .featureCard {
+    padding: 14px 12px 12px;
   }
 }
 

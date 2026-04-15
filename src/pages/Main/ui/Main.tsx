@@ -19,8 +19,8 @@ const Main = ({ className, onOpenContactPopup }: MainProps) => {
       <Hero onOpenContactPopup={onOpenContactPopup} />
       <StatsStrip />
       <About onOpenContactPopup={onOpenContactPopup} />
-      <ServicesProducts />
       <ServicesOverview />
+      <ServicesProducts />
       <Solutions />
       <ContactUsSection onOpenContactPopup={onOpenContactPopup} />
     </div>

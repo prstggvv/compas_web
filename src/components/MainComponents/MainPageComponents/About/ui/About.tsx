@@ -132,7 +132,14 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
 
           <ul className={classNames(cls.featuresGrid, {}, [])}>
             {keyFeatures.map((feature, index) => (
-              <li key={feature.title} className={classNames(cls.featureCard, {}, [])}>
+              <li
+                key={feature.title}
+                className={classNames(
+                  cls.featureCard,
+                  { [cls.featureCardAccent]: index % 2 === 0 && index < 7 },
+                  [],
+                )}
+              >
                 <div className={classNames(cls.featureHead, {}, [])}>
                   <h4 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h4>
                   <span className={classNames(cls.featureNumber, {}, [])}>
