@@ -78,6 +78,7 @@ interface HeroScene {
   hovered: boolean;
   raf: number;
   lastTime: number;
+  cruiseStartTime: number;
 }
 
 const STAR_LAYERS = [28, 40, 54] as const;
@@ -96,7 +97,9 @@ const ROUTE_CHEVRON_COUNT = 5;
 const ROUTE_CHEVRON_COUNT_MOBILE = 3;
 const ROUTE_SIGNAL_COUNT = 4;
 const ROUTE_SIGNAL_COUNT_MOBILE = 2;
-const CRUISE_DURATION_MS = 28000;
+const CRUISE_DELAY_MS = 8000;
+const CRUISE_FLIGHT_MS = 10000;
+const CRUISE_DURATION_MS = CRUISE_DELAY_MS + CRUISE_FLIGHT_MS;
 
 const smoothstep = (edge0: number, edge1: number, x: number) => {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
@@ -331,6 +334,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       hovered: false,
       raf: 0,
       lastTime: 0,
+      cruiseStartTime: 0,
     };
 
     const drawCore = (parallaxX: number, parallaxY: number, hovered: boolean) => {
@@ -745,16 +749,16 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
 
       const connections: Array<[number, number, Tint]> = compact
         ? [
-            [0, 1, 'white'],
-            [1, 2, 'red'],
-            [2, 3, 'blue'],
-          ]
+          [0, 1, 'white'],
+          [1, 2, 'red'],
+          [2, 3, 'blue'],
+        ]
         : [
-            [0, 1, 'white'],
-            [1, 2, 'red'],
-            [1, 3, 'blue'],
-            [2, 3, 'white'],
-          ];
+          [0, 1, 'white'],
+          [1, 2, 'red'],
+          [1, 3, 'blue'],
+          [2, 3, 'white'],
+        ];
 
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
@@ -825,6 +829,10 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         return;
       }
 
+      if (sceneRef.current.cruiseStartTime === 0) {
+        sceneRef.current.cruiseStartTime = time;
+      }
+
       const { width: w, height: h, compact } = sceneRef.current;
       const scrollShift = sceneRef.current.scrollY * 0.01;
       const px = parallaxX * 0.35;
@@ -834,7 +842,13 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       const pulseWave = Math.max(0, Math.sin(phase * Math.PI * 2 - Math.PI * 0.5));
       const pulseIntensity = Math.pow(pulseWave, 4);
 
-      const t = (time % CRUISE_DURATION_MS) / CRUISE_DURATION_MS;
+      const cruiseTime = (time - sceneRef.current.cruiseStartTime) % CRUISE_DURATION_MS;
+
+      if (cruiseTime < CRUISE_DELAY_MS) {
+        return;
+      }
+
+      const t = (cruiseTime - CRUISE_DELAY_MS) / CRUISE_FLIGHT_MS;
       const travel = easeInOutCubic(t);
       const envelope = smoothstep(0, 0.12, t) * smoothstep(1, 0.82, t);
 
@@ -1047,12 +1061,12 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
           >
             <button
               type="button"
-                  className={classNames(cls.btnPrimary, {}, [])}
+              className={classNames(cls.btnPrimary, {}, [])}
               onClick={onOpenContactPopup}
               aria-label="Оставить заявку"
-                >
-                  Оставить заявку
-                  <ArrowRightIcon />
+            >
+              Оставить заявку
+              <ArrowRightIcon />
             </button>
           </motion.div>
         </div>
