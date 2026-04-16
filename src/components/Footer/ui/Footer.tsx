@@ -10,12 +10,9 @@ interface FooterProps {
 const navigationItems = [
   { label: 'Услуги', to: '/services' },
   { label: 'Товары', to: '/product' },
+  { label: 'Контакты', to: '/contact' },
 ] as const;
 
-const anchorItems = [
-  { label: 'Решения', href: '/#solutions' },
-  { label: 'Контакты', href: '/#contact' },
-] as const;
 
 export const Footer = ({ className }: FooterProps) => {
   return (
@@ -43,13 +40,6 @@ export const Footer = ({ className }: FooterProps) => {
                   <Link to={item.to} className={classNames(cls.navLink, {}, [])}>
                     {item.label}
                   </Link>
-                </li>
-              ))}
-              {anchorItems.map((item) => (
-                <li key={item.href}>
-                  <a href={item.href} className={classNames(cls.navLink, {}, [])}>
-                    {item.label}
-                  </a>
                 </li>
               ))}
             </ul>

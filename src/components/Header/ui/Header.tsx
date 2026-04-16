@@ -20,7 +20,6 @@ const navItems: NavItem[] = [
   { id: 'home', label: 'Главная', description: 'Главная страница компании', type: 'route', to: '/' },
   { id: 'services', label: 'Услуги', description: 'Проектирование, монтаж и производство', type: 'route', to: '/services' },
   { id: 'products', label: 'Товары', description: 'Категории продукции и поставки', type: 'route', to: '/product' },
-  { id: 'solutions', label: 'Решения', description: 'Реализованные объекты и кейсы', type: 'section', sectionId: 'solutions' },
   { id: 'contact', label: 'Контакты', description: 'Телефон, почта и обратная связь', type: 'route', to: '/contact' },
 ];
 
