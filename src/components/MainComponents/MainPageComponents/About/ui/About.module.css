@@ -197,6 +197,10 @@
   letter-spacing: 0.12em;
 }
 
+.featureNumber.linkNumber {
+  color: #ffffff;
+}
+
 .featureCardAccent .featureNumber {
   color: rgba(255, 255, 255, 0.88);
 }
@@ -232,6 +236,98 @@
 
 .featureCardAccent:hover .featureLine {
   background-color: rgba(255, 255, 255, 0.86);
+}
+
+.featureCardCta {
+  padding: 0;
+  background-color: #ff2d2d;
+  overflow: hidden;
+  transform-origin: center;
+  transition: background-color 0.22s ease;
+}
+
+.featureCardCtaLink {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  gap: 16px;
+  position: relative;
+  padding: 18px 18px 14px 14px;
+  transition: transform 0.25s ease;
+}
+
+.featureCtaContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featureCtaEyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-gt-pro-regular);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.featureCtaTitle {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.featureCtaText {
+  max-width: 280px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-family: var(--font-gt-pro-regular);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.ctaIconNumber {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.featureCtaArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.08);
+  transition: border-color 0.22s ease, background-color 0.22s ease;
+}
+
+.featureCardCta:hover {
+  background-color: #e32727;
+}
+
+.featureCardCta:hover .featureCtaArrow {
+  border-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.featureCardCta:hover .ctaIcon {
+  transform: translateX(4px);
+}
+
+.featureCardCtaLink:hover .ctaIconNumber {
+  transform: translateX(4px);
 }
 
 .ctaButton {

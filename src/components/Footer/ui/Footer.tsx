@@ -1,4 +1,4 @@
-import { Compass, Send, Youtube } from 'lucide-react';
+import { Compass, Send, View } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './Footer.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
@@ -49,13 +49,13 @@ export const Footer = ({ className }: FooterProps) => {
             <h2 className={classNames(cls.columnTitle, {}, [])}>Контакты</h2>
             <ul className={classNames(cls.contactList, {}, [])}>
               <li>
-                <a href="tel:88005553535" className={classNames(cls.contactLink, {}, [])}>
-                  8 (800) 555-35-35
+                <a href="tel:+79119950349" className={classNames(cls.contactLink, {}, [])}>
+                  +7 (911) 995 03 49
                 </a>
               </li>
               <li>
-                <a href="mailto:info@compass-dor.ru" className={classNames(cls.contactLink, {}, [])}>
-                  info@compass-dor.ru
+                <a href="mailto:kompaskrim@mail.ru" className={classNames(cls.contactLink, {}, [])}>
+                  kompaskrim@mail.ru
                 </a>
               </li>
               <li className={classNames(cls.contactText, {}, [])}>г. Москва, ул. Дорожная, д. 12</li>
@@ -68,8 +68,8 @@ export const Footer = ({ className }: FooterProps) => {
               <a href="#" className={classNames(cls.socialLink, {}, [])} aria-label="Telegram">
                 <Send className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
               </a>
-              <a href="#" className={classNames(cls.socialLink, {}, [])} aria-label="YouTube">
-                <Youtube className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
+              <a target='_blank' href="https://vk.com/oookompass" className={classNames(cls.socialLink, {}, [])} aria-label="YouTube">
+                <View className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
               </a>
             </div>
           </div>

@@ -6,6 +6,7 @@ import aboutImg from '../../../../../shared/assets/images/about/about.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 import { MOTION_EASE, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
+
 interface IAboutProps {
   className?: string;
   onOpenContactPopup?: () => void;
@@ -131,36 +132,48 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
           </div>
 
           <ul className={classNames(cls.featuresGrid, {}, [])}>
-            {keyFeatures.map((feature, index) => (
-              <li
-                key={feature.title}
-                className={classNames(
-                  cls.featureCard,
-                  { [cls.featureCardAccent]: index % 2 === 0 && index < 7 },
-                  [],
-                )}
-              >
-                <div className={classNames(cls.featureHead, {}, [])}>
-                  <h4 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h4>
-                  <span className={classNames(cls.featureNumber, {}, [])}>
-                    ({String(index + 1).padStart(2, '0')})
-                  </span>
-                </div>
-                <p className={classNames(cls.featureText, {}, [])}>{feature.text}</p>
-                <span className={classNames(cls.featureLine, {}, [])} aria-hidden />
+            <>
+              {keyFeatures.map((feature, index) => {
+                return (
+                  <li
+                    key={feature.title}
+                    className={classNames(
+                      cls.featureCard,
+                      { [cls.featureCardAccent]: index % 2 === 0 && index < keyFeatures.length - 1 },
+                      [],
+                    )}
+                  >
+                    <div className={classNames(cls.featureHead, {}, [])}>
+                      <h4 className={classNames(cls.featureTitle, {}, [])}>{feature.title}</h4>
+                      <span className={classNames(cls.featureNumber, {}, [])}>
+                        ({String(index + 1).padStart(2, '0')})
+                      </span>
+                    </div>
+                    <p className={classNames(cls.featureText, {}, [])}>{feature.text}</p>
+                    <span className={classNames(cls.featureLine, {}, [])} aria-hidden />
+                  </li>
+                )
+              })}
+              <li className={classNames(cls.featureCard, { [cls.featureCardCta]: true }, [])}>
+                <a
+                  href="https://www.trafsaf.ru/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classNames(cls.featureCardCtaLink, {}, [])}
+                >
+                  <div className={classNames(cls.featureCtaContent, {}, [])}>
+                    <div className={classNames(cls.featureHead, {}, [])}>
+                      <h4 className={classNames(cls.featureCtaTitle, {}, [])}>Проектирование ОДД</h4>
+                      <ArrowRight className={classNames(cls.ctaIconNumber, {}, [])} strokeWidth={2} />
+                    </div>
+                    <span className={classNames(cls.featureCtaText, {}, [])}>
+                      Переход на внешний ресурс по тематике проектирования организации дорожного движения.
+                    </span>
+                  </div>
+                </a>
               </li>
-            ))}
+            </>
           </ul>
-
-          <a
-            href="https://aikodd.ru"
-            target="_blank"
-            rel="noreferrer"
-            className={classNames(cls.externalLinkButton, {}, [])}
-          >
-            Проектирование ОДД
-            <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} />
-          </a>
         </div>
       </div>
     </section>

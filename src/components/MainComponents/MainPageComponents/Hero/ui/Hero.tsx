@@ -1052,7 +1052,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
             className={classNames(cls.subtitle, {}, [])}
             variants={{ hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: MOTION_EASE } } }}
           >
-            Интеллектуально проектируем транспортные и логистические каркасы будущего, превращая сложные потоки в ясную инфраструктурную систему.
+            Мы выполняем строительно-монтажные работы на объектах транспортной инфраструктуры — с собственными бригадами, техникой и инженерным контролем.
           </motion.p>
 
           <motion.div

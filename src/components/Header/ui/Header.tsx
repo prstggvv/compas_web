@@ -129,11 +129,11 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
 
           <div className={classNames(cls.actions, {}, [])}>
             <div className={classNames(cls.contacts, {}, [])}>
-              <a href="tel:88005553535" className={classNames(cls.contactLink, {}, [])}>
-                8 (800) 555-35-35
+              <a href="tel:+79119950349" className={classNames(cls.contactLink, {}, [])}>
+                +7 (911) 995 03 49
               </a>
-              <a href="mailto:info@compass-dor.ru" className={classNames(cls.contactLink, {}, [])}>
-                info@compass-dor.ru
+              <a href="mailto:kompaskrim@mail.ru" className={classNames(cls.contactLink, {}, [])}>
+                kompaskrim@mail.ru
               </a>
             </div>
 
@@ -191,11 +191,11 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
                     </p>
 
                     <div className={classNames(cls.menuContacts, {}, [])}>
-                      <a href="tel:88005553535" className={classNames(cls.menuContactLink, {}, [])}>
-                        8 (800) 555-35-35
+                      <a href="tel:+79119950349" className={classNames(cls.menuContactLink, {}, [])}>
+                        +7 (911) 995 03 49
                       </a>
-                      <a href="mailto:info@compass-dor.ru" className={classNames(cls.menuContactLink, {}, [])}>
-                        info@compass-dor.ru
+                      <a href="mailto:kompaskrim@mail.ru" className={classNames(cls.menuContactLink, {}, [])}>
+                        kompaskrim@mail.ru
                       </a>
                       <span className={classNames(cls.menuContactText, {}, [])}>г. Москва, ул. Дорожная, д. 12</span>
                     </div>

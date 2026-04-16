@@ -92,7 +92,7 @@
 .subtitle {
   margin: 0;
   max-width: 430px;
-  color: rgba(255, 255, 255, 0.42);
+  color: white;
   font-family: var(--font-gt-pro-regular);
   font-size: 16px;
   line-height: 1.6;
