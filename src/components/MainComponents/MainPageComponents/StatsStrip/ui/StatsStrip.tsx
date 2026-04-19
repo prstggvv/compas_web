@@ -1,10 +1,11 @@
 import type { LucideIcon } from 'lucide-react';
 import { Building2, CalendarClock, Signpost, Users } from 'lucide-react';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
-import cls from "./StatsStrip.module.css";
-import { classNames } from "../../../../../shared/lib/classNames/classNames";
+import cls from './StatsStrip.module.css';
+import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import { VIEWPORT_DEEP } from '../../../../../shared/lib/motion';
+import statImage from '../../../../../shared/assets/images/stats/stat.jpg';
 
 interface IStatsStripProps {
   className?: string;
@@ -19,10 +20,10 @@ type StatItem = {
 };
 
 const stats: StatItem[] = [
-  { id: "signs", target: 1000, suffix: "+", label: "Установлено знаков", icon: Signpost },
-  { id: "objects", target: 200, suffix: "+", label: "Сдано объектов", icon: Building2 },
-  { id: "years", target: 10, suffix: "", label: "Лет опыта", icon: CalendarClock },
-  { id: "clients", target: 50, suffix: "+", label: "Постоянных клиентов", icon: Users },
+  { id: 'signs', target: 1000, suffix: '+', label: 'Установлено знаков', icon: Signpost },
+  { id: 'objects', target: 200, suffix: '+', label: 'Сдано объектов', icon: Building2 },
+  { id: 'years', target: 10, suffix: '', label: 'Лет опыта', icon: CalendarClock },
+  { id: 'clients', target: 50, suffix: '+', label: 'Постоянных клиентов', icon: Users },
 ];
 
 const DURATION_MS = 1600;
@@ -58,24 +59,40 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
   return (
     <section
       ref={sectionRef}
-      className={classNames(cls.section, {}, [className ?? ""])}
+      className={classNames(cls.section, {}, [className ?? ''])}
       aria-label="Ключевые показатели"
     >
       <div className={classNames(cls.container, {}, [])}>
-        <ul className={classNames(cls.statsGrid, {}, [])}>
-          {stats.map((item, index) => (
-            <li key={item.id} className={classNames(cls.statItem, {}, [])}>
-              <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
-                <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
-              </span>
-              <div className={classNames(cls.value, {}, [])}>
-                {values[index]}
-                {item.suffix}
-              </div>
-              <p className={classNames(cls.label, {}, [])}>{item.label}</p>
-            </li>
-          ))}
-        </ul>
+        <div className={classNames(cls.layout, {}, [])}>
+          <div className={classNames(cls.visual, {}, [])}>
+            <img
+              className={classNames(cls.visualImage, {}, [])}
+              src={statImage}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div className={classNames(cls.statsColumn, {}, [])}>
+            <ul className={classNames(cls.statsList, {}, [])}>
+              {stats.map((item, index) => (
+                <li key={item.id} className={classNames(cls.statRow, {}, [])}>
+                  <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
+                    <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
+                  </span>
+                  <div className={classNames(cls.statBody, {}, [])}>
+                    <div className={classNames(cls.value, {}, [])}>
+                      {values[index]}
+                      {item.suffix}
+                    </div>
+                    <p className={classNames(cls.label, {}, [])}>{item.label}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );
