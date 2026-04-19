@@ -18,20 +18,20 @@ interface ContactItem {
 const contactItems: ContactItem[] = [
   {
     label: 'Телефон',
-    value: '8 (800) 555-35-35',
-    href: 'tel:88005553535',
+    value: '+7 (911) 995 03 49',
+    href: 'tel:+79119950349',
     isLink: true,
   },
   {
     label: 'Электронная почта',
-    value: 'info@compass-dor.ru',
-    href: 'mailto:info@compass-dor.ru',
+    value: 'kompaskrim@mail.ru',
+    href: 'mailto:kompaskrim@mail.ru',
     isLink: true,
     underlined: true,
   },
   {
     label: 'Офис',
-    value: 'г. Москва, БЦ «Основа»\nПресненская наб., 12',
+    value: 'г. Симферополь, просп. Победы, 109А',
     isLink: false,
   },
   {

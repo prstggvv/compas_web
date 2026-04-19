@@ -85,12 +85,6 @@ export const Solutions = ({ className }: ISolutionsProps) => {
             Подбираем комплект знаков, разметки и элементов инфраструктуры под сценарий движения: от жилых кварталов до
             логистики и городских парковок. Ниже — примеры реализованных проектов.
           </p>
-          <div className={classNames(cls.ctaWrap, {}, [])}>
-            <a href="#catalog" className={classNames(cls.cta, {}, [])}>
-              Весь каталог
-              <ArrowRight className={classNames(cls.ctaIcon, {}, [])} strokeWidth={2} aria-hidden />
-            </a>
-          </div>
         </motion.div>
 
         <ul className={classNames(cls.list, {}, [])}>
