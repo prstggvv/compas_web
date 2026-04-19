@@ -137,6 +137,21 @@
   height: 18px;
 }
 
+.socialIcon.vk {
+  background-image: url("../../../shared/assets/images/icons/footer/vk_dark.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: background-image .2s ease;
+}
+
+.socialIcon.vk:hover {
+  background-image: url("../../../shared/assets/images/icons/footer/vk_light.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
 .bottom {
   display: flex;
   justify-content: space-between;

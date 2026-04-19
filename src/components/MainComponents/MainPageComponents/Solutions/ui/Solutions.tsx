@@ -1,4 +1,4 @@
-import { ArrowRight, Building2, CarFront, Compass, Warehouse } from 'lucide-react';
+import { Building2, CarFront, Compass, Warehouse } from 'lucide-react';
 import { motion } from 'framer-motion';
 import cls from './Solutions.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';

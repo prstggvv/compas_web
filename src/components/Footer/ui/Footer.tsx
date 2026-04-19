@@ -1,7 +1,8 @@
-import { Compass, Send, View } from 'lucide-react';
+import { Compass, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './Footer.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
+import VkDark from '../../../shared/assets/images/icons/footer/vk_dark.svg';
 
 interface FooterProps {
   className?: string;
@@ -69,7 +70,7 @@ export const Footer = ({ className }: FooterProps) => {
                 <Send className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
               </a>
               <a target='_blank' href="https://vk.com/oookompass" className={classNames(cls.socialLink, {}, [])} aria-label="YouTube">
-                <View className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
+                <div className={classNames(cls.socialIcon, {}, [cls.vk])}></div>
               </a>
             </div>
           </div>
