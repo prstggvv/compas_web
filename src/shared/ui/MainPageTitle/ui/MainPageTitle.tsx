@@ -1,8 +1,8 @@
 import cls from './MainPageTitle.module.css';
 import { classNames } from '../../../lib/classNames/classNames';
-import AboutImage from '../../../assets/images/CompasPhotos/about.png';
-import UslugiImage from '../../../assets/images/CompasPhotos/uslugi.png';
-import ProductsImage from '../../../assets/images/CompasPhotos/tovari.png';
+// import AboutImage from '../../../assets/images/CompasPhotos/about.png';
+// import UslugiImage from '../../../assets/images/CompasPhotos/uslugi.png';
+// import ProductsImage from '../../../assets/images/CompasPhotos/tovari.png';
 
 interface MainPageTitleProps {
   className?: string;
@@ -22,7 +22,7 @@ export const MainPageTitle = ({
   as = 'h2',
 }: MainPageTitleProps) => {
   const TitleTag = as;
-  const normalizedTitle = title.trim().toLowerCase();
+  // const normalizedTitle = title.trim().toLowerCase();
 
   /*
   const titleImage =
