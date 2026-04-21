@@ -24,6 +24,7 @@ export const MainPageTitle = ({
   const TitleTag = as;
   const normalizedTitle = title.trim().toLowerCase();
 
+  /*
   const titleImage =
     normalizedTitle === 'о компании'
       ? AboutImage
@@ -32,7 +33,7 @@ export const MainPageTitle = ({
         : normalizedTitle === 'наша продукция'
           ? ProductsImage
           : AboutImage;
-
+  */
   // const titleImageAlt = normalizedTitle === 'о компании' ? 'About' : normalizedTitle === 'наши услуги' ? 'Услуги' : normalizedTitle === 'наша продукция' ? 'Продукция' : 'About';
 
   return (
