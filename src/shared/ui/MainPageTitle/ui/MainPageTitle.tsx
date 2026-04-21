@@ -33,12 +33,12 @@ export const MainPageTitle = ({
           ? ProductsImage
           : AboutImage;
 
-  const titleImageAlt = normalizedTitle === 'о компании' ? 'About' : normalizedTitle === 'наши услуги' ? 'Услуги' : normalizedTitle === 'наша продукция' ? 'Продукция' : 'About';
+  // const titleImageAlt = normalizedTitle === 'о компании' ? 'About' : normalizedTitle === 'наши услуги' ? 'Услуги' : normalizedTitle === 'наша продукция' ? 'Продукция' : 'About';
 
   return (
     <div className={classNames(cls.wrap, {}, [className ?? ''])}>
       <div className={classNames(cls.titleWrap, {}, [])}>
-        <img src={titleImage} alt={titleImageAlt} className={classNames(cls.titleImage, {}, [])} />
+        {/* <img src={titleImage} alt={titleImageAlt} className={classNames(cls.titleImage, {}, [])} /> */}
         <TitleTag id={id} className={classNames(cls.title, {}, [])}>
           {title}
         </TitleTag>

@@ -197,7 +197,7 @@ export const Header = ({ className, onOpenContactPopup }: IHeaderData) => {
                       <a href="mailto:kompaskrim@mail.ru" className={classNames(cls.menuContactLink, {}, [])}>
                         kompaskrim@mail.ru
                       </a>
-                      <span className={classNames(cls.menuContactText, {}, [])}>г. Москва, ул. Дорожная, д. 12</span>
+                      <span className={classNames(cls.menuContactText, {}, [])}>г. Симферополь, просп. Победы, 109А</span>
                     </div>
 
                     <button

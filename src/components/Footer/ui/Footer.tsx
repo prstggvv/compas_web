@@ -2,7 +2,6 @@ import { Compass, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './Footer.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
-import VkDark from '../../../shared/assets/images/icons/footer/vk_dark.svg';
 
 interface FooterProps {
   className?: string;
@@ -59,7 +58,7 @@ export const Footer = ({ className }: FooterProps) => {
                   kompaskrim@mail.ru
                 </a>
               </li>
-              <li className={classNames(cls.contactText, {}, [])}>г. Москва, ул. Дорожная, д. 12</li>
+              <li className={classNames(cls.contactText, {}, [])}>г. Симферополь, просп. Победы, 109А</li>
             </ul>
           </div>
 
