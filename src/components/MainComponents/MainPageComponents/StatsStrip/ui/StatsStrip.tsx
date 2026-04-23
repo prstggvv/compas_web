@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 import { Building2, CalendarClock, Signpost, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import cls from './StatsStrip.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import { VIEWPORT_DEEP } from '../../../../../shared/lib/motion';
@@ -27,6 +27,16 @@ const stats: StatItem[] = [
 ];
 
 const DURATION_MS = 1600;
+
+const listVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.13 } },
+};
+
+const rowVariants = {
+  hidden: { opacity: 0, x: 36 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+};
 
 export const StatsStrip = ({ className }: IStatsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -62,36 +72,40 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
       className={classNames(cls.section, {}, [className ?? ''])}
       aria-label="Ключевые показатели"
     >
-      <div className={classNames(cls.container, {}, [])}>
-        <div className={classNames(cls.layout, {}, [])}>
-          <div className={classNames(cls.visual, {}, [])}>
-            <img
-              className={classNames(cls.visualImage, {}, [])}
-              src={statImage}
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
+      <div className={classNames(cls.layout, {}, [])}>
+        <div className={classNames(cls.visual, {}, [])}>
+          <img
+            className={classNames(cls.visualImage, {}, [])}
+            src={statImage}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <div className={classNames(cls.visualOverlay, {}, [])} aria-hidden />
+        </div>
 
-          <div className={classNames(cls.statsColumn, {}, [])}>
-            <ul className={classNames(cls.statsList, {}, [])}>
-              {stats.map((item, index) => (
-                <li key={item.id} className={classNames(cls.statRow, {}, [])}>
-                  <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
-                    <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
-                  </span>
-                  <div className={classNames(cls.statBody, {}, [])}>
-                    <div className={classNames(cls.value, {}, [])}>
-                      {values[index]}
-                      {item.suffix}
-                    </div>
-                    <p className={classNames(cls.label, {}, [])}>{item.label}</p>
+        <div className={classNames(cls.statsColumn, {}, [])}>
+          <motion.ul
+            className={classNames(cls.statsList, {}, [])}
+            variants={listVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+          >
+            {stats.map((item, index) => (
+              <motion.li key={item.id} className={classNames(cls.statRow, {}, [])} variants={rowVariants}>
+                <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
+                  <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
+                </span>
+                <div className={classNames(cls.statBody, {}, [])}>
+                  <div className={classNames(cls.value, {}, [])}>
+                    {values[index]}
+                    {item.suffix}
                   </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+                  <p className={classNames(cls.label, {}, [])}>{item.label}</p>
+                </div>
+              </motion.li>
+            ))}
+          </motion.ul>
         </div>
       </div>
     </section>

@@ -93,9 +93,10 @@ export const ContactOverview = ({ className }: ContactOverviewProps) => {
 
               <iframe
                 className={classNames(cls.mapFrame, {}, [])}
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.4304851216335!2d37.534888877239334!3d55.749216091910245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bd3866299b9%3A0x6e25679901777d12!2z0J_RgNC10YHQvdC10L3RgdC60LDRjyDQvdCw0LEuLCAxMiwg0JzQvtGB0LrQstCwLCAxMjMxMTI!5e0!3m2!1sru!2sru!4v1700000000000!5m2!1sru!2sru"
+                src="https://yandex.com/map-widget/v1/?ll=34.127123%2C44.965759&mode=whatshere&utm_source=share&whatshere%5Bpoint%5D=34.127123%2C44.965758&whatshere%5Bzoom%5D=17&z=16"
                 title="Офис Компас на карте"
                 loading="lazy"
+                allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
               />
 

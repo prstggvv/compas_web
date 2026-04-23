@@ -8,15 +8,15 @@ import { MOTION_EASE, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
 const marqueeItems = [
   'Дорожные знаки',
-  'Светофорные объекты',
+  'Дорожная разметка',
   'Барьерные ограждения',
-  'Тротуары и велодорожки',
-  'Благоустройство территорий',
-  'Организация движения',
-  'Остановочные павильоны',
-  'Шумозащитные экраны',
-  'Малые архитектурные формы',
-  'Спортивные площадки',
+  'Металлоконструкции',
+  'Мафы',
+  'Остановки',
+  'Ограждения',
+  'Материалы',
+  'Крепеж и метизы',
+  'СИЗ и спецодежда',
 ];
 
 
@@ -136,7 +136,7 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
               loading="lazy"
             />
             <div className={classNames(cls.visualBadge, {}, [])}>
-              <span className={classNames(cls.visualBadgeYear, {}, [])}>2014</span>
+              <span className={classNames(cls.visualBadgeYear, {}, [])}>2022</span>
               <span className={classNames(cls.visualBadgeLabel, {}, [])}>год основания</span>
             </div>
           </div>
