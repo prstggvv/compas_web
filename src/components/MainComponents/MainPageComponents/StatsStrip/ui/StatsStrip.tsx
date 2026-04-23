@@ -33,11 +33,6 @@ const listVariants = {
   visible: { transition: { staggerChildren: 0.13 } },
 };
 
-const rowVariants = {
-  hidden: { opacity: 0, x: 36 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-};
-
 export const StatsStrip = ({ className }: IStatsStripProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, VIEWPORT_DEEP);
@@ -77,7 +72,7 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
           <img
             className={classNames(cls.visualImage, {}, [])}
             src={statImage}
-            alt=""
+            alt="фотка космонавтов строющих светофоры"
             loading="lazy"
             decoding="async"
           />
@@ -92,7 +87,7 @@ export const StatsStrip = ({ className }: IStatsStripProps) => {
             animate={isInView ? 'visible' : 'hidden'}
           >
             {stats.map((item, index) => (
-              <motion.li key={item.id} className={classNames(cls.statRow, {}, [])} variants={rowVariants}>
+              <motion.li key={item.id} className={classNames(cls.statRow, {}, [])}>
                 <span className={classNames(cls.iconWrap, {}, [])} aria-hidden>
                   <item.icon className={classNames(cls.icon, {}, [])} strokeWidth={1.9} />
                 </span>
