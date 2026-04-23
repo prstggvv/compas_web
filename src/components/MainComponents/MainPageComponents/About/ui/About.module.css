@@ -1,5 +1,5 @@
 .section {
-  padding: 112px 0;
+  padding: 80px 0;
   background-color: rgb(249, 250, 251);
 }
 
@@ -9,7 +9,7 @@
   padding: 0 var(--product-page-padding-x);
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 
 .head {
@@ -71,10 +71,80 @@
   object-fit: cover;
 }
 
+.visualBadge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 20px;
+  background-color: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-left: 2px solid #ff2d2d;
+}
+
+.visualBadgeYear {
+  color: #ffffff;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.visualBadgeLabel {
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--font-gt-pro-regular);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Marquee ─────────────────────────────────────── */
+
+.marqueeWrap {
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 13px 0;
+  margin: 0 calc(-1 * var(--product-page-padding-x));
+}
+
+.marqueeTrack {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding-right: 18px;
+  color: #7a7a7a;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.marqueeDot {
+  color: #ff2d2d;
+  font-size: 7px;
+  line-height: 1;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 .featuresSection {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 28px;
 }
 
 .featuresHeading {
@@ -399,7 +469,7 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 88px 0;
+    padding: 64px 0;
   }
 
   .introLayout {
@@ -417,11 +487,11 @@
 
 @media (max-width: 720px) {
   .section {
-    padding: 72px 0;
+    padding: 52px 0;
   }
 
   .container {
-    gap: 32px;
+    gap: 24px;
   }
 
   .primaryLead {

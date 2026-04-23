@@ -1,11 +1,29 @@
-import signsCatalogImg from '../../../../../shared/assets/images/products/signs.jpg';
-import metalCatalogImg from '../../../../../shared/assets/images/products/nerovnost.jpg';
-import streetCatalogImg from '../../../../../shared/assets/images/products/parkings.jpg';
-import barriersCatalogImg from '../../../../../shared/assets/images/products/markings.jpg';
-import markingCatalogImg from '../../../../../shared/assets/images/products/plastica.jpg';
+// Знаки
+import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
+import signsCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Signs/1.jpg';
+import signsCatalogImgThird from '../../../../../shared/assets/images/Tovars/Signs/2.jpg';
+
+// Металоконструкции
+import metalCatalogImgFirst from '../../../../../shared/assets/images/Tovars/metall/1.jpg';
+import metalCatalogImgSecond from '../../../../../shared/assets/images/Tovars/metall/2.jpg';
+import metalCatalogImgThird from '../../../../../shared/assets/images/Tovars/metall/3.jpg';
+
+// Маф
+import mafCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Maf/1.jpg';
+import mafCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Maf/2.jpg';
+import mafCatalogImgThird from '../../../../../shared/assets/images/Tovars/Maf/3.jpg';
+
+// Ограждения
+import ogrCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Ograshdenie/1.jpg';
+import ogrCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Ograshdenie/2.jpg';
+
+// Разметка
+import markingsImgFirst from '../../../../../shared/assets/images/Tovars/markings/1.jpg';
+import markingsImgSecond from '../../../../../shared/assets/images/Tovars/markings/2.jpg';
+
 import ppeCatalogImg from '../../../../../shared/assets/images/products/lighter.jpg';
 import fastenersCatalogImg from '../../../../../shared/assets/images/photos/prepare.jpg';
-import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
+
 import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
 import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
 
@@ -57,7 +75,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Дорожные знаки и элементы ОДД',
     label: 'Дорожные знаки и элементы ОДД',
     description: 'Знаки ГОСТ, индивидуальные решения, стойки, опоры и комплекты для организации движения.',
-    image: signsCatalogImg,
+    image: signsCatalogImgSecond,
     article: 'ODD-CATEGORY',
     lead: 'Производим и поставляем знаки, указатели и элементы организации дорожного движения для городских улиц, трасс и объектов благоустройства.',
     assortmentTitle: 'В ассортименте',
@@ -80,8 +98,8 @@ export const productCategoryContent: ProductCategoryContent[] = [
     ],
     gallery: [
       { id: 'main', src: signsImg, alt: 'Дорожные знаки и элементы ОДД' },
-      { id: 'detail', src: nerovnostImg, alt: 'Опоры и элементы дорожной инфраструктуры' },
-      { id: 'context', src: markingsImg, alt: 'Контекст применения на объекте' },
+      { id: 'detail', src: signsCatalogImgSecond, alt: 'Опоры и элементы дорожной инфраструктуры' },
+      { id: 'context', src: signsCatalogImgThird, alt: 'Контекст применения на объекте' },
     ],
     statuses: [
       { id: 'gost', label: 'ГОСТ' },
@@ -95,7 +113,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Металлоконструкции',
     label: 'Металлоконструкции',
     description: 'Рамные и трубные опоры, консоли, закладные детали и анкерные группы для дорожных объектов.',
-    image: metalCatalogImg,
+    image: metalCatalogImgFirst,
     article: 'METAL-CATEGORY',
     lead: 'Изготавливаем металлоконструкции для дорог и территорий: от типовых опор до индивидуальных несущих решений под проект.',
     assortmentTitle: 'В ассортименте',
@@ -117,9 +135,9 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Покрытие', value: 'Горячее цинкование, ЛКМ по ТЗ' },
     ],
     gallery: [
-      { id: 'main', src: nerovnostImg, alt: 'Металлоконструкции для дорог и территорий' },
-      { id: 'detail', src: markingsImg, alt: 'Монтажные узлы и металлоизделия' },
-      { id: 'context', src: signsImg, alt: 'Опоры и выносные элементы на объекте' },
+      { id: 'main', src: metalCatalogImgFirst, alt: 'Металлоконструкции для дорог и территорий' },
+      { id: 'detail', src: metalCatalogImgSecond, alt: 'Монтажные узлы и металлоизделия' },
+      { id: 'context', src: metalCatalogImgThird, alt: 'Опоры и выносные элементы на объекте' },
     ],
     statuses: [
       { id: 'calc', label: 'Расчет нагрузок' },
@@ -133,7 +151,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'МАФ и остановки',
     label: 'МАФ и остановки',
     description: 'Павильоны, навесы, перголы и элементы благоустройства для городской среды и общественных зон.',
-    image: streetCatalogImg,
+    image: mafCatalogImgFirst,
     article: 'STREET-CATEGORY',
     lead: 'Разрабатываем и поставляем остановочные павильоны и малые архитектурные формы для городской среды и общественных пространств.',
     assortmentTitle: 'В ассортименте',
@@ -155,9 +173,9 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Комплектация', value: 'Каркас, заполнение, навигация, мебель, крепеж' },
     ],
     gallery: [
-      { id: 'main', src: streetCatalogImg, alt: 'МАФ и остановочные павильоны' },
-      { id: 'detail', src: signsImg, alt: 'Навигационные и конструктивные элементы' },
-      { id: 'context', src: markingsImg, alt: 'Объект городской среды' },
+      { id: 'main', src: mafCatalogImgFirst, alt: 'МАФ и остановочные павильоны' },
+      { id: 'detail', src: mafCatalogImgSecond, alt: 'Навигационные и конструктивные элементы' },
+      { id: 'context', src: mafCatalogImgThird, alt: 'Объект городской среды' },
     ],
     statuses: [
       { id: 'custom', label: 'Под архитектуру объекта' },
@@ -171,7 +189,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Ограждения',
     label: 'Ограждения',
     description: 'Барьерные, пешеходные и временные решения для дорог, территорий и зон производства работ.',
-    image: barriersCatalogImg,
+    image: ogrCatalogImgFirst,
     article: 'BARRIER-CATEGORY',
     lead: 'Поставляем ограждения для дорог, общественных территорий и временных схем организации движения.',
     assortmentTitle: 'В ассортименте',
@@ -193,8 +211,8 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Поставка', value: 'Комплектующие, монтажные узлы, документация' },
     ],
     gallery: [
-      { id: 'main', src: markingsImg, alt: 'Ограждения для дорог и территорий' },
-      { id: 'detail', src: nerovnostImg, alt: 'Секции и крепежные элементы' },
+      { id: 'main', src: ogrCatalogImgFirst, alt: 'Ограждения для дорог и территорий' },
+      { id: 'detail', src: ogrCatalogImgSecond, alt: 'Секции и крепежные элементы' },
       { id: 'context', src: signsImg, alt: 'Применение ограждений на объекте' },
     ],
     statuses: [
@@ -209,7 +227,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Материалы для разметки',
     label: 'Материалы для разметки',
     description: 'Краска, термопластик, холодный пластик и стеклошарики для долговечной дорожной разметки.',
-    image: markingCatalogImg,
+    image: markingsImgFirst,
     article: 'MARKING-CATEGORY',
     lead: 'Подбираем и поставляем материалы для долговечной дорожной разметки под условия эксплуатации и технологию нанесения.',
     assortmentTitle: 'В ассортименте',
@@ -231,8 +249,8 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Подбор', value: 'По климату, нагрузке и технологии нанесения' },
     ],
     gallery: [
-      { id: 'main', src: markingCatalogImg, alt: 'Материалы для дорожной разметки' },
-      { id: 'detail', src: signsImg, alt: 'Упаковка и состав материалов' },
+      { id: 'main', src: markingsImgFirst, alt: 'Материалы для дорожной разметки' },
+      { id: 'detail', src: markingsImgSecond, alt: 'Упаковка и состав материалов' },
       { id: 'context', src: nerovnostImg, alt: 'Нанесение разметки на объекте' },
     ],
     statuses: [

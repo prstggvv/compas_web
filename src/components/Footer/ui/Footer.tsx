@@ -1,7 +1,8 @@
-import { Compass, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './Footer.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
+import LogoIconSvg from '../../../shared/assets/images/icons/logo.svg';
 
 interface FooterProps {
   className?: string;
@@ -21,8 +22,11 @@ export const Footer = ({ className }: FooterProps) => {
         <div className={classNames(cls.grid, {}, [])}>
           <div className={classNames(cls.brandColumn, {}, [])}>
             <Link to="/" className={classNames(cls.logo, {}, [])} aria-label="Компас — на главную">
-              <Compass className={classNames(cls.logoIcon, {}, [])} strokeWidth={2} aria-hidden />
-              <span className={classNames(cls.logoText, {}, [])}>Компас</span>
+              <img
+                className={classNames(cls.logoIcon, {}, [])}
+                src={LogoIconSvg}
+                alt='Компас - логотип'
+              />
             </Link>
 
             <p className={classNames(cls.brandText, {}, [])}>

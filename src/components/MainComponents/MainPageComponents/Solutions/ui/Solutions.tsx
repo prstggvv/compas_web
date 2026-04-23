@@ -2,9 +2,9 @@ import { Building2, CarFront, Compass, Warehouse } from 'lucide-react';
 import { motion } from 'framer-motion';
 import cls from './Solutions.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
-import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
-import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
-import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
+import FirstImage from '../../../../../shared/assets/images/solutions/1.jpg';
+import SecondImage from '../../../../../shared/assets/images/solutions/2.jpg';
+import ThirdImage from '../../../../../shared/assets/images/solutions/3.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 import { fadeUp, fadeUpSoft, scaleFadeIn, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
@@ -15,13 +15,13 @@ interface ISolutionsProps {
 const cases = [
   {
     id: 'res-1',
-    category: 'Жилой комплекс',
+    category: 'Парковки',
     Icon: Building2,
-    title: 'ЖК «Северный»: порядок на придомовой территории',
+    title: 'г. Симферополь',
     moment:
-      'Схему согласовали с УК до заказа: так не пришлось переделывать разметку после первого же рейса сервиса.',
+      'Устройство примыкания парковки к автомобильной дороге общего пользования местного значения. Реализованы работы по разработке постоянной схемы организации дорожного движения.',
     text: 'Скомпоновали знаки и разметку так, чтобы жильцы и сервисный транспорт не пересекались по одной полосе. Согласовали схему с управляющей компанией и закрепили поставку и монтаж в одном графике.',
-    image: signsImg,
+    image: FirstImage,
     imageAlt: 'Дорожные знаки на придомовой территории',
     imageFirst: false,
   },
@@ -33,7 +33,7 @@ const cases = [
     moment:
       'Въезд не расширяли: за счёт схемы разметки и неровностей развели потоки в уже существующей геометрии.',
     text: 'Разделили потоки грузовиков и легкового транспорта, добавили предупредительную разметку и неровности на въезде. Снизили риск конфликтов на пике смены без расширения проезда.',
-    image: markingsImg,
+    image: SecondImage,
     imageAlt: 'Разметка на территории логистического объекта',
     imageFirst: true,
   },
@@ -45,7 +45,7 @@ const cases = [
     moment:
       'Высоту и шаг неровностей подобрали так, чтобы спецтехника для обслуживания проезжала без «дребезга» кузова.',
     text: 'Установили искусственные неровности и зону знаков у перехода к ТЦ. Подобрали высоту и шаг под нормы, чтобы не мешать спецтехнике при обслуживании.',
-    image: nerovnostImg,
+    image: ThirdImage,
     imageAlt: 'Искусственная неровность на въезде в парковку',
     imageFirst: false,
   },

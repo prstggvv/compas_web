@@ -6,6 +6,19 @@ import aboutImg from '../../../../../shared/assets/images/about/about.jpg';
 import { MainPageTitle } from '../../../../../shared/ui/MainPageTitle';
 import { MOTION_EASE, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 
+const marqueeItems = [
+  'Дорожные знаки',
+  'Светофорные объекты',
+  'Барьерные ограждения',
+  'Тротуары и велодорожки',
+  'Благоустройство территорий',
+  'Организация движения',
+  'Остановочные павильоны',
+  'Шумозащитные экраны',
+  'Малые архитектурные формы',
+  'Спортивные площадки',
+];
+
 
 interface IAboutProps {
   className?: string;
@@ -122,6 +135,21 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
               className={classNames(cls.visualImage, {}, [])}
               loading="lazy"
             />
+            <div className={classNames(cls.visualBadge, {}, [])}>
+              <span className={classNames(cls.visualBadgeYear, {}, [])}>2014</span>
+              <span className={classNames(cls.visualBadgeLabel, {}, [])}>год основания</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames(cls.marqueeWrap, {}, [])} aria-hidden>
+          <div className={classNames(cls.marqueeTrack, {}, [])}>
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <span key={i} className={classNames(cls.marqueeItem, {}, [])}>
+                {item}
+                <span className={classNames(cls.marqueeDot, {}, [])}>●</span>
+              </span>
+            ))}
           </div>
         </div>
 
