@@ -11,8 +11,6 @@
   min-height: clamp(480px, 52vw, 620px);
 }
 
-/* ── Image ──────────────────────────────────────────────── */
-
 .visual {
   position: relative;
   overflow: hidden;
@@ -20,8 +18,13 @@
 }
 
 @keyframes kenBurns {
-  0%   { transform: scale(1)    translate(0, 0); }
-  100% { transform: scale(1.07) translate(-1%, 0.5%); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.07) translate(-1%, 0.5%);
+  }
 }
 
 .visualImage {
@@ -37,20 +40,14 @@
 .visualOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(10, 12, 16, 0.38) 0%,
-    transparent 55%
-  ),
-  linear-gradient(
-    to top,
-    rgba(10, 12, 16, 0.28) 0%,
-    transparent 40%
-  );
+  background: linear-gradient(120deg,
+      rgba(10, 12, 16, 0.38) 0%,
+      transparent 55%),
+    linear-gradient(to top,
+      rgba(10, 12, 16, 0.28) 0%,
+      transparent 40%);
   pointer-events: none;
 }
-
-/* ── Stats ──────────────────────────────────────────────── */
 
 .statsColumn {
   display: flex;
@@ -95,7 +92,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 45, 45, 0.08);
   color: #ff2d2d;
   border-radius: 50%;
 }
@@ -126,8 +122,6 @@
   letter-spacing: 0.1em;
   line-height: 1.35;
 }
-
-/* ── Responsive ─────────────────────────────────────────── */
 
 @media (max-width: 900px) {
   .layout {
