@@ -1,5 +1,5 @@
 // Знаки
-import signsImg from '../../../../../shared/assets/images/photos/signs.jpg';
+import signsImg from '../../../../../shared/assets/images/Tovars/Signs/3.jpg';
 import signsCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Signs/1.jpg';
 import signsCatalogImgThird from '../../../../../shared/assets/images/Tovars/Signs/2.jpg';
 
@@ -17,12 +17,8 @@ import ogrCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Ogras
 import ogrCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Ograshdenie/1.jpg';
 
 // Разметка
-import markingsImgFirst from '../../../../../shared/assets/images/Tovars/markings/1.jpg';
 import markingsImgSecond from '../../../../../shared/assets/images/Tovars/markings/2.jpg';
 import markingsImgThird from '../../../../../shared/assets/images/Tovars/markings/3.jpg';
-
-import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
-import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
 
 // Сиз и спецодежда
 import specClothCatalogImgFirst from '../../../../../shared/assets/images/Tovars/SpecClothes/1.jpeg';
