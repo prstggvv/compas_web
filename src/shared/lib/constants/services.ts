@@ -1,6 +1,6 @@
-import markingsImg from '../../assets/images/photos/markings.jpg';
-import nerovnostImg from '../../assets/images/photos/nerovnost.jpg';
-import signsImg from '../../assets/images/photos/signs.jpg';
+import SignsImage from '../../assets/images/Tovars/Signs/3.jpg';
+import MetalImage from '../../assets/images/Tovars/metall/2.jpg';
+import PresForm from '../../assets/images/Tovars/matiz/1.jpg';
 
 export type ServiceId = 'construction' | 'design' | 'metal' | 'tooling';
 export type ServiceIconKey = 'installation' | 'design' | 'metal' | 'tooling';
@@ -49,8 +49,6 @@ export interface ServiceContent {
   processTitle: string;
   processLead: string;
   processSteps: ServiceProcessStep[];
-  projects: ServiceProjectItem[];
-  gallery: ServiceGalleryItem[];
 }
 
 export const servicesContent: ServiceContent[] = [
@@ -88,7 +86,7 @@ export const servicesContent: ServiceContent[] = [
         text: 'Монтируем ИДН, тактильные указатели и дополнительные элементы безопасности на сложных участках.',
       },
     ],
-    workImage: signsImg,
+    workImage: SignsImage,
     workImageAlt: 'Монтаж дорожных знаков на объекте',
     processTitle: 'Как мы работаем',
     processLead: 'Поэтапно организуем строительно-монтажные работы на объекте',
@@ -112,52 +110,6 @@ export const servicesContent: ServiceContent[] = [
         title: 'Монтаж',
         text: 'Выезжаем на объект, выполняем работы и сдаем участок в согласованные сроки.',
         icon: 'install',
-      },
-    ],
-    projects: [
-      {
-        id: 'm11',
-        label: 'Трасса М-11',
-        title: 'Установка опор и знаков',
-        description: 'Переоснастили участок магистрали дорожными знаками и опорами с соблюдением графика работ.',
-        image: signsImg,
-        imageAlt: 'Установленные дорожные знаки на трассе',
-      },
-      {
-        id: 'kad',
-        label: 'Развязка КАД',
-        title: 'Монтаж ограждений',
-        description: 'Смонтировали барьерные системы и обновили схему организации движения на участке работ.',
-        image: nerovnostImg,
-        imageAlt: 'Дорожный участок с барьерными элементами',
-      },
-      {
-        id: 'city-avenue',
-        label: 'Городской проспект',
-        title: 'Обустройство пешеходной зоны',
-        description: 'Установили ИДН, разметку и знаки у общественного пространства с высоким трафиком.',
-        image: markingsImg,
-        imageAlt: 'Разметка и пешеходная зона в городе',
-      },
-    ],
-    gallery: [
-      {
-        id: 'construction-1',
-        title: 'Монтаж опор и знаков',
-        image: signsImg,
-        imageAlt: 'Монтаж опор и дорожных знаков',
-      },
-      {
-        id: 'construction-2',
-        title: 'Установка ограждений',
-        image: nerovnostImg,
-        imageAlt: 'Ограждения и элементы безопасности на трассе',
-      },
-      {
-        id: 'construction-3',
-        title: 'Разметка и ввод в эксплуатацию',
-        image: markingsImg,
-        imageAlt: 'Нанесение разметки на дорожном объекте',
       },
     ],
   },
@@ -196,7 +148,7 @@ export const servicesContent: ServiceContent[] = [
         text: 'Формируем партии изделий, маркируем элементы и подготавливаем документацию для монтажа.',
       },
     ],
-    workImage: nerovnostImg,
+    workImage: MetalImage,
     workImageAlt: 'Металлоконструкции и заготовки для дорожной инфраструктуры',
     processTitle: 'Как мы работаем',
     processLead: 'Контролируем производство от чертежа и заготовки до поставки готовых изделий',
@@ -220,52 +172,6 @@ export const servicesContent: ServiceContent[] = [
         title: 'Отгрузка',
         text: 'Комплектуем партии, маркируем элементы и передаем продукцию на объект или склад.',
         icon: 'install',
-      },
-    ],
-    projects: [
-      {
-        id: 'frames',
-        label: 'Трасса федерального значения',
-        title: 'Рамные опоры',
-        description: 'Изготовили и подготовили к монтажу комплект рамных конструкций для информационных щитов.',
-        image: nerovnostImg,
-        imageAlt: 'Металлоконструкции для трассы',
-      },
-      {
-        id: 'console',
-        label: 'Городская магистраль',
-        title: 'Выносные консоли',
-        description: 'Собрали партии выносных консолей под проект с учетом расчетных ветровых нагрузок.',
-        image: signsImg,
-        imageAlt: 'Выносные консоли и дорожные элементы',
-      },
-      {
-        id: 'barrier-elements',
-        label: 'Дорожный объект',
-        title: 'Элементы барьерных систем',
-        description: 'Подготовили детали ограждений и узлы крепления для ускоренного монтажа на объекте.',
-        image: markingsImg,
-        imageAlt: 'Элементы барьерных ограждений',
-      },
-    ],
-    gallery: [
-      {
-        id: 'metal-1',
-        title: 'Резка и подготовка деталей',
-        image: nerovnostImg,
-        imageAlt: 'Подготовка металлических деталей',
-      },
-      {
-        id: 'metal-2',
-        title: 'Сборка конструкций',
-        image: signsImg,
-        imageAlt: 'Сборка металлоконструкций',
-      },
-      {
-        id: 'metal-3',
-        title: 'Отгрузка изделий',
-        image: markingsImg,
-        imageAlt: 'Поставка металлических изделий на объект',
       },
     ],
   },
@@ -303,7 +209,7 @@ export const servicesContent: ServiceContent[] = [
         text: 'Обеспечиваем ремонт, замену узлов и поддержку при масштабировании серии.',
       },
     ],
-    workImage: signsImg,
+    workImage: PresForm,
     workImageAlt: 'Технологическая оснастка и проектные элементы',
     processTitle: 'Как мы работаем',
     processLead: 'Запускаем оснастку поэтапно: от проектирования до стабильной работы в серии',
@@ -327,52 +233,6 @@ export const servicesContent: ServiceContent[] = [
         title: 'Запуск',
         text: 'Сопровождаем внедрение, корректируем параметры и выводим изделие в стабильную серию.',
         icon: 'install',
-      },
-    ],
-    projects: [
-      {
-        id: 'mold',
-        label: 'Серийное производство',
-        title: 'Пресс-форма под новый продукт',
-        description: 'Разработали форму и сопровождали запуск первой партии изделий на производстве заказчика.',
-        image: signsImg,
-        imageAlt: 'Пресс-форма для серийного производства',
-      },
-      {
-        id: 'fixture',
-        label: 'Машиностроение',
-        title: 'Сборочная оснастка',
-        description: 'Изготовили комплект приспособлений для ускорения сборки и повышения точности операций.',
-        image: nerovnostImg,
-        imageAlt: 'Сборочная оснастка и рабочие элементы',
-      },
-      {
-        id: 'revision',
-        label: 'Производственная линия',
-        title: 'Модернизация инструмента',
-        description: 'Доработали существующую оснастку под новый режим выпуска и уменьшили время переналадки.',
-        image: markingsImg,
-        imageAlt: 'Модернизированная оснастка на производстве',
-      },
-    ],
-    gallery: [
-      {
-        id: 'tooling-1',
-        title: 'Проектирование формы',
-        image: signsImg,
-        imageAlt: 'Проектирование пресс-формы',
-      },
-      {
-        id: 'tooling-2',
-        title: 'Изготовление оснастки',
-        image: nerovnostImg,
-        imageAlt: 'Изготовление технологической оснастки',
-      },
-      {
-        id: 'tooling-3',
-        title: 'Тестирование серии',
-        image: markingsImg,
-        imageAlt: 'Тестирование производственной серии',
       },
     ],
   },
@@ -410,7 +270,7 @@ export const servicesContent: ServiceContent[] = [
         text: 'Помогаем собрать и оформить пакет документов для согласующих организаций и заказчика.',
       },
     ],
-    workImage: markingsImg,
+    workImage: SignsImage,
     workImageAlt: 'Схемы разметки и проектные материалы',
     processTitle: 'Как мы работаем',
     processLead: 'Прозрачный маршрут от обследования объекта до готового комплекта решений',
@@ -434,52 +294,6 @@ export const servicesContent: ServiceContent[] = [
         title: 'Сопровождение',
         text: 'Передаем решения в работу и помогаем заказчику на этапе внедрения.',
         icon: 'install',
-      },
-    ],
-    projects: [
-      {
-        id: 'mall',
-        label: 'Торговый центр',
-        title: 'Схема движения и навигация',
-        description: 'Разработали новую схему потоков и зонирование парковки под пиковые нагрузки.',
-        image: markingsImg,
-        imageAlt: 'Парковка торгового центра с новой схемой движения',
-      },
-      {
-        id: 'residential',
-        label: 'Жилой квартал',
-        title: 'Аудит дворовой территории',
-        description: 'Провели обследование территории и подготовили рекомендации по безопасной организации движения.',
-        image: signsImg,
-        imageAlt: 'Дворовая территория жилого квартала',
-      },
-      {
-        id: 'industrial-logistics',
-        label: 'Логистический парк',
-        title: 'Проект внутренних маршрутов',
-        description: 'Разделили грузовые и легковые потоки, подготовили схему и комплект спецификаций.',
-        image: nerovnostImg,
-        imageAlt: 'Транспортная схема на логистическом объекте',
-      },
-    ],
-    gallery: [
-      {
-        id: 'design-1',
-        title: 'Аудит объекта',
-        image: markingsImg,
-        imageAlt: 'Анализ транспортной схемы объекта',
-      },
-      {
-        id: 'design-2',
-        title: 'Подготовка ПОДД',
-        image: signsImg,
-        imageAlt: 'Согласование дорожных решений',
-      },
-      {
-        id: 'design-3',
-        title: 'Сопровождение реализации',
-        image: nerovnostImg,
-        imageAlt: 'Проверка решений на объекте',
       },
     ],
   },
