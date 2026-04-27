@@ -1,4 +1,4 @@
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from 'react';
+import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useState, type FormEvent } from 'react';
 import { Routes, Route, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Main } from '../../pages/Main';
 import { Services } from '../../pages/ServicesPage';
@@ -15,27 +15,6 @@ import { ContactPage } from '../../pages/ContactPage';
 import { ContactPopup } from '../../shared/ui/ContactPopup';
 import { useForm } from '../../shared/lib/hooks/useForm';
 import type { ContactFormState } from '../../types';
-
-const NavigationLoader = () => {
-  const { pathname } = useLocation();
-  const [active, setActive] = useState(true);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
-
-  useEffect(() => {
-    setActive(true);
-    clearTimeout(timerRef.current);
-
-    const hide = () => {
-      timerRef.current = setTimeout(() => setActive(false), 250);
-    };
-
-    document.fonts.ready.then(hide);
-
-    return () => clearTimeout(timerRef.current);
-  }, [pathname]);
-
-  return <Preloader isActive={active} />;
-};
 
 const initialContactPopupValues: ContactFormState = {
   name: '',
@@ -179,7 +158,6 @@ const AppRouter = () => {
         element={(
           <>
             <ScrollManager />
-            <NavigationLoader />
             <Header onOpenContactPopup={openContactPopup} />
             <Outlet />
             <Footer />
@@ -199,7 +177,7 @@ const AppRouter = () => {
         <Route
           index
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <Main onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
@@ -207,7 +185,7 @@ const AppRouter = () => {
         <Route
           path="services"
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <Services onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
@@ -215,7 +193,7 @@ const AppRouter = () => {
         <Route
           path="services/:id"
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <ServiceDetailRoute onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
@@ -223,7 +201,7 @@ const AppRouter = () => {
         <Route
           path="product"
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <ProductPage onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
@@ -231,7 +209,7 @@ const AppRouter = () => {
         <Route
           path="product/:id"
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <CardProductRoute onOpenContactPopup={openContactPopup} />
             </Suspense>
           }
@@ -239,7 +217,7 @@ const AppRouter = () => {
         <Route
           path='contact'
           element={
-            <Suspense fallback={null}>
+            <Suspense fallback={<Preloader isActive={true} />}>
               <ContactPage />
             </Suspense>
           }
