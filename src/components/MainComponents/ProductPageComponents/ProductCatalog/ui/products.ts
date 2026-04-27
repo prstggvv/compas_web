@@ -6,7 +6,6 @@ import signsCatalogImgThird from '../../../../../shared/assets/images/Tovars/Sig
 // Металоконструкции
 import metalCatalogImgFirst from '../../../../../shared/assets/images/Tovars/metall/1.jpg';
 import metalCatalogImgSecond from '../../../../../shared/assets/images/Tovars/metall/2.jpg';
-import metalCatalogImgThird from '../../../../../shared/assets/images/Tovars/metall/3.jpg';
 
 // Маф
 import mafCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Maf/1.jpg';
@@ -14,18 +13,23 @@ import mafCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Maf/
 import mafCatalogImgThird from '../../../../../shared/assets/images/Tovars/Maf/3.jpg';
 
 // Ограждения
-import ogrCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Ograshdenie/1.jpg';
-import ogrCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Ograshdenie/2.jpg';
+import ogrCatalogImgFirst from '../../../../../shared/assets/images/Tovars/Ograshdenie/3.jpg';
+import ogrCatalogImgSecond from '../../../../../shared/assets/images/Tovars/Ograshdenie/1.jpg';
 
 // Разметка
 import markingsImgFirst from '../../../../../shared/assets/images/Tovars/markings/1.jpg';
 import markingsImgSecond from '../../../../../shared/assets/images/Tovars/markings/2.jpg';
-
-import ppeCatalogImg from '../../../../../shared/assets/images/products/lighter.jpg';
-import fastenersCatalogImg from '../../../../../shared/assets/images/photos/prepare.jpg';
+import markingsImgThird from '../../../../../shared/assets/images/Tovars/markings/3.jpg';
 
 import markingsImg from '../../../../../shared/assets/images/photos/markings.jpg';
 import nerovnostImg from '../../../../../shared/assets/images/photos/nerovnost.jpg';
+
+// Сиз и спецодежда
+import specClothCatalogImgFirst from '../../../../../shared/assets/images/Tovars/SpecClothes/1.jpeg';
+import specClothCatalogImgSecond from '../../../../../shared/assets/images/Tovars/SpecClothes/2.webp';
+
+// Крепеж
+import crepCatalogImgFirst from '../../../../../shared/assets/images/Tovars/matiz/1.jpg';
 
 export type ProductCategoryId =
   | 'road-signs'
@@ -137,7 +141,6 @@ export const productCategoryContent: ProductCategoryContent[] = [
     gallery: [
       { id: 'main', src: metalCatalogImgFirst, alt: 'Металлоконструкции для дорог и территорий' },
       { id: 'detail', src: metalCatalogImgSecond, alt: 'Монтажные узлы и металлоизделия' },
-      { id: 'context', src: metalCatalogImgThird, alt: 'Опоры и выносные элементы на объекте' },
     ],
     statuses: [
       { id: 'calc', label: 'Расчет нагрузок' },
@@ -213,7 +216,6 @@ export const productCategoryContent: ProductCategoryContent[] = [
     gallery: [
       { id: 'main', src: ogrCatalogImgFirst, alt: 'Ограждения для дорог и территорий' },
       { id: 'detail', src: ogrCatalogImgSecond, alt: 'Секции и крепежные элементы' },
-      { id: 'context', src: signsImg, alt: 'Применение ограждений на объекте' },
     ],
     statuses: [
       { id: 'ready', label: 'Типовые решения' },
@@ -227,7 +229,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Материалы для разметки',
     label: 'Материалы для разметки',
     description: 'Краска, термопластик, холодный пластик и стеклошарики для долговечной дорожной разметки.',
-    image: markingsImgFirst,
+    image: markingsImgThird,
     article: 'MARKING-CATEGORY',
     lead: 'Подбираем и поставляем материалы для долговечной дорожной разметки под условия эксплуатации и технологию нанесения.',
     assortmentTitle: 'В ассортименте',
@@ -249,9 +251,8 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Подбор', value: 'По климату, нагрузке и технологии нанесения' },
     ],
     gallery: [
-      { id: 'main', src: markingsImgFirst, alt: 'Материалы для дорожной разметки' },
+      { id: 'main', src: markingsImgThird, alt: 'Материалы для дорожной разметки' },
       { id: 'detail', src: markingsImgSecond, alt: 'Упаковка и состав материалов' },
-      { id: 'context', src: nerovnostImg, alt: 'Нанесение разметки на объекте' },
     ],
     statuses: [
       { id: 'stock', label: 'Складская поставка' },
@@ -265,7 +266,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'СИЗ и спецодежда',
     label: 'СИЗ и спецодежда',
     description: 'Сигнальные жилеты, защитная экипировка и комплектование дорожных, монтажных и сервисных бригад.',
-    image: ppeCatalogImg,
+    image: specClothCatalogImgFirst,
     article: 'PPE-CATEGORY',
     lead: 'Комплектуем дорожные, сервисные и монтажные бригады средствами индивидуальной защиты и спецодеждой.',
     assortmentTitle: 'В ассортименте',
@@ -287,9 +288,8 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Формат поставки', value: 'Партии под объект и постоянное снабжение' },
     ],
     gallery: [
-      { id: 'main', src: ppeCatalogImg, alt: 'СИЗ и спецодежда для дорожных бригад' },
-      { id: 'detail', src: markingsImg, alt: 'Световозвращающие элементы и экипировка' },
-      { id: 'context', src: nerovnostImg, alt: 'Использование спецодежды на объекте' },
+      { id: 'main', src: specClothCatalogImgFirst, alt: 'СИЗ и спецодежда для дорожных бригад' },
+      { id: 'detail', src: specClothCatalogImgSecond, alt: 'Световозвращающие элементы и экипировка' },
     ],
     statuses: [
       { id: 'sizes', label: 'Размерный ряд' },
@@ -303,7 +303,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
     title: 'Крепеж и метизы',
     label: 'Крепеж и метизы',
     description: 'Анкерные группы, крепежные узлы и монтажные комплекты для опор и металлоконструкций.',
-    image: fastenersCatalogImg,
+    image: crepCatalogImgFirst,
     article: 'FASTENER-CATEGORY',
     lead: 'Комплектуем объекты крепежом, анкерными группами и монтажными узлами для дорожных и металлических конструкций.',
     assortmentTitle: 'В ассортименте',
@@ -325,9 +325,7 @@ export const productCategoryContent: ProductCategoryContent[] = [
       { label: 'Комплектация', value: 'Под узел, проект или спецификацию заказчика' },
     ],
     gallery: [
-      { id: 'main', src: fastenersCatalogImg, alt: 'Крепеж и метизы для дорожных объектов' },
-      { id: 'detail', src: signsImg, alt: 'Крепежные элементы и шаблоны' },
-      { id: 'context', src: markingsImg, alt: 'Монтажные узлы на объекте' },
+      { id: 'main', src: crepCatalogImgFirst, alt: 'Крепеж и метизы для дорожных объектов' },
     ],
     statuses: [
       { id: 'kit', label: 'Комплект под монтаж' },

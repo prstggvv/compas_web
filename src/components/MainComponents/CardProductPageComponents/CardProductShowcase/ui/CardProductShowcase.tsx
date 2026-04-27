@@ -20,13 +20,29 @@ export const CardProductShowcase = ({
 }: CardProductShowcaseProps) => {
   const activeImage =
     product.gallery.find((image) => image.id === activeImageId) ?? product.gallery[0];
-  const previewImages = product.gallery.filter((image) => image.id !== activeImage.id).slice(0, 2);
+  const previewImages = product.gallery.filter((image) => image.id !== activeImage.id);
 
   return (
     <section className={classNames(cls.section, {}, [className ?? ''])} aria-labelledby="card-product-title">
       <div className={classNames(cls.container, {}, [])}>
         <div className={classNames(cls.layout, {}, [])}>
           <div className={classNames(cls.galleryColumn, {}, [])}>
+            {previewImages.length > 0 && (
+              <div className={classNames(cls.thumbColumn, {}, [])} aria-label="Галерея товара">
+                {previewImages.map((image) => (
+                  <button
+                    key={image.id}
+                    type="button"
+                    className={classNames(cls.thumbButton, { [cls.thumbButtonActive]: image.id === activeImageId }, [])}
+                    onClick={() => onImageChange(image.id)}
+                    aria-label={`Показать изображение: ${image.alt}`}
+                  >
+                    <img className={classNames(cls.thumbImage, {}, [])} src={image.src} alt="" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
+
             <figure className={classNames(cls.mainMedia, {}, [])}>
               <img
                 className={classNames(cls.mainImage, {}, [])}
@@ -36,20 +52,6 @@ export const CardProductShowcase = ({
               />
               <figcaption className={classNames(cls.articleBadge, {}, [])}>Арт: {product.article}</figcaption>
             </figure>
-
-            <div className={classNames(cls.thumbGrid, {}, [])} aria-label="Галерея товара">
-              {previewImages.map((image) => (
-                <button
-                  key={image.id}
-                  type="button"
-                  className={classNames(cls.thumbButton, {}, [])}
-                  onClick={() => onImageChange(image.id)}
-                  aria-label={`Показать изображение: ${image.alt}`}
-                >
-                  <img className={classNames(cls.thumbImage, {}, [])} src={image.src} alt="" loading="lazy" />
-                </button>
-              ))}
-            </div>
           </div>
 
           <aside className={classNames(cls.content, {}, [])}>

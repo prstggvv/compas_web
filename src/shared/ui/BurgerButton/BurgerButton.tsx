@@ -34,7 +34,7 @@ const BurgerButton = ({
       onKeyDown={handleKeyDown}
       type="button"
     >
-      <span className={classNames(cls.icon, {}, [])} aria-hidden>
+      <span className={classNames(cls.icon, {}, [])}>
         <motion.span
           className={classNames(cls.line, {}, [])}
           animate={menuOpen ? { rotate: 45, y: 7, width: 22 } : { rotate: 0, y: 0, width: 18 }}
