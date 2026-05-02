@@ -137,8 +137,13 @@
 }
 
 @keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .featuresSection {
@@ -316,15 +321,24 @@
   transition: background-color 0.22s ease;
 }
 
+.featureCardCta:last-of-type {
+  background-color: #111111;
+}
+
 .featureCardCtaLink {
   text-align: left;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   gap: 16px;
+  background-color: #111111;
   position: relative;
   padding: 18px 18px 14px 14px;
   transition: transform 0.25s ease;
+}
+
+.featureCardCtaLink:hover {
+  background-color: #111111;
 }
 
 .featureCtaContent {
@@ -383,9 +397,6 @@
   transition: border-color 0.22s ease, background-color 0.22s ease;
 }
 
-.featureCardCta:hover {
-  background-color: #e32727;
-}
 
 .featureCardCta:hover .featureCtaArrow {
   border-color: rgba(255, 255, 255, 0.92);

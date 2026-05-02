@@ -72,6 +72,7 @@ interface HeroScene {
   mouseX: number;
   mouseY: number;
   scrollY: number;
+  smoothScrollY: number;
   width: number;
   height: number;
   compact: boolean;
@@ -328,6 +329,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       mouseX: width * 0.5,
       mouseY: height * 0.5,
       scrollY: window.scrollY,
+      smoothScrollY: window.scrollY,
       width,
       height,
       compact,
@@ -387,7 +389,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
 
       const { lanes: sceneLanes, width: sceneWidth, height: sceneHeight, hovered, compact: isCompact } = sceneRef.current;
       const centerX = sceneWidth * 0.69 + parallaxX * 0.34;
-      const centerY = sceneHeight * 0.47 + parallaxY * 0.2 - sceneRef.current.scrollY * 0.028;
+      const centerY = sceneHeight * 0.47 + parallaxY * 0.2 - sceneRef.current.smoothScrollY * 0.028;
       const highlight = hovered ? 1.22 : 1;
 
       ctx.lineCap = 'round';
@@ -433,7 +435,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         const twinkle = 0.7 + Math.sin(time * 0.001 + star.twinkle) * 0.3;
         const alpha = star.opacity * twinkle;
         const x = star.x + parallaxX * star.depth;
-        const y = star.y + parallaxY * star.depth - sceneRef.current.scrollY * star.depth * 0.002;
+        const y = star.y + parallaxY * star.depth - sceneRef.current.smoothScrollY * star.depth * 0.002;
 
         ctx.beginPath();
         ctx.arc(x, y, star.radius, 0, Math.PI * 2);
@@ -454,7 +456,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         particle.angle += particle.speed * delta * (0.8 + Math.sin(time * 0.0012 + particle.twinkle) * 0.2);
         const point = getLanePoint(lane, particle.angle, particle.radialOffset, sceneWidth, sceneHeight, zoom);
         const x = point.x + parallaxX * particle.depth;
-        const y = point.y + parallaxY * particle.depth - sceneRef.current.scrollY * 0.012;
+        const y = point.y + parallaxY * particle.depth - sceneRef.current.smoothScrollY * 0.012;
         const alpha = particle.opacity * (0.7 + Math.sin(time * 0.0013 + particle.twinkle) * 0.3);
 
         ctx.beginPath();
@@ -478,7 +480,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
 
         const point = getLanePoint(lane, particle.angle, 0, sceneWidth, sceneHeight, zoom);
         const x = point.x + parallaxX * 1.1;
-        const y = point.y + parallaxY * 0.85 - sceneRef.current.scrollY * 0.016;
+        const y = point.y + parallaxY * 0.85 - sceneRef.current.smoothScrollY * 0.016;
 
         const glow = ctx.createRadialGradient(
           x,
@@ -560,7 +562,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       const lane = sceneLanes[Math.max(2, Math.floor(sceneLanes.length * ROUTE_LANE_RATIO))];
       const edgeOffset = compact ? ROUTE_EDGE_OFFSET_MOBILE : ROUTE_EDGE_OFFSET;
       const steps = compact ? 36 : 52;
-      const scrollShift = sceneRef.current.scrollY * 0.015;
+      const scrollShift = sceneRef.current.smoothScrollY * 0.015;
       const px = parallaxX * 0.42;
       const py = parallaxY * 0.24 - scrollShift;
 
@@ -694,7 +696,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       }
 
       const { lanes: sceneLanes, width: sceneWidth, height: sceneHeight, compact } = sceneRef.current;
-      const scrollShift = sceneRef.current.scrollY * 0.012;
+      const scrollShift = sceneRef.current.smoothScrollY * 0.012;
       const px = parallaxX * 0.46;
       const py = parallaxY * 0.24 - scrollShift;
       const phase = (time % ROUTE_CYCLE) / ROUTE_CYCLE;
@@ -834,7 +836,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       }
 
       const { width: w, height: h, compact } = sceneRef.current;
-      const scrollShift = sceneRef.current.scrollY * 0.01;
+      const scrollShift = sceneRef.current.smoothScrollY * 0.01;
       const px = parallaxX * 0.35;
       const py = parallaxY * 0.22 - scrollShift;
 
@@ -940,7 +942,8 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
       const scene = sceneRef.current;
       const delta = scene.lastTime ? Math.min(time - scene.lastTime, 34) : 16.67;
       scene.lastTime = time;
-      const zoom = 1 + Math.min(scene.scrollY, scene.height) * 0.00018;
+      scene.smoothScrollY += (scene.scrollY - scene.smoothScrollY) * 0.1;
+      const zoom = 1 + Math.min(scene.smoothScrollY, scene.height) * 0.00018;
 
       const parallaxX = (scene.mouseX / scene.width - 0.5) * 14;
       const parallaxY = (scene.mouseY / scene.height - 0.5) * 8;

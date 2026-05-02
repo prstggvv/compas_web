@@ -1,6 +1,6 @@
 .section {
   width: 100%;
-  padding: 0 0 88px;
+  padding: 0 0 64px;
   background-color: var(--color-brand-white);
   box-sizing: border-box;
 }
@@ -25,6 +25,7 @@
   flex-direction: row;
   gap: 16px;
   align-items: stretch;
+  max-height: calc(100vh - 160px);
 }
 
 .thumbColumn {
@@ -41,7 +42,6 @@
   flex: 1;
   min-width: 0;
   min-height: 300px;
-  max-height: 600px;
   overflow: hidden;
   background-color: #f4f5f6;
 }
@@ -113,9 +113,10 @@
 .panel {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  padding: 48px;
+  height: 100%;
+  padding: 36px;
   background-color: #f8f6f2;
+  box-sizing: border-box;
 }
 
 .category {
@@ -130,34 +131,34 @@
 }
 
 .title {
-  margin: 0 0 28px;
+  margin: 0 0 20px;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: clamp(34px, 3vw, 48px);
+  font-size: clamp(26px, 2.4vw, 36px);
   font-weight: 500;
   line-height: 1.05;
 }
 
 .specHeading {
-  margin: 0 0 20px;
+  margin: 0 0 14px;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 500;
   line-height: 1.15;
 }
 
 .lead {
-  margin: 0 0 36px;
+  margin: 0 0 24px;
   color: #666f7b;
   font-family: var(--font-gt-pro-regular);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 .specs {
-  margin: 0 0 28px;
+  margin: 0 0 20px;
 }
 
 .specRow {
@@ -167,7 +168,7 @@
 }
 
 .specRow+.specRow {
-  margin-top: 28px;
+  margin-top: 18px;
 }
 
 .specLabel {
@@ -184,13 +185,14 @@
   margin: 0;
   color: #1d1f24;
   font-family: var(--font-gt-pro-regular);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.45;
 }
 
 .actions {
-  margin-top: 36px;
+  margin-top: auto;
+  padding-top: 24px;
 }
 
 .primaryButton {
