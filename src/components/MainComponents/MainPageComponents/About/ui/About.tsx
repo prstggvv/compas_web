@@ -131,7 +131,7 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
           <div className={classNames(cls.visualPanel, {}, [])} aria-hidden>
             <img
               src={aboutImg}
-              alt=""
+              alt="картинка с космонавтами "
               className={classNames(cls.visualImage, {}, [])}
               loading="lazy"
             />
