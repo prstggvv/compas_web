@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react';
 
 export default () => {
   return defineConfig({
-    base: '/compas_web/',
+    base: '/',
     plugins: [
       react(),
       tsconfigPaths(),
