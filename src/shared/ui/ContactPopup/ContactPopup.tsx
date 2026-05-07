@@ -3,12 +3,15 @@ import { AnimatePresence, motion } from 'framer-motion';
 import cls from './ContactPopup.module.css';
 import { classNames } from '../../lib/classNames/classNames';
 import type { ContactFormState } from '../../../types';
+import { Link } from 'react-router-dom';
 
 interface ContactPopupProps {
   isOpen: boolean;
   values: ContactFormState;
   canSubmit: boolean;
   isSubmitted: boolean;
+  isLoading?: boolean;
+  error?: string | null;
   onClose: () => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onNameChange: (value: string) => void;
@@ -42,6 +45,8 @@ export const ContactPopup = ({
   values,
   canSubmit,
   isSubmitted,
+  isLoading = false,
+  error = null,
   onClose,
   onSubmit,
   onNameChange,
@@ -127,22 +132,33 @@ export const ContactPopup = ({
 
                 <motion.p className={classNames(cls.policy, {}, [])} variants={itemVariants}>
                   Отправляя заявку, вы соглашаетесь с{' '}
-                  <a href="#" className={classNames(cls.policyLink, {}, [])}>
+                  <Link to='/policy' className={classNames(cls.policyLink, {}, [])}>
                     политикой конфиденциальности
-                  </a>
+                  </Link>
                 </motion.p>
 
                 <motion.div className={classNames(cls.footer, {}, [])} variants={itemVariants}>
                   <motion.button
                     type="submit"
-                    className={classNames(cls.submitButton, { [cls.submitButtonDisabled]: !canSubmit }, [])}
-                    disabled={!canSubmit}
-                    whileHover={canSubmit ? { scale: 1.03, filter: 'brightness(1.04)' } : undefined}
+                    className={classNames(cls.submitButton, { [cls.submitButtonDisabled]: !canSubmit || isLoading }, [])}
+                    disabled={!canSubmit || isLoading}
+                    whileHover={canSubmit && !isLoading ? { scale: 1.03, filter: 'brightness(1.04)' } : undefined}
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
-                    Отправить
+                    {isLoading ? 'Отправка…' : 'Отправить'}
                   </motion.button>
                 </motion.div>
+
+                {error ? (
+                  <motion.div
+                    className={classNames(cls.errorMsg, {}, [])}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {error}
+                  </motion.div>
+                ) : null}
 
                 {isSubmitted ? (
                   <motion.div

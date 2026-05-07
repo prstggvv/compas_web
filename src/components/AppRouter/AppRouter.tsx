@@ -14,7 +14,9 @@ import { productCategoryContentById, type ProductCategoryId } from '../../compon
 import { ContactPage } from '../../pages/ContactPage';
 import { ContactPopup } from '../../shared/ui/ContactPopup';
 import { useForm } from '../../shared/lib/hooks/useForm';
+import { submitContactForm } from '../../shared/lib/api/ContactApi';
 import type { ContactFormState } from '../../types';
+import { Policy } from '../../pages/Policy';
 
 const initialContactPopupValues: ContactFormState = {
   name: '',
@@ -83,6 +85,8 @@ const AppRouter = () => {
   const location = useLocation();
   const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
   const [isContactPopupSubmitted, setIsContactPopupSubmitted] = useState(false);
+  const [isContactPopupLoading, setIsContactPopupLoading] = useState(false);
+  const [contactPopupError, setContactPopupError] = useState<string | null>(null);
   const [contactPopupValues, setContactPopupValues] = useState<ContactFormState>(initialContactPopupValues);
 
   const { handleChange, handlePhoneChange } = useForm(contactPopupValues, setContactPopupValues);
@@ -100,6 +104,8 @@ const AppRouter = () => {
   const closeContactPopup = useCallback(() => {
     setIsContactPopupOpen(false);
     setIsContactPopupSubmitted(false);
+    setIsContactPopupLoading(false);
+    setContactPopupError(null);
     setContactPopupValues(initialContactPopupValues);
   }, []);
 
@@ -110,8 +116,20 @@ const AppRouter = () => {
       return;
     }
 
-    setIsContactPopupSubmitted(true);
-  }, [canSubmitContactPopup]);
+    setIsContactPopupLoading(true);
+    setContactPopupError(null);
+
+    submitContactForm(contactPopupValues.name, contactPopupValues.phone)
+      .then(() => {
+        setIsContactPopupSubmitted(true);
+      })
+      .catch((err: unknown) => {
+        setContactPopupError(err instanceof Error ? err.message : 'Ошибка отправки. Попробуйте позже.');
+      })
+      .finally(() => {
+        setIsContactPopupLoading(false);
+      });
+  }, [canSubmitContactPopup, contactPopupValues.name, contactPopupValues.phone]);
 
   useEffect(() => {
     if (!isContactPopupOpen) {
@@ -166,6 +184,8 @@ const AppRouter = () => {
               values={contactPopupValues}
               canSubmit={canSubmitContactPopup}
               isSubmitted={isContactPopupSubmitted}
+              isLoading={isContactPopupLoading}
+              error={contactPopupError}
               onClose={closeContactPopup}
               onSubmit={handleContactPopupSubmit}
               onNameChange={(value) => handleChange('name', value)}
@@ -223,6 +243,7 @@ const AppRouter = () => {
           }
         />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path='policy' element={<Policy />} />
       </Route>
     </Routes>
   );

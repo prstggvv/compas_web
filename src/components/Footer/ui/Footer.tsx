@@ -81,9 +81,9 @@ export const Footer = ({ className }: FooterProps) => {
 
         <div className={classNames(cls.bottom, {}, [])}>
           <span className={classNames(cls.copyright, {}, [])}>© 2025 ООО «Компас». Все права защищены.</span>
-          <a href="#" className={classNames(cls.policyLink, {}, [])}>
+          <Link to='/policy' className={classNames(cls.policyLink, {}, [])}>
             Политика конфиденциальности
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

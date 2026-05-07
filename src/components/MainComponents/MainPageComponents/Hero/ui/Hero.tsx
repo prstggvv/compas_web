@@ -444,7 +444,7 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
         </div>
       </motion.div>
 
-      <div className={cls.canvasWrapper} aria-hidden>
+      <div className={classNames(cls.canvasWrapper, {}, [className ?? ''])} aria-hidden>
         <canvas ref={canvasRef} className={cls.canvas} />
       </div>
     </section>

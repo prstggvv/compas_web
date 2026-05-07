@@ -199,6 +199,16 @@
   cursor: not-allowed;
 }
 
+.errorMsg {
+  padding: 14px 18px;
+  border-left: 2px solid #ff2d2d;
+  color: #c0392b;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 13px;
+  line-height: 1.5;
+  background-color: #fff5f5;
+}
+
 .success {
   padding: 18px 20px;
   border-left: 2px solid #ff2d2d;
