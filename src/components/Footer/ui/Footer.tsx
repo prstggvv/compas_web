@@ -69,9 +69,6 @@ export const Footer = ({ className }: FooterProps) => {
           <div className={classNames(cls.column, {}, [])}>
             <h2 className={classNames(cls.columnTitle, {}, [])}>Соцсети</h2>
             <div className={classNames(cls.socials, {}, [])}>
-              <a href="#" className={classNames(cls.socialLink, {}, [])} aria-label="Telegram">
-                <Send className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
-              </a>
               <a target='_blank' href="https://vk.com/oookompass" className={classNames(cls.socialLink, {}, [])} aria-label="YouTube">
                 <div className={classNames(cls.socialIcon, {}, [cls.vk])}></div>
               </a>
