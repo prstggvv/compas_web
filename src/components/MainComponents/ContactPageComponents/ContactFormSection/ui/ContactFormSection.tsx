@@ -1,8 +1,10 @@
 import { type FormEvent, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import cls from './ContactFormSection.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
 import { useForm } from '../../../../../shared/lib/hooks/useForm';
+import { submitContactForm } from '../../../../../shared/lib/api/ContactApi';
 import { createStaggerContainer, fadeUp, fadeUpSoft, itemReveal, VIEWPORT_ONCE } from '../../../../../shared/lib/motion';
 import type { ContactFormState } from '../../../../../types';
 
@@ -22,6 +24,8 @@ const initialFormValues: ContactFormState = {
 export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
   const [values, setValues] = useState<ContactFormState>(initialFormValues);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { handleChange, handlePhoneChange } = useForm(values, setValues);
 
@@ -37,8 +41,20 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
       return;
     }
 
-    setIsSubmitted(true);
-    setValues(initialFormValues);
+    setIsLoading(true);
+    setError(null);
+
+    submitContactForm(values.name, values.phone)
+      .then(() => {
+        setIsSubmitted(true);
+        setValues(initialFormValues);
+      })
+      .catch((err: unknown) => {
+        setError(err instanceof Error ? err.message : 'Ошибка отправки. Попробуйте позже.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -101,21 +117,32 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
               <motion.div className={classNames(cls.bottomRow, {}, [])} variants={itemReveal}>
                 <p className={classNames(cls.policy, {}, [])}>
                   Отправляя заявку, вы соглашаетесь с{' '}
-                  <a href="#" className={classNames(cls.policyLink, {}, [])}>
+                  <Link to="/policy" className={classNames(cls.policyLink, {}, [])}>
                     политикой конфиденциальности
-                  </a>{' '}
+                  </Link>{' '}
                   и обработкой персональных данных.
                 </p>
 
                 <button
                   type="submit"
-                  className={classNames(cls.button, { [cls.buttonDisabled]: !canSubmit }, [])}
-                  disabled={!canSubmit}
+                  className={classNames(cls.button, { [cls.buttonDisabled]: !canSubmit || isLoading }, [])}
+                  disabled={!canSubmit || isLoading}
                 >
-                  Отправить заявку
+                  {isLoading ? 'Отправка…' : 'Отправить заявку'}
                 </button>
               </motion.div>
             </form>
+
+            {error ? (
+              <motion.div
+                className={classNames(cls.errorMsg, {}, [])}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                {error}
+              </motion.div>
+            ) : null}
 
             {isSubmitted ? (
               <motion.div

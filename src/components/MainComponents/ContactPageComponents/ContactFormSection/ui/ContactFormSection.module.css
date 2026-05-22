@@ -160,6 +160,17 @@
   transform: none;
 }
 
+.errorMsg {
+  margin-top: 24px;
+  padding: 20px 24px;
+  border-left: 4px solid #ff2d2d;
+  background-color: #fff5f5;
+  color: #c0392b;
+  font-family: var(--font-gt-pro-regular);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .success {
   margin-top: 32px;
   padding: 28px 32px;

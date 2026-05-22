@@ -55,7 +55,7 @@ const keyFeatures = [
     text: 'Обустраиваем функциональные площадки с покрытием, ограждениями и сопутствующей инфраструктурой.',
   },
   {
-    title: 'Шумозащитные экраны при необходимости',
+    title: 'Шумозащитные экраны',
     text: 'Подбираем и монтируем решения для снижения шумовой нагрузки на прилегающие территории.',
   },
 ] as const;
@@ -131,7 +131,7 @@ export const About = ({ className, onOpenContactPopup }: IAboutProps) => {
           <div className={classNames(cls.visualPanel, {}, [])} aria-hidden>
             <img
               src={aboutImg}
-              alt=""
+              alt="картинка с космонавтами "
               className={classNames(cls.visualImage, {}, [])}
               loading="lazy"
             />

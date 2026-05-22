@@ -1,4 +1,3 @@
-import { Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import cls from './Footer.module.css';
 import { classNames } from '../../../shared/lib/classNames/classNames';
@@ -69,9 +68,6 @@ export const Footer = ({ className }: FooterProps) => {
           <div className={classNames(cls.column, {}, [])}>
             <h2 className={classNames(cls.columnTitle, {}, [])}>Соцсети</h2>
             <div className={classNames(cls.socials, {}, [])}>
-              <a href="#" className={classNames(cls.socialLink, {}, [])} aria-label="Telegram">
-                <Send className={classNames(cls.socialIcon, {}, [])} strokeWidth={1.8} />
-              </a>
               <a target='_blank' href="https://vk.com/oookompass" className={classNames(cls.socialLink, {}, [])} aria-label="YouTube">
                 <div className={classNames(cls.socialIcon, {}, [cls.vk])}></div>
               </a>
@@ -81,9 +77,9 @@ export const Footer = ({ className }: FooterProps) => {
 
         <div className={classNames(cls.bottom, {}, [])}>
           <span className={classNames(cls.copyright, {}, [])}>© 2025 ООО «Компас». Все права защищены.</span>
-          <a href="#" className={classNames(cls.policyLink, {}, [])}>
+          <Link to='/policy' className={classNames(cls.policyLink, {}, [])}>
             Политика конфиденциальности
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
