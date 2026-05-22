@@ -1,0 +1,118 @@
+.section {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 96px var(--product-page-padding-x);
+  background-color: var(--color-brand-white);
+  box-sizing: border-box;
+}
+
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 80px clamp(24px, 5vw, 96px);
+  background-color: #ff2d2d;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-gt-pro-bold);
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.04;
+  text-transform: uppercase;
+}
+
+.text {
+  max-width: 420px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-gt-pro-regular);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: 0 48px;
+  border: 0;
+  background-color: #ffffff;
+  color: #ff2d2d;
+  font-family: var(--font-gt-pro-bold);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.button:hover {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+@media (max-width: 720px) {
+  .container {
+    padding: 72px var(--product-page-padding-x);
+  }
+
+  .panel {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 56px 24px;
+    text-align: start;
+  }
+
+  .copy {
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 64px;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 580px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .button {
+    font-size: 12px;
+    min-height: 56px;
+    padding: 0 24px;
+  }
+}

@@ -1,28 +1,26 @@
-/* 61Fefere,,>> */
-
 @font-face {
-  font-family: 'Sf-pro-light';
-  src: url('../../shared/assets/fonts/SF-Pro-Display-Light.woff') format('woff'),
-       url('../../shared/assets/fonts/SF-Pro-Display-Light.woff2') format('woff2');
-  font-weight: 300;
+  src: url('../../shared/assets/fonts/gteestiprodisplay_light.woff') format('woff'),
+    url('../../shared/assets/fonts/gteestiprodisplay_light.woff2') format('woff2');
+  font-family: 'GT Eesti Pro Display-light';
+  font-weight: 350;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Roboto-regular';
-  src: url('../../shared/assets/fonts/Roboto_Condensed-Regular.woff') format('woff'),
-       url('../../shared/assets/fonts/Roboto_Condensed-Regular.woff2') format('woff2');
+  src: url('../../shared/assets/fonts/gteestiprodisplay_regular.woff') format('woff'),
+    url('../../shared/assets/fonts/gteestiprodisplay_regular.woff2') format('woff2');
+  font-family: 'GT Eesti Pro Display-regular';
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'CeraPro-medium';
-  src: url('../../shared/assets/fonts/CeraPro-Medium.woff') format('woff'),
-       url('../../shared/assets/fonts/CeraPro-Medium.woff2') format('woff2');
-  font-weight: 400;
+  src: url('../../shared/assets/fonts/gteestiprodisplay_bold.woff') format('woff'),
+    url('../../shared/assets/fonts/gteestiprodisplay_bold.woff2') format('woff2');
+  font-family: 'GT Eesti Pro Display-bold';
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }

@@ -2,7 +2,7 @@
 @import url('./globals/globals.css');
 
 .app {
-  background-color: black;
+  background-color: var(--color-brand-dark);
   display: flex;
   height: 100%;
   justify-content: center;

@@ -1,0 +1,174 @@
+.section {
+  width: 100%;
+  padding: 0 0 clamp(48px, 7vw, 72px);
+  background-color: var(--color-brand-white);
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--product-page-padding-x);
+  box-sizing: border-box;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.servicesList {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eeebe6;
+}
+
+.serviceRow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px 16px;
+  margin: 0 -16px;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+  border-bottom: 1px solid #f1eeea;
+}
+
+.serviceRow:hover {
+  background-color: #f9fafb;
+}
+
+.serviceLine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #ff2d2d;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s ease;
+}
+
+.serviceRow:hover .serviceLine {
+  transform: scaleY(1);
+}
+
+.serviceMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.serviceIconWrap {
+  flex-shrink: 0;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  min-width: 64px;
+  height: 64px;
+  color: #9aa1ab;
+  transition: color 0.5s ease;
+}
+
+.serviceRow:hover .serviceIconWrap {
+  color: var(--color-brand-red);
+}
+
+.serviceIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.serviceContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.serviceTitle {
+  margin: 0;
+  color: #1a1d23;
+  font-family: var(--font-gt-pro-bold);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.24;
+  transition: color 0.3s ease;
+}
+
+.serviceText {
+  margin: 0;
+  max-width: 760px;
+  color: #707783;
+  font-family: var(--font-gt-pro-light);
+  font-size: clamp(0.95rem, 1.3vw, 1rem);
+  font-weight: 300;
+  line-height: 1.7;
+  transition: color 0.3s ease;
+}
+
+.serviceArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  color: var(--color-brand-red);
+  opacity: 0.36;
+  transition: color 0.5s ease, opacity 0.5s ease;
+}
+
+.serviceRow:hover .serviceArrow {
+  color: var(--color-brand-red);
+  opacity: 1;
+}
+
+.serviceArrowIcon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.5s ease;
+}
+
+.serviceRow:hover .serviceArrowIcon {
+  transform: translateX(12px);
+}
+
+@media (min-width: 640px) {
+  .serviceRow {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+    padding: 40px 32px;
+    margin: 0 -32px;
+  }
+
+  .serviceIconWrap {
+    width: 96px;
+    min-width: 96px;
+    justify-content: flex-start;
+  }
+
+  .serviceContent {
+    padding-right: 32px;
+  }
+
+  .serviceArrow {
+    align-self: center;
+    justify-content: flex-end;
+  }
+}

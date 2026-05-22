@@ -1,7 +1,3 @@
-/**
- * Плавный скролл к секции по id.
- * Учитывает высоту фиксированного хедера.
- */
 export function scrollToSection(sectionId: string): void {
   const el = document.getElementById(sectionId);
   if (!el) return;
@@ -12,6 +8,6 @@ export function scrollToSection(sectionId: string): void {
 
   window.scrollTo({
     top: Math.max(0, top),
-    behavior: 'smooth',
+    behavior: 'auto',
   });
 }

@@ -14,8 +14,12 @@ export const Preloader = ({ isActive, className }: IPreloaderProps) => {
       aria-live="polite"
       aria-label="Загрузка"
     >
-      <div className={classNames(cls.container, {}, [])}>
-        <span className={classNames(cls.round, {}, [])} aria-hidden="true" />
+      <div className={cls.compass} aria-hidden="true">
+        <span className={cls.pulse} />
+        <span className={cls.pulse} />
+        <span className={cls.pulse} />
+        <div className={cls.needle} />
+        <div className={cls.hub} />
       </div>
     </div>
   );

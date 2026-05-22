@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import type { ContactFormState } from '../../../types';
 
 const formatPhoneNumber = (numbers: string): string => {
@@ -19,7 +19,7 @@ const formatPhoneNumber = (numbers: string): string => {
 
 export const useForm = (
   values: ContactFormState,
-  setValues: React.Dispatch<React.SetStateAction<ContactFormState>>,
+  setValues: Dispatch<SetStateAction<ContactFormState>>,
 ) => {
   const handleChange = (field: keyof ContactFormState, value: string | boolean) => {
     setValues((prev) => ({
