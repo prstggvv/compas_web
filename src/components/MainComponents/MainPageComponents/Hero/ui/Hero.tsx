@@ -415,8 +415,8 @@ export const Hero = ({ className, onOpenContactPopup }: IHeroProps) => {
           >
             Создаём систему движения.
             <span className={cls.titleAccent}>От хаоса к структуре.</span>
+            г. Симферополь
           </motion.h1>
-
           <motion.p
             className={cls.subtitle}
             variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: MOTION_EASE } } }}
