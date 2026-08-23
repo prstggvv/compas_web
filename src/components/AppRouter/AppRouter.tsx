@@ -16,7 +16,6 @@ import { ContactPopup } from '../../shared/ui/ContactPopup';
 import { useForm } from '../../shared/lib/hooks/useForm';
 import { submitContactForm } from '../../shared/lib/api/ContactApi';
 import type { ContactFormState } from '../../types';
-import { Policy } from '../../pages/Policy';
 
 const initialContactPopupValues: ContactFormState = {
   name: '',
@@ -89,11 +88,11 @@ const AppRouter = () => {
   const [contactPopupError, setContactPopupError] = useState<string | null>(null);
   const [contactPopupValues, setContactPopupValues] = useState<ContactFormState>(initialContactPopupValues);
 
-  const { handleChange, handlePhoneChange } = useForm(contactPopupValues, setContactPopupValues);
+  const { handlePhoneChange } = useForm(contactPopupValues, setContactPopupValues);
 
   const canSubmitContactPopup = useMemo(
-    () => contactPopupValues.name.trim().length > 1 && contactPopupValues.phone.replace(/\D/g, '').length >= 11,
-    [contactPopupValues.name, contactPopupValues.phone]
+    () => contactPopupValues.phone.replace(/\D/g, '').length >= 11,
+    [contactPopupValues.phone]
   );
 
   const openContactPopup = useCallback(() => {
@@ -119,7 +118,7 @@ const AppRouter = () => {
     setIsContactPopupLoading(true);
     setContactPopupError(null);
 
-    submitContactForm(contactPopupValues.name, contactPopupValues.phone)
+    submitContactForm('', contactPopupValues.phone)
       .then(() => {
         setIsContactPopupSubmitted(true);
       })
@@ -129,7 +128,7 @@ const AppRouter = () => {
       .finally(() => {
         setIsContactPopupLoading(false);
       });
-  }, [canSubmitContactPopup, contactPopupValues.name, contactPopupValues.phone]);
+  }, [canSubmitContactPopup, contactPopupValues.phone]);
 
   useEffect(() => {
     if (!isContactPopupOpen) {
@@ -188,7 +187,6 @@ const AppRouter = () => {
               error={contactPopupError}
               onClose={closeContactPopup}
               onSubmit={handleContactPopupSubmit}
-              onNameChange={(value) => handleChange('name', value)}
               onPhoneChange={handlePhoneChange}
             />
           </>
@@ -243,7 +241,6 @@ const AppRouter = () => {
           }
         />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path='policy' element={<Policy />} />
       </Route>
     </Routes>
   );

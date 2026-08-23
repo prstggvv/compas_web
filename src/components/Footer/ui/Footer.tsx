@@ -77,9 +77,6 @@ export const Footer = ({ className }: FooterProps) => {
 
         <div className={classNames(cls.bottom, {}, [])}>
           <span className={classNames(cls.copyright, {}, [])}>© 2025 ООО «Компас». Все права защищены.</span>
-          <Link to='/policy' className={classNames(cls.policyLink, {}, [])}>
-            Политика конфиденциальности
-          </Link>
         </div>
       </div>
     </footer>

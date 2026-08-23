@@ -1,5 +1,4 @@
 import { type FormEvent, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import cls from './ContactFormSection.module.css';
 import { classNames } from '../../../../../shared/lib/classNames/classNames';
@@ -27,11 +26,11 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { handleChange, handlePhoneChange } = useForm(values, setValues);
+  const { handlePhoneChange } = useForm(values, setValues);
 
   const canSubmit = useMemo(
-    () => values.name.trim().length > 1 && values.phone.replace(/\D/g, '').length >= 11,
-    [values.name, values.phone]
+    () => values.phone.replace(/\D/g, '').length >= 11,
+    [values.phone]
   );
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -44,7 +43,7 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
     setIsLoading(true);
     setError(null);
 
-    submitContactForm(values.name, values.phone)
+    submitContactForm('', values.phone)
       .then(() => {
         setIsSubmitted(true);
         setValues(initialFormValues);
@@ -86,20 +85,6 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
             <form className={classNames(cls.form, {}, [])} onSubmit={handleSubmit}>
               <motion.div className={classNames(cls.fields, {}, [])} variants={itemReveal}>
                 <label className={classNames(cls.field, {}, [])}>
-                  <span className={classNames(cls.fieldLabel, {}, [])}>Ваше имя</span>
-                  <input
-                    className={classNames(cls.input, {}, [])}
-                    type="text"
-                    name="name"
-                    placeholder="Имя"
-                    value={values.name}
-                    onChange={(e) => handleChange('name', e.target.value)}
-                    autoComplete="name"
-                    required
-                  />
-                </label>
-
-                <label className={classNames(cls.field, {}, [])}>
                   <span className={classNames(cls.fieldLabel, {}, [])}>Контактный телефон</span>
                   <input
                     className={classNames(cls.input, {}, [])}
@@ -115,13 +100,6 @@ export const ContactFormSection = ({ className }: ContactFormSectionProps) => {
               </motion.div>
 
               <motion.div className={classNames(cls.bottomRow, {}, [])} variants={itemReveal}>
-                <p className={classNames(cls.policy, {}, [])}>
-                  Отправляя заявку, вы соглашаетесь с{' '}
-                  <Link to="/policy" className={classNames(cls.policyLink, {}, [])}>
-                    политикой конфиденциальности
-                  </Link>{' '}
-                  и обработкой персональных данных.
-                </p>
 
                 <button
                   type="submit"

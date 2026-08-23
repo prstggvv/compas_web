@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import cls from './ContactPopup.module.css';
 import { classNames } from '../../lib/classNames/classNames';
 import type { ContactFormState } from '../../../types';
-import { Link } from 'react-router-dom';
 
 interface ContactPopupProps {
   isOpen: boolean;
@@ -14,7 +13,6 @@ interface ContactPopupProps {
   error?: string | null;
   onClose: () => void;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  onNameChange: (value: string) => void;
   onPhoneChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -49,7 +47,6 @@ export const ContactPopup = ({
   error = null,
   onClose,
   onSubmit,
-  onNameChange,
   onPhoneChange,
 }: ContactPopupProps) => {
   return (
@@ -103,20 +100,6 @@ export const ContactPopup = ({
 
               <motion.form className={classNames(cls.form, {}, [])} onSubmit={onSubmit} variants={contentVariants}>
                 <motion.label className={classNames(cls.field, {}, [])} variants={itemVariants}>
-                  <span className={classNames(cls.label, {}, [])}>Ваше имя</span>
-                  <input
-                    className={classNames(cls.input, {}, [])}
-                    type="text"
-                    name="name"
-                    placeholder="Имя"
-                    value={values.name}
-                    onChange={(e) => onNameChange(e.target.value)}
-                    autoComplete="name"
-                    required
-                  />
-                </motion.label>
-
-                <motion.label className={classNames(cls.field, {}, [])} variants={itemVariants}>
                   <span className={classNames(cls.label, {}, [])}>Телефон</span>
                   <input
                     className={classNames(cls.input, {}, [])}
@@ -129,13 +112,6 @@ export const ContactPopup = ({
                     required
                   />
                 </motion.label>
-
-                <motion.p className={classNames(cls.policy, {}, [])} variants={itemVariants}>
-                  Отправляя заявку, вы соглашаетесь с{' '}
-                  <Link to='/policy' className={classNames(cls.policyLink, {}, [])}>
-                    политикой конфиденциальности
-                  </Link>
-                </motion.p>
 
                 <motion.div className={classNames(cls.footer, {}, [])} variants={itemVariants}>
                   <motion.button
